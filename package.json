@@ -1,0 +1,11 @@
+{
+  "name": "aob",
+  "version": "1.0.0",
+  "description": "An Archive of Belonging ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karl Moubarak & Ilja Schamle",
+  "license": "ISC"
+}
