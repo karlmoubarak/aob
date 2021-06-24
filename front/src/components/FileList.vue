@@ -1,9 +1,7 @@
 <template>
   <div class="semanticList body">
     <span :class="name + 's'">
-      <!-- <span v-if="title"> {{ title }} </span> -->
       <span
-        :class="name"
         v-for="item in list"
         :key="item.hash"
       >
@@ -12,11 +10,7 @@
           target="_blank"
           class="name"
         >{{ item.name }}</a>
-        <span v-if="title && isLast(item, list)">. </span>
-        <span v-else-if="isBeforeLast(item, list)"> and </span>
-        <span v-else-if="title">, </span>
-        <span v-else-if="!title && isLast(item, list)"> </span>
-        <span v-else  >, </span>
+        <span v-if="!isLast(item, list)">, </span>
       </span>
     </span>
   </div>
@@ -24,19 +18,11 @@
 <script>
 
 export default {
-  name: 'SemanticList',
+  name: 'FileList',
   props: [
     'list',
     'name',
-    'collection'
   ],
-  computed: {
-    title() {
-      return (
-        this.name   
-      )
-    },
-  },
   methods: {
     isLast: (item, array) => (
       array.indexOf(item) === array.length - 1

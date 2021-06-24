@@ -11,7 +11,7 @@ const
 
   getAll = () => {
     return new Promise ((resolve, reject) => axios
-      .get(URL + 'resources')
+      .get(URL + 'tags')
       .then(response => 
         resolve(
           response

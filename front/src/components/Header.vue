@@ -1,16 +1,19 @@
 .<template>
   <header>
-    <p>
-      <router-link to="/">
-        Archive of Belonging
-      </router-link>
-    </p>
+    <Tags />
+    <SearchBar />
   </header>
 </template>
 
 <script>
+import SearchBar from './SearchBar.vue'
+import Tags from './Tags.vue'
 export default {
   name: 'Header',
+  components: { 
+    Tags,
+    SearchBar
+  },
 }
 </script>
 
@@ -18,7 +21,8 @@ export default {
 
 header {
   box-sizing: border-box;
-  margin: 1em;
+  display: flex;
+  align-items: center;
 }
 
 </style>

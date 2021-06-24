@@ -7,8 +7,15 @@ import store          from './store'
 
 const app = createApp(App)
 
+const mdOpts = {
+  html: true,
+  linkify: true,
+  typographer: true
+}
+
 app.config.globalProperties.$apiURL = process.env.VUE_APP_API
 app.config.globalProperties.$http   = Axios
+app.config.globalProperties.$mdOpts = mdOpts
 
 app
   .use(VueMarkdownIt)

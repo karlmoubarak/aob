@@ -1,6 +1,10 @@
 .<template>
   <nav>
-  
+    <p>
+      <router-link to="/">
+        Archive of Belonging
+      </router-link>
+    </p>
     <ul class="collections">
       <li 
         v-for="collection in collections"
@@ -39,6 +43,10 @@ export default {
         {
           name: 'artworks',
           slug: 'artworks'
+        },
+        {
+          name: 'collections',
+          slug: 'collections'
         },
       ],
       singles: [

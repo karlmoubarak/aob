@@ -1,30 +1,33 @@
 <template>
-  <div class="taglist body">
+  <div class="tags">
     <span
-      v-for="item in list"
+      v-for="item in tags"
       :key="item.slug"
     >
       <router-link 
         :to="{
-          path: collection,
+          path: '/resources',
           query: { tag: item.slug }
         }"
       >
         {{ item.Name }}
       </router-link>
-      <span v-if="!isLast(item, list)">, </span>
+      <span v-if="!isLast(item, tags)">, </span>
     </span>
   </div>
 </template>
+
 <script>
+import { mapState } from 'vuex'
 
 export default {
-  name: 'SemanticList',
+  name: 'Tags',
   props: [
-    'list',
-    'collection'
   ],
   computed: {
+    ...mapState([
+      'tags'
+    ])
   },
   methods: {
     isLast: (item, array) => (
@@ -35,7 +38,8 @@ export default {
 </script>
 
 <style>
-.semanticList {
+.tags {
+  /* margin: 1em; */
   font-size: inherit;
 }
 a,

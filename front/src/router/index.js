@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home'
 import Resources from '../views/Resources'
 import Artworks from '../views/Artworks'
+import Collections from '../views/Collections'
+import About from '../views/About'
+import Contact from '../views/Contact'
 
 const path = '/' 
 
@@ -23,8 +26,22 @@ export default createRouter({
       path: '/artworks',
       name: 'Artworks',
       component: Artworks,
-    
-    }
+    },
+    {
+      path: '/collections',
+      name: 'Collections',
+      component: Collections,
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: About,
+    },
+    {
+      path: '/Contact',
+      name: 'Contact',
+      component: Contact,
+    },
   ],
 })
 

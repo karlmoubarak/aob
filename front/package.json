@@ -12,7 +12,10 @@
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "vue": "^3.1.1",
+    "vue-highlight-text": "^1.6.2",
+    "vue-highlight-words": "^1.2.0",
     "vue-router": "^4.0.8",
+    "vue3-highlight": "^0.2.6",
     "vue3-markdown-it": "^1.0.9",
     "vuex": "^4.0.1"
   },
