@@ -1,6 +1,6 @@
 <template>
   <table>
-    <tr>
+    <tr class="header">
       <th class="id">id</th>
       <th class="organization">organisation</th>
       <th class="tags">tags</th>
@@ -45,15 +45,15 @@ export default {
 <style scoped>
 table {
   margin-top: 1em;
+  width: 100%;
   /* border-collapse: collapse; */
   /* height: 100%; */
 /* display: flex; */
 /* flex-direction: column;   */
 transition: all 0.2s ease;
 }
-table tr:first-of-type {
+table tr.header {
   z-index: 2;
-  
 }
 th {
   padding: 0;

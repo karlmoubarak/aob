@@ -672,6 +672,12 @@
                 "Contact": {
                   "type": "string"
                 },
+                "Media": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "localizations": {
                   "type": "array",
                   "items": {
@@ -770,6 +776,12 @@
                 },
                 "Contact": {
                   "type": "string"
+                },
+                "Media": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "localizations": {
                   "type": "array",

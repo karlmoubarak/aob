@@ -88,7 +88,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 tr {
   transition: all 0.2s ease;
   border: 1px solid lightblue;

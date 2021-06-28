@@ -47,8 +47,9 @@ export default {
       this.$store.commit('setMobile', this.checkIfMobile())
     })
 
-    this.getResources()
     this.getTags()
+    this.getResources()
+    this.getArtworks()
 
     this.$router.afterEach(to => {
       if (to.query.tag) {
@@ -73,7 +74,17 @@ export default {
   methods: {
 
     checkIfMobile: () => window.innerWidth < 700,
-
+    
+    getTags() {
+      api
+      .tags
+      .getAll()
+      .then(response => 
+        this.$store.commit('setTags', response.data)
+      )
+      .catch(error => console.log(error))
+    },
+    
     getResources() {
       api
       .resources
@@ -83,13 +94,13 @@ export default {
       )
       .catch(error => console.log(error))
     },
-    
-    getTags() {
+
+    getArtworks() {
       api
-      .tags
+      .artworks
       .getAll()
       .then(response => 
-        this.$store.commit('setTags', response.data)
+        this.$store.commit('setArtworks', response.data)
       )
       .catch(error => console.log(error))
     },
@@ -140,6 +151,7 @@ body,
 
 main {
   margin: 0.75em;
+  width: 100%;
 }
 
 </style>
