@@ -1,18 +1,18 @@
 {
   "paths": {
-    "/locations": {
+    "/artworks": {
       "get": {
         "deprecated": false,
-        "description": "Find all the locations's records",
+        "description": "Find all the artworks's records",
         "responses": {
           "200": {
-            "description": "Retrieve locations document(s)",
+            "description": "Retrieve artworks document(s)",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Locations"
+                    "$ref": "#/components/schemas/Artworks"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Locations"
+          "Artworks"
         ],
         "parameters": [
           {
@@ -194,14 +194,14 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new locations record",
+        "description": "Create a new artworks record",
         "responses": {
           "200": {
-            "description": "Retrieve locations document(s)",
+            "description": "Retrieve artworks document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Locations"
+                  "$ref": "#/components/schemas/Artworks"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Locations"
+          "Artworks"
         ],
         "requestBody": {
           "description": "",
@@ -247,20 +247,20 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLocations"
+                "$ref": "#/components/schemas/NewArtworks"
               }
             }
           }
         }
       }
     },
-    "/locations/count": {
+    "/artworks/count": {
       "get": {
         "deprecated": false,
-        "description": "Retrieve the numver of locations documents",
+        "description": "Retrieve the numver of artworks documents",
         "responses": {
           "200": {
-            "description": "Retrieve locations document(s)",
+            "description": "Retrieve artworks document(s)",
             "content": {
               "application/json": {
                 "schema": {
@@ -306,22 +306,22 @@
         },
         "summary": "",
         "tags": [
-          "Locations"
+          "Artworks"
         ],
         "parameters": []
       }
     },
-    "/locations/{id}": {
+    "/artworks/{id}": {
       "get": {
         "deprecated": false,
-        "description": "Find one locations record",
+        "description": "Find one artworks record",
         "responses": {
           "200": {
-            "description": "Retrieve locations document(s)",
+            "description": "Retrieve artworks document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Locations"
+                  "$ref": "#/components/schemas/Artworks"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Locations"
+          "Artworks"
         ],
         "parameters": [
           {
@@ -376,14 +376,14 @@
       },
       "put": {
         "deprecated": false,
-        "description": "Update a single locations record",
+        "description": "Update a single artworks record",
         "responses": {
           "200": {
-            "description": "Retrieve locations document(s)",
+            "description": "Retrieve artworks document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Locations"
+                  "$ref": "#/components/schemas/Artworks"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Locations"
+          "Artworks"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLocations"
+                "$ref": "#/components/schemas/NewArtworks"
               }
             }
           }
@@ -449,10 +449,10 @@
       },
       "delete": {
         "deprecated": false,
-        "description": "Delete a single locations record",
+        "description": "Delete a single artworks record",
         "responses": {
           "200": {
-            "description": "deletes a single locations based on the ID supplied",
+            "description": "deletes a single artworks based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Locations"
+          "Artworks"
         ],
         "parameters": [
           {
@@ -514,285 +514,67 @@
   },
   "components": {
     "schemas": {
-      "Locations": {
+      "Artworks": {
         "required": [
           "id",
-          "Name"
+          "Title",
+          "ArtistName"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "Name": {
+          "Title": {
             "type": "string"
           },
           "slug": {
             "type": "uid"
           },
-          "resources": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "Organisation"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "Organisation": {
-                  "type": "string"
-                },
-                "slug": {
-                  "type": "uid"
-                },
-                "Description": {
-                  "type": "string"
-                },
-                "Link": {
-                  "type": "string"
-                },
-                "Contact": {
-                  "type": "string"
-                },
-                "Files": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "tags": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "locations": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "localizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "locale": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
+          "StartYear": {
+            "type": "string",
+            "format": "date"
           },
-          "artworks": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "Title",
-                "ArtistName"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "Title": {
-                  "type": "string"
-                },
-                "slug": {
-                  "type": "uid"
-                },
-                "StartYear": {
-                  "type": "string"
-                },
-                "EndYear": {
-                  "type": "string"
-                },
-                "Medium": {
-                  "type": "string"
-                },
-                "Description": {
-                  "type": "string"
-                },
-                "Rating": {
-                  "type": "string",
-                  "enum": [
-                    "A",
-                    "AB",
-                    "B",
-                    "BC",
-                    "C",
-                    "CD",
-                    "D",
-                    "DE",
-                    "E",
-                    "EF",
-                    "F"
-                  ]
-                },
-                "Link": {
-                  "type": "string"
-                },
-                "ArtistName": {
-                  "type": "string"
-                },
-                "Level": {
-                  "type": "string",
-                  "enum": [
-                    "Mid",
-                    "Est",
-                    "Early"
-                  ]
-                },
-                "location": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "hometown": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "ArtistWebsite": {
-                  "type": "string"
-                },
-                "Contact": {
-                  "type": "string"
-                },
-                "localizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "locale": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
+          "EndYear": {
+            "type": "string",
+            "format": "date"
           },
-          "artist": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "Title",
-                "ArtistName"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "Title": {
-                  "type": "string"
-                },
-                "slug": {
-                  "type": "uid"
-                },
-                "StartYear": {
-                  "type": "string"
-                },
-                "EndYear": {
-                  "type": "string"
-                },
-                "Medium": {
-                  "type": "string"
-                },
-                "Description": {
-                  "type": "string"
-                },
-                "Rating": {
-                  "type": "string",
-                  "enum": [
-                    "A",
-                    "AB",
-                    "B",
-                    "BC",
-                    "C",
-                    "CD",
-                    "D",
-                    "DE",
-                    "E",
-                    "EF",
-                    "F"
-                  ]
-                },
-                "Link": {
-                  "type": "string"
-                },
-                "ArtistName": {
-                  "type": "string"
-                },
-                "Level": {
-                  "type": "string",
-                  "enum": [
-                    "Mid",
-                    "Est",
-                    "Early"
-                  ]
-                },
-                "location": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "hometown": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "ArtistWebsite": {
-                  "type": "string"
-                },
-                "Contact": {
-                  "type": "string"
-                },
-                "localizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "locale": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
+          "Medium": {
+            "type": "string"
           },
-          "localizations": {
+          "Description": {
+            "type": "string"
+          },
+          "Rating": {
+            "type": "string",
+            "enum": [
+              "A",
+              "AB",
+              "B",
+              "BC",
+              "C",
+              "CD",
+              "D",
+              "DE",
+              "E",
+              "EF",
+              "F"
+            ]
+          },
+          "Link": {
+            "type": "string"
+          },
+          "ArtistName": {
+            "type": "string"
+          },
+          "Level": {
+            "type": "string",
+            "enum": [
+              "Mid",
+              "Est",
+              "Early"
+            ]
+          },
+          "location": {
             "type": "array",
             "items": {
               "required": [
@@ -848,6 +630,167 @@
               }
             }
           },
+          "hometown": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "Name"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "uid"
+                },
+                "resources": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artworks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artist": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "localizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "ArtistWebsite": {
+            "type": "string"
+          },
+          "Contact": {
+            "type": "string"
+          },
+          "localizations": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "Title",
+                "ArtistName"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "Title": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "uid"
+                },
+                "StartYear": {
+                  "type": "string"
+                },
+                "EndYear": {
+                  "type": "string"
+                },
+                "Medium": {
+                  "type": "string"
+                },
+                "Description": {
+                  "type": "string"
+                },
+                "Rating": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "AB",
+                    "B",
+                    "BC",
+                    "C",
+                    "CD",
+                    "D",
+                    "DE",
+                    "E",
+                    "EF",
+                    "F"
+                  ]
+                },
+                "Link": {
+                  "type": "string"
+                },
+                "ArtistName": {
+                  "type": "string"
+                },
+                "Level": {
+                  "type": "string",
+                  "enum": [
+                    "Mid",
+                    "Est",
+                    "Early"
+                  ]
+                },
+                "location": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "hometown": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "ArtistWebsite": {
+                  "type": "string"
+                },
+                "Contact": {
+                  "type": "string"
+                },
+                "localizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "locale": {
             "type": "string"
           },
@@ -857,34 +800,79 @@
           }
         }
       },
-      "NewLocations": {
+      "NewArtworks": {
         "required": [
-          "Name"
+          "Title",
+          "ArtistName"
         ],
         "properties": {
-          "Name": {
+          "Title": {
             "type": "string"
           },
           "slug": {
             "type": "uid"
           },
-          "resources": {
+          "StartYear": {
+            "type": "string",
+            "format": "date"
+          },
+          "EndYear": {
+            "type": "string",
+            "format": "date"
+          },
+          "Medium": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "Rating": {
+            "type": "string",
+            "enum": [
+              "A",
+              "AB",
+              "B",
+              "BC",
+              "C",
+              "CD",
+              "D",
+              "DE",
+              "E",
+              "EF",
+              "F"
+            ]
+          },
+          "Link": {
+            "type": "string"
+          },
+          "ArtistName": {
+            "type": "string"
+          },
+          "Level": {
+            "type": "string",
+            "enum": [
+              "Mid",
+              "Est",
+              "Early"
+            ]
+          },
+          "location": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "artworks": {
+          "hometown": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "artist": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "ArtistWebsite": {
+            "type": "string"
+          },
+          "Contact": {
+            "type": "string"
           },
           "localizations": {
             "type": "array",
@@ -911,7 +899,7 @@
   },
   "tags": [
     {
-      "name": "Locations"
+      "name": "Artworks"
     }
   ]
 }

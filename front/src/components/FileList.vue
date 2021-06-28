@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .semanticList {
   font-size: inherit;
 }
@@ -45,6 +45,7 @@ a,
 a:visited,
 a:active,
 a:hover {
+  word-break: break-all;
   /* color: unset; */
   /* text-decoration: none; */
 }

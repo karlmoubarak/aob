@@ -1,5 +1,5 @@
 <template>
-  <tr>
+  <tr class="list-item">
     <td> {{ id }} </td>
     <td> 
       <vue3-markdown-it
@@ -89,14 +89,33 @@ export default {
 </script>
 
 <style>
+tr {
+  transition: all 0.2s ease;
+  border: 1px solid lightblue;
+  background: white;
+}
 td {
-  padding: 1em;
-  padding-bottom: 0;
-  padding-left: 0;
+  border: 1px solid lightblue;
+  padding: 0.5em;
+  /* padding-bottom: 0;
+  padding-left: 0; */
   vertical-align: top;
 }
 td p {
   margin: 0;
 }
 
+.list-item {
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.2s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  /* margin-top: -50px; */
+  transform: translateY(-50px);
+  /* transform: scaleY(0), translateY(-30px); */
+  transition: all 0.2s ease;
+}
 </style>

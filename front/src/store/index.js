@@ -49,7 +49,11 @@ export default createStore({
         r.Contact && r.Contact
         .includes(state.query) ||
         r.Link && r.Link
-        .includes(state.query)
+        .includes(state.query) 
+        // ||
+        // r.tags && r.tags.length > 0 && r.tags
+        // .map(r => r.Name)
+        // .find(n => n.includes(state.query))
       )) : state.resources
     
     )

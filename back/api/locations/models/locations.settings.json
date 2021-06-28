@@ -37,6 +37,14 @@
     "resources": {
       "via": "locations",
       "collection": "resources"
+    },
+    "artworks": {
+      "via": "location",
+      "collection": "artworks"
+    },
+    "artist": {
+      "via": "hometown",
+      "collection": "artworks"
     }
   }
 }

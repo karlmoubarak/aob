@@ -9,11 +9,14 @@
       <th class="contact">contact</th>
       <th class="updated">last updated</th>
     </tr>
-    <Resource
-      v-for="resource in filteredResources"
-      :key="resource.id"
-      :resource="resource"
+    <transition-group name="list">
+      <Resource
+        v-for="resource in filteredResources"
+        class="list-item"
+        :key="resource.id"
+        :resource="resource"
       />
+    </transition-group>
   </table>
 </template>
 
@@ -42,30 +45,44 @@ export default {
 <style scoped>
 table {
   margin-top: 1em;
+  /* border-collapse: collapse; */
+  /* height: 100%; */
+/* display: flex; */
+/* flex-direction: column;   */
+transition: all 0.2s ease;
 }
-tr {
+table tr:first-of-type {
+  z-index: 2;
+  
 }
 th {
   padding: 0;
   text-align: left;
+  padding: 0.5em;
+  background: lightblue;
 }
 th.id {
-  min-width: 2em;
+  width: 1.5em;
 }
 th.tags {
-  min-width: 5em;
+  width: 5em;
 }
-th.organization,
+th.organization {
+  width: 12em;
+}
 th.description { 
-  min-width: 10em;
+  min-width: 25em;
+  min-width: 30em;
 }
 th.source {
-  min-width: 5em;
+  width: 7.5em;
 }
 th.contact {
-  min-width: 8em;
+  width: 7.5em;
 }
 th.updated {
-  min-width: 8em;
+  width: 8em;
 }
+
+
 </style>
