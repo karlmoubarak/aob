@@ -1,33 +1,25 @@
-.<template>
-  <nav>
-    <p>
-      <router-link to="/">
-        Archive of Belonging
+<template>
+  <ul class="collections">
+    <li 
+      v-for="collection in collections"
+      :key="collection.slug"  
+    > 
+      <router-link :to="collection.slug">
+        {{ collection.name }} 
       </router-link>
-    </p>
-    <ul class="collections">
-      <li 
-        v-for="collection in collections"
-        :key="collection.slug"  
-      > 
-        <router-link :to="collection.slug">
-          {{ collection.name }} 
-        </router-link>
-      </li>
-    </ul>
-    
-    <ul class="singles">
-      <li 
-        v-for="single in singles"
-        :key="single.slug"  
-      > 
-        <router-link :to="single.slug">
-          {{ single.name }} 
-        </router-link>
-      </li>
-    </ul>
+    </li>
+  </ul>
   
-  </nav>
+  <ul class="singles">
+    <li 
+      v-for="single in singles"
+      :key="single.slug"  
+    > 
+      <router-link :to="single.slug">
+        {{ single.name }} 
+      </router-link>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -66,16 +58,15 @@ export default {
 
 <style>
 
-nav {
-  margin: 1em;
-}
-
 ul {
+  margin: 0;
   padding: 0;
+  display: flex;
 }
 
 li {
   list-style: none;
+  margin: 0 0.5em;
   padding: 0;
 }
 

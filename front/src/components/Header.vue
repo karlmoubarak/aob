@@ -1,18 +1,28 @@
 .<template>
   <header>
-    <Tags />
-    <SearchBar />
+    <div class="top">
+      <router-link to="/">
+        Archive of Belonging
+      </router-link>
+      <Nav />
+    </div>
+    <div class="bottom">
+      <Tags />
+      <SearchBar />
+    </div>
   </header>
 </template>
 
 <script>
+import Nav from './Nav.vue'
 import SearchBar from './SearchBar.vue'
 import Tags from './Tags.vue'
 export default {
   name: 'Header',
   components: { 
     Tags,
-    SearchBar
+    SearchBar,
+    Nav
   },
 }
 </script>
@@ -21,8 +31,14 @@ export default {
 
 header {
   box-sizing: border-box;
+}
+
+.top {
   display: flex;
-  align-items: center;
+  width: 100%;
+}
+.bottom {
+  display: flex;
 }
 
 </style>

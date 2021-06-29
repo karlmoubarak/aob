@@ -158,6 +158,11 @@
           "localized": false
         }
       }
+    },
+    "tags": {
+      "collection": "tags",
+      "via": "artworks",
+      "dominant": true
     }
   }
 }

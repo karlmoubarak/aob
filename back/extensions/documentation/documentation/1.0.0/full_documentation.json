@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/28/2021 2:47:14 PM"
+    "x-generation-date": "06/29/2021 9:37:56 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4566,6 +4566,62 @@
               }
             }
           },
+          "tags": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "Name"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "uid"
+                },
+                "Icon": {
+                  "type": "string"
+                },
+                "Description": {
+                  "type": "string"
+                },
+                "resources": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artworks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "localizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "localizations": {
             "type": "array",
             "items": {
@@ -4645,6 +4701,12 @@
                   "type": "string"
                 },
                 "Media": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "tags": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -4753,6 +4815,12 @@
           },
           "Contact": {
             "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "localizations": {
             "type": "array",
@@ -4939,6 +5007,12 @@
                     "type": "string"
                   }
                 },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "localizations": {
                   "type": "array",
                   "items": {
@@ -5039,6 +5113,12 @@
                   "type": "string"
                 },
                 "Media": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "tags": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -5298,6 +5378,12 @@
                   "type": "string"
                 },
                 "resources": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artworks": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -5657,6 +5743,117 @@
               }
             }
           },
+          "artworks": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "Title",
+                "ArtistName"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "Title": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "uid"
+                },
+                "StartYear": {
+                  "type": "string"
+                },
+                "EndYear": {
+                  "type": "string"
+                },
+                "Medium": {
+                  "type": "string"
+                },
+                "Description": {
+                  "type": "string"
+                },
+                "Rating": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "AB",
+                    "B",
+                    "BC",
+                    "C",
+                    "CD",
+                    "D",
+                    "DE",
+                    "E",
+                    "EF",
+                    "F"
+                  ]
+                },
+                "Link": {
+                  "type": "string"
+                },
+                "ArtistName": {
+                  "type": "string"
+                },
+                "Level": {
+                  "type": "string",
+                  "enum": [
+                    "Mid",
+                    "Est",
+                    "Early"
+                  ]
+                },
+                "location": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "hometown": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "ArtistWebsite": {
+                  "type": "string"
+                },
+                "Contact": {
+                  "type": "string"
+                },
+                "Media": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "localizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "localizations": {
             "type": "array",
             "items": {
@@ -5681,6 +5878,12 @@
                   "type": "string"
                 },
                 "resources": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artworks": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -5731,6 +5934,12 @@
             "type": "string"
           },
           "resources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "artworks": {
             "type": "array",
             "items": {
               "type": "string"

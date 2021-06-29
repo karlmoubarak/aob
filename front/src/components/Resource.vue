@@ -1,43 +1,41 @@
 <template>
-  <tr class="list-item">
-    <td> {{ id }} </td>
-    <td> 
-      <vue3-markdown-it
-        v-bind="$mdOpts"
-        :source="highlight( org )"
-      ></vue3-markdown-it>
-    </td>
-    <td> 
-      <TagList 
-        :list="tags"
-        :collection="'resources'"
-      /> 
-    </td>
-    <td> 
-      <vue3-markdown-it
-        v-bind="$mdOpts"
-        :source="highlight( description )"
-      ></vue3-markdown-it>
-    </td>
-    <td v-if="files">
-      <FileList 
-        :list="files"
-      />   
-    </td>
-    <td v-else>
-      <vue3-markdown-it
-        v-bind="$mdOpts"
-        :source="highlight( link )"
-      ></vue3-markdown-it>
-    </td>
-    <td>
-      <vue3-markdown-it
-        v-bind="$mdOpts"
-        :source="highlight( contact )"
-      ></vue3-markdown-it>
-    </td>
-    <td> {{ updated }} </td>
-  </tr>
+  <td class="id"> {{ id }} </td>
+  <td class="organization"> 
+    <vue3-markdown-it
+      v-bind="$mdOpts"
+      :source="highlight( org )"
+    ></vue3-markdown-it>
+  </td>
+  <td class="tags"> 
+    <TagList 
+      :list="tags"
+      :collection="'resources'"
+    /> 
+  </td>
+  <td class="description"> 
+    <vue3-markdown-it
+      v-bind="$mdOpts"
+      :source="highlight( description )"
+    ></vue3-markdown-it>
+  </td>
+  <td class="source" v-if="files">
+    <FileList 
+      :list="files"
+    />   
+  </td>
+  <td class="source" v-else>
+    <vue3-markdown-it
+      v-bind="$mdOpts"
+      :source="highlight( link )"
+    ></vue3-markdown-it>
+  </td>
+  <td class="contact">
+    <vue3-markdown-it
+      v-bind="$mdOpts"
+      :source="highlight( contact )"
+    ></vue3-markdown-it>
+  </td>
+  <td class="updated"> {{ updated }} </td>
 </template>
 
 <script>
@@ -91,15 +89,15 @@ export default {
 <style scoped>
 tr {
   transition: all 0.2s ease;
-  border: 1px solid lightblue;
-  background: white;
 }
 td {
-  border: 1px solid lightblue;
+  position: relative;
+  border: 3px solid #F2F5FB;
   padding: 0.5em;
   /* padding-bottom: 0;
   padding-left: 0; */
   vertical-align: top;
+  background: white;
 }
 td p {
   margin: 0;

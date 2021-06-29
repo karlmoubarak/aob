@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { sortAlphabetically } from '../api/utils'
 
 export default createStore({
 
@@ -65,24 +66,43 @@ export default createStore({
         r.tags
         .map(r => r.slug)
         .includes(state.selectedTag.slug)
-      // )) :
-      // state.artworks.length > 0 && state.query ? 
-      // state.artworks 
-      // .filter(r => (
-      //   r.Organisation
-      //   .includes(state.query) ||
-      //   r.Description
-      //   .includes(state.query) ||
-      //   r.Contact && r.Contact
-      //   .includes(state.query) ||
-      //   r.Link && r.Link
-      //   .includes(state.query) 
-      //   // ||
-      //   // r.tags && r.tags.length > 0 && r.tags
-      //   // .map(r => r.Name)
-      //   // .find(n => n.includes(state.query))
+      )) :
+      state.artworks.length > 0 && state.query ? 
+      state.artworks 
+      .filter(r => (
+        r.Title
+        .includes(state.query) ||
+        r.Description
+        .includes(state.query) ||
+        r.ArtistName
+        .includes(state.query) ||
+        r.ArtistWebsite && r.ArtistWebsite
+        .includes(state.query) ||
+        r.Contact && r.Contact
+        .includes(state.query) ||
+        r.Link && r.Link
+        .includes(state.query) 
+        // ||
+        // r.tags && r.tags.length > 0 && r.tags
+        // .map(r => r.Name)
+        // .find(n => n.includes(state.query))
       )) : state.artworks
     
+    ),
+    
+    mainCollection: (state, getters) => (
+      sortAlphabetically(
+        state.resources.length > 0 &&
+        state.artworks.length > 0 &&
+        [
+          ...getters.filteredResources, 
+          ...getters.filteredArtworks
+        ], 
+        'slug'
+      )
+      // .sort((a, b) => b.slug - a.slug)
+      // ].sort(() => Math.random() - 0.2)
+      
     )
     
     

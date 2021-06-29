@@ -58,6 +58,10 @@
     "resources": {
       "via": "tags",
       "collection": "resources"
+    },
+    "artworks": {
+      "via": "tags",
+      "collection": "artworks"
     }
   }
 }

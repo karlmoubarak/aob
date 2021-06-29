@@ -14,13 +14,13 @@ export default {
     search() {
       if (this.$refs.input.value != '') {
         this.$router.push({
-          path: '/resources',
+          path: '/',
           query: { 
             search: this.$refs.input.value.trim()
           }
         })
       } else {
-        this.$router.push('/resources')
+        this.$router.push('/')
       }
     }
   }

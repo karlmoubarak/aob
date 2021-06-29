@@ -1,9 +1,9 @@
 <template>
   <div id="app" :class="{ mobile: isMobile }">
   
-    <div class="side">
+    <!-- <div class="side">
       <Nav />
-    </div>
+    </div> -->
 
     <main>
       <Header />
@@ -22,7 +22,7 @@
 import { mapState } from 'vuex'
 
 import Header from './components/Header'
-import Nav from './components/Nav'
+// import Nav from './components/Nav'
 // import Tags from './components/Tags'
 
 import api from './api'
@@ -31,7 +31,7 @@ export default {
   name: 'App',
   components: { 
     Header,
-    Nav,
+    // Nav,
     // Tags,
   },
   computed: {
@@ -121,6 +121,7 @@ body,
   height: 100%; width: 100%;
   padding: 0; margin: 0;
   background: var(--back);
+  background-color: #F2F5FB;
 }
 
 #app {
@@ -131,6 +132,31 @@ body,
   font-family: 'Courier New', Courier, monospace;
 }
 
+p {
+  margin: 0;
+}
+
+a {
+  color: rgb(247, 167, 48);
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 0.02em;
+  /* text-decoration-skip:40em; */
+}
+a:hover {
+  color: #737a3b;
+  text-decoration: line-through;  
+  text-decoration-style: wavy;
+  text-decoration-thickness: 0.02em;
+  /* box-shadow: 0 0px 8px 2px rgb(255, 255, 102); */
+}
+a:active {
+color: #f79544;
+}
+/* a:visited {
+  color: #8e9463;
+  
+} */
 
 .highlight {
   /* position: relative; */
@@ -154,4 +180,26 @@ main {
   width: 100%;
 }
 
+td.id {
+  width: 1.5em;
+}
+td.tags {
+  width: 5em;
+}
+td.organization {
+  width: 12em;
+}
+td.description { 
+  min-width: 25em;
+  min-width: 30em;
+}
+td.source {
+  width: 7.5em;
+}
+td.contact {
+  width: 7.5em;
+}
+td.updated {
+  width: 8em;
+}
 </style>

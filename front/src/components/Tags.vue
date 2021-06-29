@@ -6,7 +6,7 @@
     >
       <router-link 
         :to="{
-          path: '/resources',
+          path: '/',
           query: { tag: item.slug }
         }"
       >
