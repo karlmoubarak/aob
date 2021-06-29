@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_item_items",
+  "info": {
+    "name": "Artwork",
+    "icon": "bars",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "artwork": {
+      "model": "artworks"
+    }
+  }
+}

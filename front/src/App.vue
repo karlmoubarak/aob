@@ -79,8 +79,8 @@ export default {
       api
       .tags
       .getAll()
-      .then(response => 
-        this.$store.commit('setTags', response.data)
+      .then(data => 
+        this.$store.commit('setTags', data)
       )
       .catch(error => console.log(error))
     },
@@ -89,8 +89,8 @@ export default {
       api
       .resources
       .getAll()
-      .then(response => 
-        this.$store.commit('setResources', response.data)
+      .then(data => 
+        this.$store.commit('setResources', data)
       )
       .catch(error => console.log(error))
     },
@@ -99,8 +99,8 @@ export default {
       api
       .artworks
       .getAll()
-      .then(response => 
-        this.$store.commit('setArtworks', response.data)
+      .then(data => 
+        this.$store.commit('setArtworks', data)
       )
       .catch(error => console.log(error))
     },
@@ -140,7 +140,7 @@ a {
   color: rgb(247, 167, 48);
   text-decoration: underline;
   text-decoration-style: wavy;
-  text-decoration-thickness: 0.02em;
+  text-decoration-thickness: 0.001em;
   /* text-decoration-skip:40em; */
 }
 a:hover {

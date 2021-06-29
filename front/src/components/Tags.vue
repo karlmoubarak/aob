@@ -10,7 +10,9 @@
           query: { tag: item.slug }
         }"
       >
-        {{ item.Name }}
+        <span
+          v-html="$highlight(item.Name, query )"
+        ></span>    
       </router-link>
       <span v-if="!isLast(item, tags)">, </span>
     </span>
@@ -26,7 +28,8 @@ export default {
   ],
   computed: {
     ...mapState([
-      'tags'
+      'tags',
+      'query'
     ])
   },
   methods: {

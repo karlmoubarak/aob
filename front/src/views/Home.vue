@@ -13,7 +13,7 @@
       <td colspan="100%" v-else>
         <Artwork 
           :artwork="item"
-          :inTable="true"
+          :inTable="!artworksOnly"
         />
       </td>
     </tr>
@@ -43,7 +43,10 @@ export default {
     ]),
     ...mapGetters([
       'mainCollection'
-    ])
+    ]),
+    artworksOnly() {
+      return !this.mainCollection.find(i => i.Organisation)
+    }
   }
 
 }
@@ -59,7 +62,7 @@ export default {
   margin-top: 1em;
 }
 table {
-  /* border-spacing: 0.5em; */
+  border-spacing: 0.5em;
 }
 tr {
   position: relative;

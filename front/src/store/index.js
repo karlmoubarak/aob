@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { sortAlphabetically } from '../api/utils'
+import { sortAlphabetically } from '../utils'
 
 export default createStore({
 

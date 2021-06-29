@@ -1,10 +1,9 @@
 <template>
   <td class="id"> {{ id }} </td>
   <td class="organization"> 
-    <vue3-markdown-it
-      v-bind="$mdOpts"
-      :source="highlight( org )"
-    ></vue3-markdown-it>
+    <p
+      v-html="$highlight( org, query )"
+    ></p>
   </td>
   <td class="tags"> 
     <TagList 
@@ -13,10 +12,9 @@
     /> 
   </td>
   <td class="description"> 
-    <vue3-markdown-it
-      v-bind="$mdOpts"
-      :source="highlight( description )"
-    ></vue3-markdown-it>
+    <p
+      v-html="$highlight(description, query )"
+    ></p>
   </td>
   <td class="source" v-if="files">
     <FileList 
@@ -24,16 +22,18 @@
     />   
   </td>
   <td class="source" v-else>
-    <vue3-markdown-it
-      v-bind="$mdOpts"
-      :source="highlight( link )"
-    ></vue3-markdown-it>
+    <a
+      :href="link"
+      target="_blank"
+      v-html="$highlight( link, query )"
+    ></a>
   </td>
   <td class="contact">
-    <vue3-markdown-it
-      v-bind="$mdOpts"
-      :source="highlight( contact )"
-    ></vue3-markdown-it>
+     <a
+      :href="'mailto:' + link"
+      target="_blank"
+      v-html="$highlight( contact, query )"
+    ></a>
   </td>
   <td class="updated"> {{ updated }} </td>
 </template>
@@ -72,15 +72,6 @@ export default {
     // console.log(this.resource.Files)
   },
   methods: {
-    highlight(source) {
-      return (
-        this.query ? 
-        source.replace(
-          new RegExp(this.query, "gi"), 
-          match => ('<span class="highlight">' + match + '</span>')
-        ) : source
-      )
-    }
   }
   
 }
@@ -92,7 +83,7 @@ tr {
 }
 td {
   position: relative;
-  border: 3px solid #F2F5FB;
+  /* border: 3px solid #F2F5FB; */
   padding: 0.5em;
   /* padding-bottom: 0;
   padding-left: 0; */

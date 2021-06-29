@@ -1,9 +1,7 @@
 import axios from 'axios'
-// import {
-//   toObject,
-//   sortAlphabetically,
-//   sortByUpdate
-// } from '../utils'
+import {
+  sortAlphabetically,
+} from '../../utils'
 
 const
 
@@ -14,7 +12,9 @@ const
       .get(URL + 'tags')
       .then(response => 
         resolve(
-          response
+          sortAlphabetically(
+            response.data, 'Name'
+          )
         )
       )
       .catch(error => 

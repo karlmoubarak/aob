@@ -1,9 +1,4 @@
 import axios from 'axios'
-// import {
-//   toObject,
-//   sortAlphabetically,
-//   sortByUpdate
-// } from '../utils'
 
 const
 
@@ -14,7 +9,7 @@ const
       .get(URL + 'resources')
       .then(response => 
         resolve(
-          response
+          response.data
         )
       )
       .catch(error => 

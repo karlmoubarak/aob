@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_item_resources",
+  "info": {
+    "name": "Resource",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "resource": {
+      "model": "resources"
+    }
+  }
+}
