@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
 import { sortAlphabetically } from '../utils'
+// import api from '../api'
+
 
 export default createStore({
 
@@ -10,27 +12,45 @@ export default createStore({
     tags         : [],
     resources    : [],
     artworks     : [],
+    collections  : [],
     selectedTag  : {},
     query        : null,
   },
 
   mutations: {
-    setMobile    : (state, mobile)    => state.isMobile     = mobile,
-    setTags      : (state, tags)      => state.tags         = tags,
-    setResources : (state, resources) => state.resources    = resources,
-    setArtworks  : (state, artworks)  => state.artworks     = artworks,
-    selectTag    : (state, tag)       => state.selectedTag  = tag,
-    setQuery     : (state, query)     => state.query        = query,
+    setMobile      : (state, mobile)      => state.isMobile    = mobile,
+    setTags        : (state, tags)        => state.tags        = tags,
+    setResources   : (state, resources)   => state.resources   = resources,
+    setArtworks    : (state, artworks)    => state.artworks    = artworks,
+    setCollections : (state, collections) => state.collections = collections,
+    selectTag      : (state, tag)         => state.selectedTag = tag,
+    setQuery       : (state, query)       => state.query       = query,
   },
 
   actions: {
+  
+    getCollection: async ({ state, getters }, slug)  => {
+      console.log(state, slug)
+      return (
+        getters
+        .collectionBySlug(slug)
+        // || 
+        // await api
+        // .collections
+        // .get(slug)
+        // .then(result => result)
+      ) 
+    }
   },
 
   getters: {
   
-    // tagsArray: state => ( Array
-      
-    // ),
+    
+    collectionBySlug: state => slug => (
+      state
+      .collections
+      .find(c => c.slug == slug)
+    ),
   
     filteredResources: state => ( 
       state.resources.length > 0 && state.selectedTag ? 

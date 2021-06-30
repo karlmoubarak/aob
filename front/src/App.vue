@@ -50,6 +50,7 @@ export default {
     this.getTags()
     this.getResources()
     this.getArtworks()
+    this.getCollections()
 
     this.$router.afterEach(to => {
       if (to.query.tag) {
@@ -104,6 +105,16 @@ export default {
       )
       .catch(error => console.log(error))
     },
+    
+    getCollections() {
+      api
+      .collections
+      .getAll()
+      .then(data => 
+        this.$store.commit('setCollections', data)
+      )
+      .catch(error => console.log(error))
+    },
 
   }
 }
@@ -132,15 +143,13 @@ body,
   font-family: 'Courier New', Courier, monospace;
 }
 
-p {
-  margin: 0;
-}
 
 a {
   color: rgb(247, 167, 48);
   text-decoration: underline;
   text-decoration-style: wavy;
   text-decoration-thickness: 0.001em;
+  text-decoration-skip: edges;
   /* text-decoration-skip:40em; */
 }
 a:hover {

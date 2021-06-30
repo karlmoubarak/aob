@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import Resources from '../views/Resources'
 import Artworks from '../views/Artworks'
 import Collections from '../views/Collections'
+import Collection from '../views/Collection'
 import About from '../views/About'
 import Contact from '../views/Contact'
 
@@ -31,6 +32,12 @@ export default createRouter({
       path: '/collections',
       name: 'Collections',
       component: Collections,
+    },
+    {
+      path: '/collections/:slug',
+      name: 'Collection',
+      props: true,
+      component: Collection
     },
     {
       path: '/about',

@@ -57,7 +57,7 @@ export default {
   computed: {
     id()          { return this.resource.id },
     org()         { return this.resource.Organisation },
-    tags()        { return this.resource.tags.length > 0 && this.resource.tags },
+    tags()        { return this.resource.tags && this.resource.tags.length > 0 && this.resource.tags },
     description() { return this.resource.Description },
     files()       { return this.resource.Files.length > 0 && this.resource.Files },
     link()        { return this.resource.Link },
@@ -68,8 +68,8 @@ export default {
     ]),
     
   },
-  mounted() {
-    // console.log(this.resource.Files)
+  created() {
+    console.log(this.resource)
   },
   methods: {
   }
@@ -84,6 +84,7 @@ tr {
 td {
   position: relative;
   /* border: 3px solid #F2F5FB; */
+  /* border: 0; */
   padding: 0.5em;
   /* padding-bottom: 0;
   padding-left: 0; */

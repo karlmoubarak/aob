@@ -13,6 +13,7 @@
         <span
           v-html="$highlight(item.Name, query )"
         ></span>
+        <br>
       </router-link>
       <!-- <span v-if="!isLast(item, list)">, </span> -->
     </span>

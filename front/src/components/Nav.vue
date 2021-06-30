@@ -30,25 +30,25 @@ export default {
       collections: [
         {
           name: 'resources',
-          slug: 'resources'
+          slug: '/resources'
         },
         {
           name: 'artworks',
-          slug: 'artworks'
+          slug: '/artworks'
         },
         {
           name: 'collections',
-          slug: 'collections'
+          slug: '/collections/'
         },
       ],
       singles: [
         {
           name: 'about',
-          slug: 'about'
+          slug: '/about'
         },
         {
           name: 'contact',
-          slug: 'contact'
+          slug: '/contact'
         },
       ]
     }
