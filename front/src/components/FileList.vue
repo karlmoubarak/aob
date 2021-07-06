@@ -6,10 +6,14 @@
         :key="item.hash"
       >
         <a
+          @click.stop
           :href="`${$apiURL}/${item.url}`"
           target="_blank"
           class="name"
-        >{{ item.name }}</a>
+        >
+          <!-- {{ item.name }} -->
+          📄
+        </a>
         <span v-if="!isLast(item, list)">, </span>
       </span>
     </span>
@@ -47,6 +51,6 @@ a:active,
 a:hover {
   word-break: break-all;
   /* color: unset; */
-  /* text-decoration: none; */
+  text-decoration: none;
 }
 </style>

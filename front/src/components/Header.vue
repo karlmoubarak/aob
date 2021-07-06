@@ -1,44 +1,121 @@
-.<template>
+<template>
   <header>
-    <div class="top">
-      <router-link to="/">
-        Archive of Belonging
+    <li 
+      v-for="item in menuItems"
+      :key="item.slug"
+      :class="item.slug"  
+    > 
+      <router-link :to="item.slug">
+        {{ item.name }} 
+        <span
+          v-if="item.name == 'My Collection'"
+        >( {{ myCollectionCount }} )</span>
       </router-link>
-      <Nav />
-    </div>
-    <div class="bottom">
-      <Tags />
-      <SearchBar />
-    </div>
+    </li>
   </header>
 </template>
 
 <script>
-import Nav from './Nav.vue'
-import SearchBar from './SearchBar.vue'
-import Tags from './Tags.vue'
 export default {
   name: 'Header',
-  components: { 
-    Tags,
-    SearchBar,
-    Nav
+  data() {
+    return {
+      menuItems: [
+        {
+          name: 'Archive of Belonging',
+          slug: '/'
+        },
+        {
+          name: 'resources',
+          slug: '/resources'
+        },
+        {
+          name: 'artworks',
+          slug: '/artworks'
+        },
+        {
+          name: 'collections',
+          slug: '/collections/'
+        },
+        {
+          name: 'about',
+          slug: '/about'
+        },
+        {
+          name: 'contact',
+          slug: '/contact'
+        },
+        {
+          name: 'My Collection',
+          slug: '/collections/my-collection'
+        },
+      ]
+    }
   },
+  computed: {
+    myCollectionCount() {
+      return this.$store.state.myCollection.items.length
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 
 header {
-  box-sizing: border-box;
-}
-
-.top {
+  margin: 0;
+  padding: 0;
   display: flex;
   width: 100%;
+  z-index: 1;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: montserrat;
 }
-.bottom {
-  display: flex;
+header a {
+  color: var(--lightestorange);
+  text-decoration: unset;
+}
+header li {
+  list-style: none;
+  margin: 0 0em;
+  padding: 0.3em 1em;
 }
 
+header li:nth-of-type(1) {
+  background-color: #ff6f00;
+
+}
+header li:nth-of-type(2) {
+  background-color: #fd7915;
+}
+header li:nth-of-type(3) {
+  background-color: #ff9341;
+
+}
+header li:nth-of-type(4) {
+  background-color: #ffa25b;
+
+}
+header li:nth-of-type(5) {
+  background-color: #ffb882;
+
+}
+header li:nth-of-type(6) {
+  background-color: #ffbe8c;
+
+}
+header li:nth-of-type(7) {
+  background: var(--green);
+  /* background-color: #ff6f00; */
+  margin-left: auto;
+  /* background-color: #ffbe8c; */
+
+}
+header li:nth-of-type(7) a {
+  color: var(--brightgreen);
+  color: unset;
+}
+li.my-collection {
+}
 </style>

@@ -1,15 +1,18 @@
 <template>
-  <div id="app" :class="{ mobile: isMobile }">
-  
-    <!-- <div class="side">
-      <Nav />
-    </div> -->
-
+  <div 
+    id="app" 
+    dir="ltr"
+    :class="{ 
+      mobile: isMobile,
+      landing: landing
+    }" 
+  >
+    
+    <Header />
+    <Nav />
     <main>
-      <Header />
-      <!-- <Tags /> -->
       <router-view v-slot="{ Component }">
-        <transition name="component-fade" mode="out-in">
+        <transition name="fade" mode="out-in">
           <component :is="Component" />
         </transition>
       </router-view>
@@ -20,25 +23,27 @@
 
 <script>
 import { mapState } from 'vuex'
+import api from './api'
 
 import Header from './components/Header'
-// import Nav from './components/Nav'
-// import Tags from './components/Tags'
-
-import api from './api'
+import Nav from './components/Nav.vue'
 
 export default {
   name: 'App',
   components: { 
-    Header,
+    Nav,
+    Header
     // Nav,
     // Tags,
   },
   computed: {
     ...mapState([
       'isMobile',
-      'tags'
-    ])
+      'tags',
+      'locations'
+    ]),
+    landing() { return this.$route.fullPath == '/'}
+    
   },
   created() {
 
@@ -48,6 +53,7 @@ export default {
     })
 
     this.getTags()
+    this.getLocations()
     this.getResources()
     this.getArtworks()
     this.getCollections()
@@ -60,12 +66,20 @@ export default {
             t => t.slug == to.query.tag
           )
         )
+      } else if (to.query.location) {
+        this.$store.commit('selectLocation', 
+          this.locations
+          .find(
+            l => l.slug == to.query.location
+          )
+        )
       } else if (to.query.search) {
         this.$store.commit('setQuery', 
           to.query.search
         )
       } else {
         this.$store.commit('selectTag', null)
+        this.$store.commit('selectLocation', null)
         this.$store.commit('setQuery', null)
       }
     })
@@ -82,6 +96,16 @@ export default {
       .getAll()
       .then(data => 
         this.$store.commit('setTags', data)
+      )
+      .catch(error => console.log(error))
+    },
+    
+    getLocations() {
+      api
+      .locations
+      .getAll()
+      .then(data => 
+        this.$store.commit('setLocations', data)
       )
       .catch(error => console.log(error))
     },
@@ -122,8 +146,23 @@ export default {
 
 <style>
 
+@font-face {
+  font-family: Montserrat;
+  src: url(./assets/Montserrat.otf);
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  --back: white;
+  --black: rgb(119, 119, 119);
+  --orange: #FF740A;
+  --lightorange: #FFF7DE;
+  --lightestorange: #FEFBF1;
+  --lightblue: #F2F5FB;
+  --landing: 2s;
+  --green: #e1ec90;
+  --lightgreen: #eaf0be;
+  --brightgreen: #00b35f;
 }
 
 html,
@@ -137,19 +176,38 @@ body,
 
 #app {
   height: 100%; width: 100%;
-  display: flex;
   font-size: 10pt;
-  /* flex-direction: column; */
   font-family: 'Courier New', Courier, monospace;
+  color: rgb(119, 119, 119);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+main {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  max-height: 100vh;
+  overflow: scroll;
+  padding-top: 11em;
+  transition: all var(--landing) ease;
+}
+
+.landing main {
+  flex-shrink: 1;
+  max-height: 0;
 }
 
 
 a {
-  color: rgb(247, 167, 48);
+  color: var(--orange);
   text-decoration: underline;
-  text-decoration-style: wavy;
   text-decoration-thickness: 0.001em;
-  text-decoration-skip: edges;
+  /* text-decoration-skip: edges; */
   /* text-decoration-skip:40em; */
 }
 a:hover {
@@ -160,55 +218,66 @@ a:hover {
   /* box-shadow: 0 0px 8px 2px rgb(255, 255, 102); */
 }
 a:active {
-color: #f79544;
+color: var(--orange);
 }
-/* a:visited {
-  color: #8e9463;
-  
-} */
 
 .highlight {
-  /* position: relative; */
   border-radius: 0.2em;
-  /* background: rgba(153, 102, 255, 0.694);
-  box-shadow: 0 0px 8px 2px rgb(153, 102, 255); */
   background: rgba(247, 255, 102, 0.694);
   box-shadow: 0 0px 8px 2px rgb(255, 255, 102);
-  text-decoration: underline;
   text-decoration-color: rgb(153, 50, 255);
-  text-decoration-style: wavy;
   text-decoration-thickness: 0.08em;
 }
 
-.side {
-  flex-shrink: 0;
-}
-
-main {
-  margin: 0.75em;
-  width: 100%;
-}
 
 td.id {
-  width: 1.5em;
+  min-width: 1.5em;
+  max-width: 1.5em;
 }
 td.tags {
-  width: 5em;
+  min-width: 5em;
+  max-width: 5em;
 }
 td.organization {
-  width: 12em;
+  min-width: 12em;
+  max-width: 12em;
 }
 td.description { 
-  min-width: 25em;
-  min-width: 30em;
+  min-width: 15em;
+  min-width: 20em;
 }
 td.source {
-  width: 7.5em;
+  /* min-width: 7.5em;
+  max-width: 7.5em; */
+  min-width: 1.5em;
+  max-width: 1.5em;
 }
 td.contact {
-  width: 7.5em;
+  min-width: 7.5em;
+  max-width: 7.5em;
 }
 td.updated {
-  width: 8em;
+  min-width: 8em;
+  max-width: 8em;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.fade-leave-to,
+.fade-leave-from {
+  transition: all 0.2s ease;
+  
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  transform: translateY(5em);
+  opacity: 0;
+}
+
+
+
 </style>

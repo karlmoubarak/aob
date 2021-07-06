@@ -1,36 +1,27 @@
 <template>
-  <div ref="content" class="collection">
-    <div class="header">
-      <input 
-        type="button"
-        @click="toPDF"
-        value="print"
-      />
-      <p
-        class="title"
-        v-html="$highlight( title, query )"
-      ></p>
-      <p 
-        class="artist"
-        v-html="$highlight( author, query )"
-      ></p>
+  <div v-if="collection" class="collection">
+    <div class="info">
+      <div class="header">
+        <p class="title"> {{ title }}</p>
+        <p class="author"> {{ author }}</p>
+      </div>
+      <vue3-markdown-it
+        class="description"
+        :source="description"
+      ></vue3-markdown-it>
     </div>
-    <vue3-markdown-it
-      class="description"
-      :source="$highlight( description, query )"
-    ></vue3-markdown-it>
-    <CollectionBody
-      :collectionItems="items"
-    />
+    <div class="body">
+      <CollectionBody
+        v-if="items.length > 0"
+        :collectionItems="items"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 
 import { mapGetters, mapState } from 'vuex'
-import jsPDF from 'jspdf' 
-// import html2canvas from "html2canvas"
-
 import CollectionBody from '../components/CollectionBody.vue'
 
 export default {
@@ -59,23 +50,7 @@ export default {
   created() {
   },
   methods: {
-    toPDF() {
-        const doc = new jsPDF();
-        const contentHtml = this.$refs.content.innerHTML;
-        doc.html(contentHtml, {
-          callback: doc => doc.save()
-        });
-        // doc.save("sample.pdf");
-      // const doc = new jsPDF();
-      // /** WITH CSS */
-      // var canvasElement = document.createElement('canvas');
-      //   html2canvas(this.$refs.content, { canvas: canvasElement 
-      //     }).then(function (canvas) {
-      //   const img = canvas.toDataURL("image/jpeg", 0.8);
-      //   doc.addImage(img,'JPEG',20,20);
-      //   doc.save("sample.pdf");
-      // });
-    }
+
   }
   
 }
@@ -83,28 +58,40 @@ export default {
 
 <style scoped>
 
-@font-face {
-  font-family: Montserrat;
-  src: url(../assets/Montserrat.otf);
-  font-weight: normal;
-  font-style: normal;
-}
-
 .collection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.info {
+  max-width: 40em;
+  padding: 2.5em;
+  margin: 2.5em;
+  /* margin-top: 1em; */
+  background: var(--green);
   font-family: Montserrat;
 }
 .header {
-  padding: 0.5em;
-  cursor: pointer;
+
 }
 .title  {
+  margin: 0;
   font-size: 20pt;
 }
 .description {
-  padding: 0.5em;
-  max-width: 40em;
 }
 .collection p {
   margin-bottom: 0;
+}
+.body {
+  position: relative;
+  flex-basis: 100%;
+  box-sizing: border-box;
+  background: var(--lightgreen);
+  padding:2.5em;
+  padding-top: 0em;
+  /* min-height: 60vh; */
+  width: 100%;
 }
 </style>

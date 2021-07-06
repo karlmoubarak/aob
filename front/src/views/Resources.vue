@@ -1,34 +1,19 @@
 <template>
-  <table>
-    <TableHeaders />
-    <transition-group name="list">
-      <tr
-        v-for="resource in filteredResources"
-        :key="resource.id"
-      >        
-      <Resource
-        :resource="resource"
-      />
-      </tr>
-    </transition-group>
-  </table>
+  <CollectionBody
+    :collectionItems="filteredResources"
+  />
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import Resource from '../components/Resource'
-import TableHeaders from '../components/TableHeaders.vue'
+import { mapGetters } from 'vuex'
+import CollectionBody from '../components/CollectionBody'
 
 export default {
   name: 'Resources',
   components: {
-    Resource,
-    TableHeaders,
+    CollectionBody
   },
   computed: {
-    ...mapState([      
-      'resources'
-    ]),
     ...mapGetters([
       'filteredResources'
     ]),
@@ -39,14 +24,7 @@ export default {
 </script>
 
 <style scoped>
-table {
-  margin-top: 1em;
-  width: 100%;
-  transition: all 0.2s ease;
-}
-table tr.header {
-  z-index: 2;
-}
+
 
 
 </style>

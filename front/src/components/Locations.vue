@@ -1,19 +1,18 @@
 <template>
-  <div class="tags">
+  <div class="locations">
     <span
-      v-for="item in tags"
+      v-for="item in locations"
       :key="item.slug"
-      class="tag"
+      class="location"
       :style="{
         '--top': top()
       }"
     >
       <Checkbox />
-
       <router-link 
         :to="{
           path: '/',
-          query: { tag: item.slug }
+          query: { location: item.slug }
         }"
       >
         <span
@@ -21,69 +20,71 @@
         ></span>    
       </router-link>
       <!-- <span v-if="!isLast(item, tags)">, </span> -->
-      
-      
     </span>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Checkbox from './Checkbox'
+import Checkbox from './Checkbox.vue'
 
 export default {
-  name: 'Tags',
-  props: [
+  name: 'Locations',
+  prop: [
   ],
-  components: { Checkbox },
   computed: {
     ...mapState([
-      'tags',
-      'query',
+      'locations',
+      'query'
     ])
+  },
+  components: {
+    Checkbox
   },
   methods: {
     isLast: (item, array) => (
       array.indexOf(item) === array.length - 1
     ),
-    // top: () => Math.random() * 100 + '%'
     top: () => Math.random() * 50 + '%',
+  },
+  created() {
+    // console.log(this.locations)
   }
 }
 </script>
 
 <style scoped>
-.tags {
+.locations {
   box-sizing: border-box;
   /* margin: 1em; */
   font-size: inherit;
-  background-color: var(--lightorange);
+  background-color: var(--lightestorange);
   background-size: 40% auto;
   width: 40%;
-  height: 100%;
-  max-height: 12em;
+  height: 80%;
+  max-height: 8em;
   padding: 0.4em;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   /* justify-content: center; */
   /* align-items: center; */
-  /* align-content: flex-start; */
+  /* align-content: flex-start flex-end; */
   transition: all var(--landing) ease;
-}
-.tag {
-  margin: 0.5em 2em;
-  display: flex;
-  align-items: center;
-  /* margin-top: 0; */
-  transition: all var(--landing) ease;
-}
-.landing .tags {
-  max-height: 100%;
-  width: 50%;
   
 }
-.landing .tag {
+.location {
+  margin: 0.5em 1.5em;
+  display: flex;
+  align-items: center;
+  transition: all var(--landing) ease;
+}
+.landing .locations {
+  height: 100%;
+  max-height: 100%;
+  width: 50%;
+}
+.landing .location {
   margin-top: var(--top);
 }
 a,
@@ -93,4 +94,3 @@ a:hover {
   text-decoration: none;
 }
 </style>
-

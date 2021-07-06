@@ -1,13 +1,15 @@
+
 <template>
-  <div class="taglist body">
+  <div class="list body">
     <span
       v-for="item in list"
       :key="item.slug"
     >
-      <router-link 
+      <router-link  
+        @click.stop
         :to="{
-          path: collection,
-          query: { tag: item.slug }
+          path: '/',
+          query: { [collection]: item.slug }
         }"
       >
         <span
@@ -22,7 +24,7 @@
 <script>
 
 export default {
-  name: 'SemanticList',
+  name: 'List',
   props: [
     'list',
     'collection'
@@ -41,7 +43,7 @@ export default {
 </script>
 
 <style>
-.semanticList {
+.list {
   font-size: inherit;
 }
 a,

@@ -17,6 +17,11 @@ export default {
     ...mapGetters([
       'mainCollection'
     ]),
+  },
+  watch: {
+    mainCollection() {
+      console.log(this.mainCollection.map(i => i.slug))
+    }
   }
 
 }

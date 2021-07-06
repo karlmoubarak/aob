@@ -1,10 +1,12 @@
 <template>
   <table class="collectionBody">
     <TableHeaders />
+    <transition-group name="list" mode="out-in">
     <tr
       v-for="item in collectionItems"
       :key="item.slug"
       :class="{ artworkTR: item.Title }"
+      @click.stop="clickHandler(item)"    
     >
       <Resource
         v-if="item.Organisation"
@@ -17,6 +19,7 @@
         />
       </td>
     </tr>
+    </transition-group>
   </table>
 </template>
 
@@ -39,6 +42,14 @@ export default {
     artworksOnly() {
       return !this.collectionItems.find(i => i.Organisation)
     }
+  },
+  methods: {
+    clickHandler(item) {
+      this.$router.push({
+        name: item.Title ? "Artwork" : "Resource",
+        params: { slug: item.slug }
+      })
+    }
   }
 
 }
@@ -51,47 +62,43 @@ export default {
   position: relative;
   width: 100%;
   margin-top: 1em;
+  transition: all 0.5s ease;
 }
 table {
+  position: relative;
   border-spacing: 0.5em;
 }
 tr {
-  position: relative;
+  cursor: pointer;
 }
 .artworkTD {
 }
 .resource {
 }
 
-tr:nth-of-type(n) td {
-  /* box-shadow: 0em 0em 1em 0em rgba(0, 97, 0, 0.527); */
-  filter: drop-shadow(0em 0.4em 0.5em rgba(0, 97, 0, 0.527));
+tr {
+  position: relative;
+  box-sizing: border-box;
 }
-tr:nth-of-type(2n) {
-  z-index: 1;
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
 }
-tr:nth-of-type(1n) .artworkContainer .artwork {
-  /* margin-left: 0%; */
-  /* justify-content: flex-start; */
-  /* background: chocolate; */
+
+.list-leave-to,
+.list-leave-from {
+  transition: all 0.5s ease;
+  
 }
-tr:nth-of-type(2n) .artworkContainer {
-  /* margin-left: -2em; */
-  /* justify-content: center; */
-  /* background: greenyellow; */
+
+.list-enter-from,
+.list-leave-to {
+  transform: translateY(-5em);
+  opacity: 0;
 }
-tr:nth-of-type(3n) .artworkContainer {
-  /* margin-left: 50%; */
-  /* justify-content: flex-end; */
-  /* background: pink; */
-} 
-tr:nth-of-type(4n) .artworkContainer {
-  /* margin-left: 75%; */
-  /* justify-content: center; */
-  /* background: blue; */
-} 
-tr:nth-of-type(5n) .artworkContainer {
-  /* justify-content: flex-start; */
-  /* background: red; */
-} 
+
+
+
+
 </style>

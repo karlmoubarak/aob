@@ -1,29 +1,19 @@
 <template>
-  <table>
-    <transition-group name="list">
-      <Artwork
-        v-for="artwork in filteredArtworks"
-        class="list-item"
-        :key="artwork.id"
-        :artwork="artwork"
-      />
-    </transition-group>
-  </table>
+  <CollectionBody
+    :collectionItems="filteredArtworks"
+  />
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import Artwork from '../components/Artwork'
+import { mapGetters } from 'vuex'
+import CollectionBody from '../components/CollectionBody.vue'
 
 export default {
   name: 'Artworks',
   components: {
-    Artwork,
+    CollectionBody,
   },
   computed: {
-    ...mapState([      
-      'artworks'
-    ]),
     ...mapGetters([
       'filteredArtworks'
     ]),

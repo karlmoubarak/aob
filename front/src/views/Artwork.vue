@@ -2,29 +2,15 @@
   <div 
     :class="[
       'artworkContainer',
-      { inTable: inTable && !hovered }
     ]"
-    :style="{ '--position': position }"
-    
   >
     <div 
-        class="artwork"
-        @mousemove="headerHovered ? hovered = true : hovered = true"
-        @mouseleave="hovered = false"
+      v-if="artwork"
+      class="artwork"
     >
-      <div 
-        class="header"
-        @mousemove="headerHovered = true"
-        @mouseleave="headerHovered = false"
-      >
-        <p 
-          class="title"
-          v-html="$highlight( title, query )"
-        ></p>
-        <p 
-          class="artist"
-          v-html="$highlight( artist, query )"
-        ></p>
+      <div class="header">
+        <p class="title">{{ title }}</p>
+        <p class="artist">{{ artist }}</p>
       </div>
       <img 
         v-if="media"
@@ -38,24 +24,22 @@
 <script>
 
 
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Artwork',
   components: {
   },
-  props: [
-    'artwork',
-    'inTable'
-  ],
   data() {
     return {
-      hovered: false,
-      headerHovered: false,
-      position: this.randomPosition(),
     }
   },
   computed: {
+    artwork() { return (
+      this.artworkBySlug(
+        this.$route.params.slug
+      )
+    )},
     id()          { return this.artwork.id },
     title()       { return this.artwork.Title },
     artist()      { return this.artwork.ArtistName },
@@ -66,22 +50,14 @@ export default {
     cover()       { return this.media && this.$apiURL + this.media[0].formats.medium.url },
     link()        { return this.artwork.Link },
     contact()     { return this.artwork.Contact || 'N/A'},
-    ...mapState([
-      'query'
+    ...mapGetters([
+      'artworkBySlug'
     ]),
     
   },
   mounted() {
-    // console.log(this.artwork)
   },
   methods: {
-  
-    randomPosition: () => [
-      'flex-start',
-      'center',
-      'flex-end'
-    ][Math.floor(Math.random()*3)]
-    
   }
   
 }
@@ -89,33 +65,33 @@ export default {
 
 <style scoped>
 
-.artworkContainer {
-  max-width: 100%;
-  max-height: 50em;
-  max-height: 3.5em;
-  display: flex;
-  align-items: flex-start;
-  justify-content: var(--position);
-  transition: all 0.8s ease;
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../assets/Montserrat.otf);
+  font-weight: normal;
+  font-style: normal;
 }
 
-.artworkContainer.inTable {
-  max-height: 3.5em;
+
+.artworkContainer {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0em;
+  background: #ffffffa4;
+  overflow: scroll;
+  padding-bottom: 40em;
 }
-.artworkContainer.inTable .header{
-  opacity: 0;
-}
-.artworkContainer.inTable .artwork {
-  /* margin: 0 0.5em; */
-}
+
+
 .artwork {
   /* max-width: 24%; */
+  margin: 6em 5em;
   position: relative;
   max-width: 32%;
   max-height: 21em;
-  /* max-width: 72%;
-  max-height: 73em; */
-  margin: 0 1em;
   font-family: Montserrat;
   border: 1px solid lightblue;
   border-radius: 0.5em;

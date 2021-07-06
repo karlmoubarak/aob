@@ -1,73 +1,50 @@
-<template>
-  <ul class="collections">
-    <li 
-      v-for="collection in collections"
-      :key="collection.slug"  
-    > 
-      <router-link :to="collection.slug">
-        {{ collection.name }} 
-      </router-link>
-    </li>
-  </ul>
-  
-  <ul class="singles">
-    <li 
-      v-for="single in singles"
-      :key="single.slug"  
-    > 
-      <router-link :to="single.slug">
-        {{ single.name }} 
-      </router-link>
-    </li>
-  </ul>
+.<template>
+  <nav>
+    <Tags />
+    <Locations />
+    <SearchBar />
+  </nav>
 </template>
 
 <script>
+import Locations from './Locations'
+import SearchBar from './SearchBar'
+import Tags from './Tags'
+
 export default {
   name: 'Nav',
-  data() {
-    return {
-      collections: [
-        {
-          name: 'resources',
-          slug: '/resources'
-        },
-        {
-          name: 'artworks',
-          slug: '/artworks'
-        },
-        {
-          name: 'collections',
-          slug: '/collections/'
-        },
-      ],
-      singles: [
-        {
-          name: 'about',
-          slug: '/about'
-        },
-        {
-          name: 'contact',
-          slug: '/contact'
-        },
-      ]
-    }
-  }
+  components: { 
+    Tags,
+    SearchBar,
+    Locations,
+  },
 }
 </script>
 
 <style>
 
-ul {
-  margin: 0;
-  padding: 0;
+nav {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  max-height: 10em;
   display: flex;
+  align-items: flex-start;
+  justify-content: stretch;
+  transition: all var(--landing) ease;
+  z-index: 1;
+}
+.landing nav {
+  /* flex-basis: 100%; */
+  max-height: 100vh;
 }
 
-li {
-  list-style: none;
-  margin: 0 0.5em;
-  padding: 0;
+/* header.landing .navItem,  */
+.landing nav .tag, 
+.landing nav .location {
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
 }
 
 </style>

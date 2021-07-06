@@ -8,23 +8,38 @@ export default createStore({
   strict: process.env.NODE_ENV !== 'production',
 
   state: {
-    isMobile     : false,
-    tags         : [],
-    resources    : [],
-    artworks     : [],
-    collections  : [],
-    selectedTag  : {},
-    query        : null,
+    isMobile         : false,
+    tags             : [],
+    locations        : [],
+    resources        : [],
+    artworks         : [],
+    collections      : [],
+    selectedTag      : {},
+    selectedLocation : {},
+    query            : null,
+    myCollection     : {
+      Title: 'Your Collection',
+      slug: 'my-collection',
+      Author: 'Anonymous',
+      Description: 'No Description',
+      items: [],
+    },
   },
 
   mutations: {
     setMobile      : (state, mobile)      => state.isMobile    = mobile,
     setTags        : (state, tags)        => state.tags        = tags,
+    setLocations   : (state, locations)   => state.locations   = locations,
     setResources   : (state, resources)   => state.resources   = resources,
     setArtworks    : (state, artworks)    => state.artworks    = artworks,
     setCollections : (state, collections) => state.collections = collections,
     selectTag      : (state, tag)         => state.selectedTag = tag,
+    selectLocation : (state, location)    => state.selectedLocation = location,
     setQuery       : (state, query)       => state.query       = query,
+    addToCollection: (state, item) => state.myCollection.items.push(item),
+    rmFromCollection: (state, item) => {
+      state.myCollection.items.splice(state.myCollection.items.indexOf(item), 1)
+    },
   },
 
   actions: {
@@ -40,15 +55,48 @@ export default createStore({
         // .get(slug)
         // .then(result => result)
       ) 
-    }
+    },
+    
+    addToCollection: ({ commit, getters }, item) => {
+      if (!getters.isInMyCollection(item.slug)) {
+        commit('addToCollection', item)
+      }
+    },
+    
+    removeFromCollection: ({ commit, getters }, item) => {
+      if (getters.isInMyCollection(item.slug)) {
+        commit('rmFromCollection', item)
+      }
+    },
   },
 
   getters: {
   
     
     collectionBySlug: state => slug => (
+      slug == state.myCollection.slug ? 
+      state.myCollection :
       state
       .collections
+      .find(c => c.slug == slug)
+    ),
+    
+    isInMyCollection: state => slug => (
+      state.myCollection.items
+      .map(i => i.slug)
+      .includes(slug)
+    )
+    ,
+      
+    resourceBySlug: state => slug => (
+      state
+      .resources
+      .find(c => c.slug == slug)
+    ),
+    
+    artworkBySlug: state => slug => (
+      state
+      .artworks
       .find(c => c.slug == slug)
     ),
   
@@ -60,6 +108,13 @@ export default createStore({
         .map(r => r.slug)
         .includes(state.selectedTag.slug)
       )) :
+      state.resources.length > 0 && state.selectedLocation ? 
+      state.resources 
+      .filter(r => (
+        r.locations
+        .map(r => r.slug)
+        .includes(state.selectedLocation.slug)  
+      )) :
       state.resources.length > 0 && state.query ? 
       state.resources 
       .filter(r => (
@@ -70,44 +125,60 @@ export default createStore({
         r.Contact && r.Contact
         .includes(state.query) ||
         r.Link && r.Link
-        .includes(state.query) 
-        // ||
-        // r.tags && r.tags.length > 0 && r.tags
-        // .map(r => r.Name)
-        // .find(n => n.includes(state.query))
+        .includes(state.query) ||
+        r.tags && r.tags.length > 0 && r.tags
+        .map(r => r.Name.toLowerCase())
+        .find(n => n.includes(state.query)) ||
+        r.locations && r.locations.length > 0 && r.locations
+        .map(r => r.Name.toLowerCase())
+        .find(n => n.includes(state.query))
       )) : state.resources
-    
     ),
     
     filteredArtworks: state => ( 
       state.artworks.length > 0 && state.selectedTag ? 
       state.artworks 
-      .filter(r => (
-        r.tags
-        .map(r => r.slug)
+      .filter(a => (
+        a.tags
+        .map(a => a.slug)
         .includes(state.selectedTag.slug)
+      )) :
+      state.artworks.length > 0 && state.selectedLocation ?  
+      state.artworks 
+      .filter(a => (
+        a.location
+        .map(a => a.slug)
+        .includes(state.selectedLocation.slug)  
+      ||
+        a.hometown
+        .map(a => a.slug)
+        .includes(state.selectedLocation.slug)  
       )) :
       state.artworks.length > 0 && state.query ? 
       state.artworks 
-      .filter(r => (
-        r.Title
+      .filter(a => (
+        a.Title
         .includes(state.query) ||
-        r.Description
+        a.Description
         .includes(state.query) ||
-        r.ArtistName
+        a.ArtistName
         .includes(state.query) ||
-        r.ArtistWebsite && r.ArtistWebsite
+        a.ArtistWebsite && a.ArtistWebsite
         .includes(state.query) ||
-        r.Contact && r.Contact
+        a.Contact && a.Contact
         .includes(state.query) ||
-        r.Link && r.Link
-        .includes(state.query) 
-        // ||
-        // r.tags && r.tags.length > 0 && r.tags
-        // .map(r => r.Name)
-        // .find(n => n.includes(state.query))
+        a.Link && a.Link
+        .includes(state.query) ||
+        a.tags && a.tags.length > 0 && a.tags
+        .map(a => a.Name.toLowerCase())
+        .find(n => n.includes(state.query)) ||
+        a.location && a.location.length > 0 && a.location
+        .map(r => r.Name.toLowerCase())
+        .find(n => n.includes(state.query)) ||
+        a.hometown && a.hometown.length > 0 && a.hometown
+        .map(r => r.Name.toLowerCase())
+        .find(n => n.includes(state.query))
       )) : state.artworks
-    
     ),
     
     mainCollection: (state, getters) => (
@@ -120,9 +191,6 @@ export default createStore({
         ], 
         'slug'
       )
-      // .sort((a, b) => b.slug - a.slug)
-      // ].sort(() => Math.random() - 0.2)
-      
     )
     
     

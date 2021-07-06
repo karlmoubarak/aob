@@ -1,36 +1,61 @@
 <template>
-  <td class="id"> {{ id }} </td>
+  <td class="id"> 
+    <span 
+      v-if="isInMyCollection(slug)"
+      class="remove"
+      @click.stop="removeFromCollection(resource)"
+    >-</span>
+    <span 
+      v-else
+      class="add"
+      @click.stop="addToCollection(resource)"
+    >+</span> 
+  </td>
   <td class="organization"> 
     <p
       v-html="$highlight( org, query )"
     ></p>
   </td>
-  <td class="tags"> 
-    <TagList 
+  <td class="tags">
+    <List 
       :list="tags"
-      :collection="'resources'"
+      :collection="'tag'"
     /> 
   </td>
   <td class="description"> 
     <p
-      v-html="$highlight(description, query )"
+      v-html="$highlight( description, query )"
     ></p>
+  </td>
+  <td class="locations"> 
+    <List 
+      :list="locations"
+      :collection="'location'"
+    /> 
   </td>
   <td class="source" v-if="files">
     <FileList 
       :list="files"
     />   
   </td>
+  <!-- <td class="source" v-if="files">
+    <FileList 
+      :list="files"
+    />   
+  </td> -->
   <td class="source" v-else>
     <a
+      @click.stop
       :href="link"
       target="_blank"
-      v-html="$highlight( link, query )"
-    ></a>
+    >
+      <!-- v-html="$highlight( link, query )" -->
+    🔗
+    </a>
   </td>
   <td class="contact">
      <a
-      :href="'mailto:' + link"
+      :href="'mailto:' + contact"
       target="_blank"
       v-html="$highlight( contact, query )"
     ></a>
@@ -41,23 +66,28 @@
 <script>
 import moment from 'moment'
 import FileList from './FileList'
-import TagList from './TagList'
+import List from './List'
 
-import { mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Resource',
   components: {
     FileList,
-    TagList,
+    List,
   },
   props: [
     'resource'
   ],
+  emits: [
+    'click'
+  ],
   computed: {
     id()          { return this.resource.id },
+    slug()        { return this.resource.slug },
     org()         { return this.resource.Organisation },
     tags()        { return this.resource.tags && this.resource.tags.length > 0 && this.resource.tags },
+    locations()   { return this.resource.locations && this.resource.locations.length > 0 && this.resource.locations },
     description() { return this.resource.Description },
     files()       { return this.resource.Files.length > 0 && this.resource.Files },
     link()        { return this.resource.Link },
@@ -66,46 +96,42 @@ export default {
     ...mapState([
       'query'
     ]),
+    ...mapGetters([
+      'isInMyCollection'
+    ]),
+
     
   },
   created() {
-    console.log(this.resource)
+    // console.log(this.resource)
   },
   methods: {
+    ...mapActions([
+      'addToCollection',
+      'removeFromCollection'
+    ])
   }
   
 }
 </script>
 
 <style scoped>
-tr {
+td {
   transition: all 0.2s ease;
+  max-width: 100%;
 }
+
 td {
   position: relative;
-  /* border: 3px solid #F2F5FB; */
-  /* border: 0; */
   padding: 0.5em;
-  /* padding-bottom: 0;
-  padding-left: 0; */
   vertical-align: top;
   background: white;
 }
 td p {
   margin: 0;
 }
+td.source a {
+  text-decoration: none;
+}
 
-.list-item {
-}
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.2s ease;
-}
-.list-enter-from,
-.list-leave-to {
-  /* margin-top: -50px; */
-  transform: translateY(-50px);
-  /* transform: scaleY(0), translateY(-30px); */
-  transition: all 0.2s ease;
-}
 </style>
