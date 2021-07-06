@@ -8,6 +8,18 @@
       v-if="item" 
       class="item"
     >
+      <div class="circle">
+        <span 
+          v-if="isInMyCollection(item.slug)"
+          class="remove"
+          @click.stop="removeFromCollection(item)"
+        >-</span>
+        <span 
+          v-else
+          class="add"
+          @click.stop="addToCollection(item)"
+        >+</span>   
+      </div>
       <ExpandedResource
         v-if="item.Organisation"
         :resource="item"
@@ -25,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import CollectionBody from '../components/CollectionBody.vue'
 import ExpandedArtwork from '../components/ExpandedArtwork.vue'
 import ExpandedResource from '../components/ExpandedResource.vue'
@@ -43,7 +55,8 @@ export default {
     ...mapGetters([
       'resourceBySlug',
       'artworkBySlug',
-      'mainCollection'
+      'mainCollection',
+      'isInMyCollection'
     ]),
     item() { return (
       this.resourceBySlug(
@@ -89,6 +102,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'addToCollection',
+      'removeFromCollection'
+    ])
   }
   
 }
@@ -104,24 +121,47 @@ export default {
   background: #ffffffa4;
   /* background: var(--lightblue); */
   overflow: scroll;
-  padding-bottom: 40em;
+  /* padding-bottom: 40em; */
   z-index: 1;
 }
-
+  
 .item {
   width: 100%;
 }
 
 table {
-  margin-left: 10em;
-  margin-top: 20em !important;
-  /* max-width: 90%; */
+  position: sticky !important;
+  bottom: -10em;
+  left: 10em;
+  width: calc(100% - 10em) !important;
+  /* margin-left: 10em; */
   background: var(--lightestorange);
+}
+
+table:hover {
+  bottom: 0em;
 }
 
 .itemContainer td {
   background: unset !important;
 }
   
+.itemContainer .item .circle {
+  position: absolute;
+  top: 7em;
+  left: 1em;
+  width: 5em;
+  height: 5em;
+  border-radius: 5em;
+  z-index: 2;
+  border: 1px dashed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.itemContainer .item .circle * {
+  font-size: 3em;
+  cursor: pointer;
+}
   
 </style>

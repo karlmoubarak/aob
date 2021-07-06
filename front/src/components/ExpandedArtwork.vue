@@ -4,29 +4,26 @@
     class="artwork"
   >
     <div @click.stop class="indexCard">
-      <div class="header">
-        <div class="id">
-          <p class="meta">id:</p>
-          <p class="content">( {{ id }} )</p>
-        </div>
-        <div class="updated">
-          <p class="meta">updated:</p>
-          <p class="content">( {{ updated }} )</p>
-        </div>
-      </div>
+    
       <div class="body">
-        <div class="info">
-          <div class="title">
-            <p class="meta">title:</p>
-            <p class="content">{{ title }}</p>
-          </div>
-          <div class="description">
-            <p class="meta">description:</p>
-            <p class="content">{{ description }}</p>
-          </div>  
+        <div class="artist">
+          <p class="meta">artist:</p>
+          <p class="content">{{ artist }}</p>
         </div>
+        <div class="title">
+          <p class="meta">title:</p>
+          <p class="content">{{ title }}</p>
+        </div>
+        <div class="description">
+          <p class="meta">description:</p>
+          <vue3-markdown-it
+            class="content"
+            :source="description"
+          ></vue3-markdown-it>
+        </div>  
       </div>
-      <div class="body">
+      
+      <div class="info">
         <div class="media">
           <div class="content">
             <img 
@@ -37,19 +34,18 @@
           </div>  
           <div class="meta">{{ medium }}</div>
         </div>
-      </div>
-        <div class="body">
+        <div class="id">
+          <p class="meta">id:</p>
+          <p class="content">( {{ id }} )</p>
         </div>
-      <div class="footer">
+        <div class="updated">
+          <p class="meta">updated:</p>
+          <p class="content">( {{ updated }} )</p>
+        </div>
         <div class="source">
           <p class="meta">source:</p>
           <p class="content">
-            <FileList 
-              v-if="files"
-              :list="files"
-            />   
             <a
-              v-else
               :href="link"
               target="_blank"
             >
@@ -68,8 +64,6 @@
             </a>
           </p>
         </div> 
-      </div>
-      <div class="footer">
         <div class="tags">
           <p class="meta">tags:</p>
           <p class="content">
@@ -89,16 +83,19 @@
           </p>
         </div> 
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
+import List from '../components/List'
 
 export default {
   name: 'Artwork',
   components: {
+    List
   },
   props: [
     'artwork',
@@ -135,8 +132,8 @@ export default {
 
 
 .artwork {
-   width: 100%;
-  max-height: 50vh;
+  width: 100%;
+  /* max-height: 50vh; */
   overflow: visible;
   /* background: #f2e4c4; */
 }
@@ -145,69 +142,93 @@ export default {
   position: relative;
   box-sizing: border-box;
   margin-top: 6em;
-  margin-right: 5em;
   height: 100%;
   min-height: 120vh;
-  /* max-width: 60em; */
-  width: 90%;
+  width: calc(100% - 15em);
   padding: 5em 5em;
-  /*border-radius: 1em;*/
   background: var(--lightblue);
-  /* background: white; */
   background: #f2e4c4;
   display: flex;
-  flex-direction: column;
-}
-.indexCard::after {
- /*  */
 }
 
 .indexCard p {
   margin-top: 0;
 }
-
-.indexCard .header,
-.indexCard .body,
-.indexCard .footer {
+.indexCard .meta {
+  width: 8em;
+  flex-shrink: 0;
+  text-align: right;
+  margin-right: 1em;
+}
+.indexCard .content {
   width: 100%;
-  display: flex;
+}
+.indexCard .content a {
+  word-break: break-all;
 }
 
-.indexCard .header .id,
-.indexCard .header .updated {
-  display: flex;
-}
-.indexCard .header .updated,
-.indexCard .footer .contact,
-.indexCard .footer .locations,
-.indexCard .body .media {
-  margin: auto;
-
+.indexCard .body {
+  box-sizing: border-box;
+  padding-right: 1em;
+  flex-basis: 65%;
 }
 
-.indexCard .body .info .title,
-.indexCard .body .info .description,
-.indexCard .body .media {
+.indexCard .info {
+  max-width: 30%;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.indexCard .body .artist,
+.indexCard .body .title,
+.indexCard .body .description,
+.indexCard .info .id,
+.indexCard .info .updated,
+.indexCard .info .source,
+.indexCard .info .contact,
+.indexCard .info .tags,
+.indexCard .info .locations,
+.indexCard .info .media {
   display: flex;
   align-items: baseline;
 }
 
-.indexCard .body .media {
+.indexCard .body .artist .content,
+.indexCard .body .title .content,
+.indexCard .body .description .content {
+  font-family: montserrat;
+  font-size: 1.5em;
+  /* width: 32em; */
+}
+
+.indexCard .body .title .content {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.3em;
+  font-size: 2em;
+}
+
+
+.indexCard .info .media {
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1em;
 }
-.indexCard .body .media .content {
+.indexCard .info .media .content {
   margin: 1em;
-  max-width: 12em;
+  max-width: 100%;
   display: flex;
+  border: 1px solid;
+  padding: 10px;
   /* justify-content: stretch; */
   /* align-items: stretch; */
 }
 
-.indexCard .body .media .meta {
+.indexCard .info .media .meta {
   font-style: italic;
   text-align: center;
   margin: 0;
+  width: 100%;
 }
 
 
@@ -225,29 +246,7 @@ export default {
   display: flex;
 }
 
-.indexCard .meta {
-  width: 8em;
-  text-align: right;
-  margin-right: 1em;
-}
 
-.indexCard .content {
-  width: 24em;
-}
-
-.indexCard .title .content,
-.indexCard .description .content {
-  font-family: montserrat;
-  font-size: 1.5em;
-  /* width: 32em; */
-}
-
-.indexCard .title .content {
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-underline-offset: 0.3em;
-  font-size: 2em;
-}
 .indexCard .tags .content .list {
   display: flex;
   flex-direction: column;

@@ -134,4 +134,12 @@ td.source a {
   text-decoration: none;
 }
 
+td.id {
+  padding-top: 0;
+}
+
+td.id .add,
+td.id .remove {
+  font-size: 2em;
+}
 </style>

@@ -120,30 +120,22 @@ export default {
 
 .resource {
   width: 100%;
-  max-height: 50vh;
+  /* max-height: 50vh; */
   overflow: visible;
-  /* background: #f2e4c4; */
 }
 
 .indexCard {
   position: relative;
   box-sizing: border-box;
   margin-top: 6em;
-  margin-right: 5em;
   height: 100%;
   min-height: 120vh;
-  /* max-width: 60em; */
-  width: 90%;
+  width: calc(100% - 15em);
   padding: 5em 5em;
-  /*border-radius: 1em;*/
   background: var(--lightblue);
-  /* background: white; */
   background: #f2e4c4;
   display: flex;
   flex-direction: column;
-}
-.indexCard::after {
- /*  */
 }
 
 .indexCard p {

@@ -67,7 +67,7 @@ header {
   padding: 0;
   display: flex;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   text-transform: uppercase;
   text-align: center;
   font-family: montserrat;
@@ -80,6 +80,7 @@ header li {
   list-style: none;
   margin: 0 0em;
   padding: 0.3em 1em;
+  box-sizing: border-box;
 }
 
 header li:nth-of-type(1) {
@@ -110,7 +111,7 @@ header li:nth-of-type(7) {
   /* background-color: #ff6f00; */
   margin-left: auto;
   /* background-color: #ffbe8c; */
-
+  min-width: 15em;
 }
 header li:nth-of-type(7) a {
   color: var(--brightgreen);
