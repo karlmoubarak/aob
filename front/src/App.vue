@@ -200,6 +200,7 @@ main {
 .landing main {
   flex-shrink: 1;
   max-height: 0;
+  overflow: hidden;
 }
 
 

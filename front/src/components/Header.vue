@@ -22,7 +22,7 @@ export default {
     return {
       menuItems: [
         {
-          name: 'Archive of Belonging',
+          name: 'AOB',
           slug: '/'
         },
         {

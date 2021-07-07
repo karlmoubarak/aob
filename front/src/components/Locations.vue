@@ -67,9 +67,9 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* align-content: flex-start flex-end; */
+  /* justify-content: center;
+  align-items: center;
+  align-content: flex-start flex-end; */
   transition: all var(--landing) ease;
   
 }
@@ -86,6 +86,8 @@ export default {
 }
 .landing .location {
   margin-top: var(--top);
+  /* margin: 12% -5%; */
+  /* margin: auto; */
 }
 a,
 a:visited,
