@@ -1,17 +1,26 @@
 <template>
-  <CollectionBody
-    :collectionItems="mainCollection"
-  />
+  <div id="home">
+    <CollectionBody
+      :collectionItems="mainCollection"
+    />
+    <transition name="fade">
+      <Upload
+        v-if="$route.path == '/upload'"
+      />
+    </transition>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import CollectionBody from '../components/CollectionBody.vue'
+import CollectionBody from '../components/CollectionBody'
+import Upload from '../components/Upload'
 
 export default {
   name: 'Home',
   components: {
-    CollectionBody
+    CollectionBody,
+    Upload
   },
   computed: {
     ...mapGetters([
@@ -32,8 +41,10 @@ export default {
 #home {
   box-sizing: border-box;
   position: relative;
-  /* height: 100%; */
   width: 100%;
   margin-top: 1em;
+  /* transform: none !important; */
+  /* height: 100%; */
+  /* overflow: hidden; */
 }
 </style>

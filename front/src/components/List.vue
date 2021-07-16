@@ -9,11 +9,11 @@
         @click.stop
         :to="{
           path: '/',
-          query: { [collection]: item.slug }
+          query: { [collection]: [item.slug] }
         }"
       >
         <span
-          v-html="$highlight(item.Name, query )"
+          v-html="$highlight(item.Name, queries )"
         ></span>
         <br>
       </router-link>
@@ -30,7 +30,7 @@ export default {
     'collection'
   ],
   computed: {
-    query() { return this.$store.state.query }
+    queries() { return this.$store.getters.queries }
   },
   methods: {
     isLast: (item, array) => (
@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .list {
   font-size: inherit;
 }
@@ -51,6 +51,6 @@ a:visited,
 a:active,
 a:hover {
   /* color: unset; */
-  /* text-decoration: none; */
+  text-decoration: none;
 }
 </style>

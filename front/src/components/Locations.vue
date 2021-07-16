@@ -8,24 +8,21 @@
         '--top': top()
       }"
     >
-      <Checkbox />
-      <router-link 
-        :to="{
-          path: '/',
-          query: { location: item.slug }
-        }"
-      >
+      <Checkbox 
+        :checked="isInQuery(item.slug)"
+      />
+      <a @click="toggleLocation(item.slug)">
         <span
-          v-html="$highlight(item.Name, query )"
-        ></span>    
-      </router-link>
+          v-html="$highlight(item.Name, queries )"
+        ></span>
+      </a>
       <!-- <span v-if="!isLast(item, tags)">, </span> -->
     </span>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Checkbox from './Checkbox.vue'
 
 export default {
@@ -36,7 +33,9 @@ export default {
     ...mapState([
       'locations',
       'query'
-    ])
+    ]),
+    ...mapGetters(['queries'])
+    
   },
   components: {
     Checkbox
@@ -46,6 +45,39 @@ export default {
       array.indexOf(item) === array.length - 1
     ),
     top: () => Math.random() * 50 + '%',
+    toggleLocation(slug) {
+      const currentLocations = this.$route.query.location
+      if (currentLocations) {
+        if (!this.isInQuery(slug)) {
+          this.$router.push({
+            path: '/archive',
+            query: { 
+              ...this.$route.query,
+              ...{ location: [...currentLocations, ...[slug]] }
+            }
+          })
+        } else {
+          this.$router.push({
+            path: '/archive',
+            query: {
+              ...this.$route.query,
+              ...{ location: currentLocations.filter(t => t !== slug) }
+            }
+          })
+        }
+      } else {
+        this.$router.push({
+          path: '/archive',
+          query: {
+            ...this.$route.query,
+            ...{ location: [slug] }
+          }
+        })
+      }
+    },
+    isInQuery(location) {
+      return this.$route.query.location && this.$route.query.location.includes(location)
+    } 
   },
   created() {
     // console.log(this.locations)
@@ -78,6 +110,7 @@ export default {
   display: flex;
   align-items: center;
   transition: all var(--landing) ease;
+  cursor: pointer;
 }
 .landing .locations {
   height: 100%;

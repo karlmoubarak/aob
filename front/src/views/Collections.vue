@@ -1,7 +1,7 @@
 <template>
   <div class="collections">
     <Collection
-      v-for="collection in collections"
+      v-for="collection in sortedCollections"
       :key="collection.id"
       :collection="collection"
     />
@@ -9,15 +9,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import Collection from '../components/Collection'
 
 export default {
   name: 'Collections',
   components: { Collection },
   computed: {
-    ...mapState([
-      'collections'
+    ...mapGetters([
+      'sortedCollections'
     ])
   },
   created() {
@@ -26,7 +26,18 @@ export default {
 </script>
 
 <style scoped>
-/* .collections {
-  margin-top: 1em;
-} */
+.collections {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  margin: 0.5em;
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+}
 </style>

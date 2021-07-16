@@ -19,6 +19,7 @@
     "vue-router": "^4.0.8",
     "vue3-highlight": "^0.2.6",
     "vue3-markdown-it": "^1.0.9",
+    "vuedraggable": "^2.24.3",
     "vuex": "^4.0.1"
   },
   "devDependencies": {

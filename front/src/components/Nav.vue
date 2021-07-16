@@ -2,20 +2,19 @@
   <nav>
     <Tags />
     <Locations />
-    <SearchBar />
   </nav>
 </template>
 
 <script>
 import Locations from './Locations'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 import Tags from './Tags'
 
 export default {
   name: 'Nav',
   components: { 
     Tags,
-    SearchBar,
+    // SearchBar,
     Locations,
   },
 }
@@ -32,7 +31,10 @@ nav {
   align-items: flex-start;
   justify-content: stretch;
   transition: all var(--landing) ease;
-  z-index: 1;
+  z-index: 2;
+  /* filter: drop-shadow(0 0 5em pink); */
+  /* filter: drop-shadow(0 0 5em #ffffffa4); */
+  /* filter: drop-shadow(0 0 5em var(--lightblue)); */
 }
 .landing nav {
   /* flex-basis: 100%; */

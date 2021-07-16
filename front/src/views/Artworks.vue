@@ -1,7 +1,12 @@
 <template>
-  <CollectionBody
-    :collectionItems="filteredArtworks"
-  />
+  <div 
+    id="artworks"
+    @click="$router.go(-1)"
+  >
+    <CollectionBody
+      :collectionItems="filteredArtworks"
+    />
+  </div>
 </template>
 
 <script>
@@ -24,10 +29,31 @@ export default {
 </script>
 
 <style scoped>
+#artworks {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0em;
+  background: #ffffffa4;
+  overflow: scroll;
+  z-index: 2;
+  padding: 20em;
+  padding-top: 15em;
+  display: flex;
+  justify-content: center;
+  transform: translateY(0) !important;
+}
+.fade-enter-from ,
+.fade-leave-to {
+  padding-top: 20em !important;
+}
+
 table {
   margin-top: 1em;
-  width: 100%;
-  transition: all 0.2s ease;
+}
+table tr.header {
+  display: none;
 }
 
 

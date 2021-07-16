@@ -28,12 +28,33 @@ const
     ))
   },
   
-  highlight = (source, query) => (
-    query ? 
-    source.replace(
-      new RegExp(query, "gi"), 
-      match => ('<span class="highlight">' + match + '</span>')
-    ) : source
-  )
+  highlight = (source, queries) => {
+    if (queries.length > 0) {
+      for (let query of queries) {
+        if (query && source) {
+          source = source.replace(
+            new RegExp(query, "gi"), 
+            match => ('<span class="highlight">' + match + '</span>')
+          )
+        }
+      } 
+    }
+    return source
+  },
+  
+  apiURL = process.env.VUE_APP_API,
+  
+  processImages = text => {
+    if (text) {
+      text = text.replace(/\]\(\/uploads\//g, `](${apiURL}/uploads/`)
+    }
+    return text
+  }
 
-export { toObject, sortAlphabetically, sortByUpdate, highlight }
+export { 
+  toObject,
+  sortAlphabetically, 
+  sortByUpdate, 
+  highlight,
+  processImages
+}

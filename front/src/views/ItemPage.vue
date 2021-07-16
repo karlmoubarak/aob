@@ -1,23 +1,30 @@
 <template>
   <div 
     class="itemContainer"
+    :class="{ reltedItemsVisible: reltedItemsVisible } "
     ref="itemContainer"
     @click.stop="$router.go(-1)"
   >
     <div 
       v-if="item" 
       class="item"
+      @scroll="handleScroll"
     >
-      <div class="circle">
+      <div 
+        class="circle"
+        @click.stop="
+          isInMyCollection(item.slug) ? 
+          removeFromCollection(item) :
+          addToCollection(item)  
+        "
+      >
         <span 
           v-if="isInMyCollection(item.slug)"
           class="remove"
-          @click.stop="removeFromCollection(item)"
         >-</span>
         <span 
           v-else
           class="add"
-          @click.stop="addToCollection(item)"
         >+</span>   
       </div>
       <ExpandedResource
@@ -31,7 +38,11 @@
     </div>
     <CollectionBody
       v-if="relatedItems.length > 0"
+      ref="table"
       :collectionItems="relatedItems"
+      @mouseenter="hovered = true"
+      @mouseleave="hovered = false"
+      @click.stop="reltedItemsVisible = !reltedItemsVisible"
     />
   </div>
 </template>
@@ -42,6 +53,9 @@ import CollectionBody from '../components/CollectionBody.vue'
 import ExpandedArtwork from '../components/ExpandedArtwork.vue'
 import ExpandedResource from '../components/ExpandedResource.vue'
 
+      // :style="{ top: `calc(100% - ${top}em)` }"
+
+
 export default {
   name: 'Page',
   components: {
@@ -51,6 +65,13 @@ export default {
   },
   props: [
   ],
+  data() {
+    return {
+      hovered: false,
+      top: 10,
+      reltedItemsVisible: false,
+    }
+  },
   computed: {
     ...mapGetters([
       'resourceBySlug',
@@ -68,6 +89,7 @@ export default {
       )
     )},
     tags() { return (
+      this.item &&
       this.item.tags && 
       this.item.tags.length > 0 && 
       this.item.tags 
@@ -76,6 +98,7 @@ export default {
     relatedItems() {
       return this.mainCollection
         .filter(i => 
+          this.tags &&
           i.tags
           .map(t => t.Name)
           .some(
@@ -87,11 +110,6 @@ export default {
       )
     }
     
-  },
-  mounted() {
-  },
-  created() {
-    // console.log(this.item)
   },
   watch: {
     item() {
@@ -105,7 +123,15 @@ export default {
     ...mapActions([
       'addToCollection',
       'removeFromCollection'
-    ])
+    ]),
+    
+    handleScroll(e) {
+      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+        this.top = this.top + 50
+      } else {
+        this.top = 10
+      }
+    }
   }
   
 }
@@ -119,30 +145,43 @@ export default {
   position: absolute;
   top: 0em;
   background: #ffffffa4;
-  /* background: var(--lightblue); */
-  overflow: scroll;
-  /* padding-bottom: 40em; */
-  z-index: 1;
-}
-  
-.item {
-  width: 100%;
+  overflow: hidden;
+  z-index: 2;
+  transform: translateY(0) !important;
 }
 
-table {
-  position: sticky !important;
-  bottom: -10em;
+.fade-enter-from ,
+.fade-leave-to {
+  padding-top: 10%;
+}
+
+  
+.item {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  /* max-height: calc(100% - 20em); */
+  max-height: 100%;
+  overflow: scroll;
+}
+
+.collectionBody {
+  position: fixed !important;
+  top: calc(100% - 10em);
   left: 10em;
   width: calc(100% - 10em) !important;
   /* margin-left: 10em; */
   background: var(--lightestorange);
+  /* height: 0; */
+  overflow: scroll;
+  /* z-index: 4; */
 }
 
-table:hover {
-  bottom: 0em;
+.collectionBody:hover {
+  top: calc(100% - 15em);
 }
 
-.itemContainer td {
+.itemContainer .col {
   background: unset !important;
 }
   
@@ -158,10 +197,14 @@ table:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .itemContainer .item .circle * {
   font-size: 3em;
-  cursor: pointer;
 }
   
+.reltedItemsVisible table {
+  top: 10em;
+  box-shadow: 0 50em 200em 200em #ffffffa4;
+}
 </style>

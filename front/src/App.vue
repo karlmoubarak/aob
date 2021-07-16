@@ -22,9 +22,9 @@
 </template>
 
 <script>
+
 import { mapState } from 'vuex'
 import api from './api'
-
 import Header from './components/Header'
 import Nav from './components/Nav.vue'
 
@@ -33,8 +33,6 @@ export default {
   components: { 
     Nav,
     Header
-    // Nav,
-    // Tags,
   },
   computed: {
     ...mapState([
@@ -58,29 +56,37 @@ export default {
     this.getArtworks()
     this.getCollections()
 
+    this.$router.beforeEach((to) => {
+      let newQuery = {}
+      if (to.query.tag && !Array.isArray(to.query.tag)) {
+        newQuery.tag = [to.query.tag]
+      }
+      if (to.query.location && !Array.isArray(to.query.location)) {
+        newQuery.location = [to.query.location]
+      }
+      if (newQuery.tag || newQuery.location) {
+        return {
+          path: to.path,
+          query: newQuery
+        }
+      } 
+    })
+
     this.$router.afterEach(to => {
       if (to.query.tag) {
-        this.$store.commit('selectTag', 
-          this.tags
-          .find(
-            t => t.slug == to.query.tag
-          )
-        )
-      } else if (to.query.location) {
-        this.$store.commit('selectLocation', 
-          this.locations
-          .find(
-            l => l.slug == to.query.location
-          )
-        )
-      } else if (to.query.search) {
-        this.$store.commit('setQuery', 
-          to.query.search
-        )
+        this.$store.commit('selectTags', to.query.tag)
       } else {
-        this.$store.commit('selectTag', null)
-        this.$store.commit('selectLocation', null)
-        this.$store.commit('setQuery', null)
+        this.$store.commit('selectTags', [])
+      } 
+      if (to.query.location) {
+        this.$store.commit('selectLocations', to.query.location)
+      } else {
+        this.$store.commit('selectLocations', [])
+      }
+      if (to.query.search) {
+        this.$store.commit('setQuery', to.query.search)
+      } else {
+        this.$store.commit('setQuery', '')
       }
     })
   },
@@ -114,9 +120,9 @@ export default {
       api
       .resources
       .getAll()
-      .then(data => 
+      .then(data => {
         this.$store.commit('setResources', data)
-      )
+      })
       .catch(error => console.log(error))
     },
 
@@ -124,9 +130,9 @@ export default {
       api
       .artworks
       .getAll()
-      .then(data => 
+      .then(data => {
         this.$store.commit('setArtworks', data)
-      )
+      })
       .catch(error => console.log(error))
     },
     
@@ -163,6 +169,7 @@ export default {
   --green: #e1ec90;
   --lightgreen: #eaf0be;
   --brightgreen: #00b35f;
+  --purple: #CBBEF0;
 }
 
 html,
@@ -170,8 +177,7 @@ body,
 #app {
   height: 100%; width: 100%;
   padding: 0; margin: 0;
-  background: var(--back);
-  background-color: #F2F5FB;
+  background-color: var(--lightblue);
 }
 
 #app {
@@ -213,9 +219,9 @@ a {
 }
 a:hover {
   color: #737a3b;
-  text-decoration: line-through;  
+  /* text-decoration: line-through;  
   text-decoration-style: wavy;
-  text-decoration-thickness: 0.02em;
+  text-decoration-thickness: 0.02em; */
   /* box-shadow: 0 0px 8px 2px rgb(255, 255, 102); */
 }
 a:active {
@@ -231,36 +237,13 @@ color: var(--orange);
 }
 
 
-td.id {
-  min-width: 1.5em;
-  max-width: 1.5em;
+
+
+.description img {
+  max-width: 100%;
 }
-td.tags {
-  min-width: 5em;
-  max-width: 5em;
-}
-td.organization {
-  min-width: 12em;
-  max-width: 12em;
-}
-td.description { 
-  min-width: 15em;
-  min-width: 20em;
-}
-td.source {
-  /* min-width: 7.5em;
-  max-width: 7.5em; */
-  min-width: 1.5em;
-  max-width: 1.5em;
-}
-td.contact {
-  min-width: 7.5em;
-  max-width: 7.5em;
-}
-td.updated {
-  min-width: 8em;
-  max-width: 8em;
-}
+
+
 
 .fade-enter-active,
 .fade-leave-active {

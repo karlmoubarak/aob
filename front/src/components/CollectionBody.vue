@@ -1,32 +1,37 @@
 <template>
-  <table class="collectionBody">
-    <TableHeaders />
+  <div :class="['collectionBody', { artworksOnly: artworksOnly }]">
+    <TableHeaders v-if="!artworksOnly"/>
     <transition-group name="list" mode="out-in">
-    <tr
+    <div
       v-for="item in collectionItems"
       :key="item.slug"
-      :class="{ artworkTR: item.Title }"
-      @click.stop="clickHandler(item)"    
+      :class="['row', { artworkTR: item.Title }]"
     >
+      <div
+        class="move"
+        v-if="isMyCollection"
+      >↕</div>
       <Resource
         v-if="item.Organisation"
         :resource="item"
+        @clicked="clickHandler(item)"    
       />
-      <td colspan="100%" v-else>
-        <Artwork 
-          :artwork="item"
-          :inTable="!artworksOnly"
-        />
-      </td>
-    </tr>
+      <Artwork 
+        v-else
+        :artwork="item"
+        :inTable="!artworksOnly"
+        @clicked="clickHandler(item)"    
+      />
+    </div>
     </transition-group>
-  </table>
+  </div>
 </template>
 
 <script>
 import Artwork from './Artwork.vue'
 import Resource from './Resource.vue'
 import TableHeaders from './TableHeaders.vue'
+// import draggable from 'vuedraggable';
 
 export default {
   name: 'CollectionBody',
@@ -36,12 +41,13 @@ export default {
     Artwork
   },
   props: [
-    'collectionItems'
+    'collectionItems',
+    'isMyCollection',
   ],
   computed: {
     artworksOnly() {
       return !this.collectionItems.find(i => i.Organisation)
-    }
+    },
   },
   methods: {
     clickHandler(item) {
@@ -55,7 +61,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 
 .collectionBody {
   box-sizing: border-box;
@@ -63,23 +69,98 @@ export default {
   width: 100%;
   margin-top: 1em;
   transition: all 0.5s ease;
+  height: 100%;
+  max-height: 200vh;
 }
-table {
-  position: relative;
-  border-spacing: 0.5em;
-}
-tr {
-  cursor: pointer;
-}
-.artworkTD {
-}
-.resource {
-}
-
-tr {
+.row {
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  /* cursor: pointer; */
+  max-height: 10em;
+  width: 100%;
+  margin: 0.5em;
+  /* overflow: hidden; */
 }
+.row.artworkTR {
+  max-height: 3.3em;
+}
+.row.artworkTR:hover {
+  z-index: 3;
+}
+.artworksOnly .row.artworkTR {
+  max-height: 21em;
+}
+.artworkTD {
+  display:block;
+  width: 100%;
+}
+
+.move {
+  display: block;
+  position: absolute;
+  font-size: 1.5em;
+}
+
+
+.col {
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  min-width: 100%;
+  padding: 0.5em;
+  margin: 0 0.25em;
+  background: white;
+  overflow: hidden;
+  display: flex;
+}
+.col.id {
+  flex-basis: 3%;
+  min-width: 3%;
+  max-width: 3%;
+}
+.col.tags {
+  flex-basis: 8%;
+  min-width: 8%;
+  max-width: 8%;
+}
+.col.locations {
+  flex-basis:8%;
+  min-width: 8%;
+  max-width: 8%;
+}
+.col.organization {
+  flex-basis: 12%;
+  min-width: 12%;
+  max-width: 12%;
+}
+.col.description { 
+  flex-basis: 35%;
+  min-width: 35%;
+  max-width: 35%;
+}
+.col.source {
+  flex-basis: 6%;
+  min-width: 6%;
+  max-width: 6%;
+}
+.col.contact {
+  flex-basis: 24.5%;
+  min-width: 24.5%;
+  /* flex-grow: 1; */
+  /* max-width: 23%; */
+}
+.col p {
+  margin: 0;
+}
+.col.source a {
+  text-decoration: none;
+}
+.col.id .add,
+.col.id .remove {
+  font-size: 2em;
+}
+
 
 .list-enter-active,
 .list-leave-active {
@@ -94,6 +175,7 @@ tr {
 
 .list-enter-from,
 .list-leave-to {
+  max-height: 0;
   transform: translateY(-5em);
   opacity: 0;
 }

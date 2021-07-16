@@ -4,7 +4,31 @@
     class="resource"
   >
     <div @click.stop class="indexCard">
-      <div class="header">
+    
+      <div class="body">
+        <div class="title">
+          <p class="meta">organisation:</p>
+          <p class="content">{{ org }}</p>
+        </div>
+        <div class="description">
+          <p class="meta">description:</p>
+          <vue3-markdown-it
+            class="content"
+            :source="description"
+          ></vue3-markdown-it>
+        </div>  
+      </div>
+      
+      <div class="info">
+        <div class="media">
+          <div class="content">
+            <img 
+              v-if="media"
+              class="cover"
+              :src="cover"
+            />
+          </div>  
+        </div>
         <div class="id">
           <p class="meta">id:</p>
           <p class="content">( {{ id }} )</p>
@@ -13,21 +37,6 @@
           <p class="meta">updated:</p>
           <p class="content">( {{ updated }} )</p>
         </div>
-      </div>
-      <div class="body">
-        <div class="info">
-          <div class="title">
-            <p class="meta">title:</p>
-            <p class="content">{{ org }}</p>
-          </div>
-          <div class="description">
-            <p class="meta">description:</p>
-            <p class="content">{{ description }}</p>
-          </div>  
-        </div>
-        <div class="media"></div>
-      </div>
-      <div class="footer">
         <div class="source">
           <p class="meta">source:</p>
           <p class="content">
@@ -55,8 +64,6 @@
             </a>
           </p>
         </div> 
-      </div>
-      <div class="footer">
         <div class="tags">
           <p class="meta">tags:</p>
           <p class="content">
@@ -76,12 +83,15 @@
           </p>
         </div> 
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
+
 import moment from 'moment'
+import { processImages } from '../utils'
 import FileList from '../components/FileList'
 import List from '../components/List'
 
@@ -99,19 +109,14 @@ export default {
     org()         { return this.resource.Organisation },
     tags()        { return this.resource.tags && this.resource.tags.length > 0 && this.resource.tags },
     locations()   { return this.resource.locations && this.resource.locations.length > 0 && this.resource.locations },
-    description() { return this.resource.Description },
+    description() { return processImages(this.resource.Description) },
     files()       { return this.resource.Files.length > 0 && this.resource.Files },
+    media()       { return this.resource.Media && this.resource.Media.length > 0 && this.resource.Media },
+    cover()       { return this.media && this.$apiURL + this.media[0].formats.medium.url },
     link()        { return this.resource.Link },
     contact()     { return this.resource.Contact || 'N/A'},
     updated()     { return moment(this.resource.updated_at).format('DD/MM/yyyy') },
   },
-  mounted() {
-  },
-  created() {
-    // console.log(this.resource)
-  },
-  methods: {
-  }
   
 }
 </script>
@@ -131,39 +136,104 @@ export default {
   height: 100%;
   min-height: 120vh;
   width: calc(100% - 15em);
-  padding: 5em 5em;
+  padding: 8em 5em;
   background: var(--lightblue);
   background: #f2e4c4;
   display: flex;
-  flex-direction: column;
 }
 
 .indexCard p {
   margin-top: 0;
 }
-
-.indexCard .header,
-.indexCard .body,
-.indexCard .footer {
+.indexCard .meta {
+  width: 8em;
+  flex-shrink: 0;
+  text-align: right;
+  margin-right: 1em;
+}
+.indexCard .content {
   width: 100%;
-  display: flex;
+}
+.indexCard .content a {
+  word-break: break-all;
 }
 
-.indexCard .header .id,
-.indexCard .header .updated {
-  display: flex;
-}
-.indexCard .header .updated {
-  margin: auto;
-
+.indexCard .body {
+  box-sizing: border-box;
+  padding-right: 1em;
+  flex-basis: 65%;
 }
 
-.indexCard .body .info .title,
-.indexCard .body .info .description {
+.indexCard .info {
+  max-width: 30%;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.indexCard .body .artist,
+.indexCard .body .title,
+.indexCard .body .description,
+.indexCard .info .id,
+.indexCard .info .updated,
+.indexCard .info .source,
+.indexCard .info .contact,
+.indexCard .info .tags,
+.indexCard .info .locations,
+.indexCard .info .media {
   display: flex;
   align-items: baseline;
+  width: 100%;
 }
 
+.indexCard .body .artist .content,
+.indexCard .body .title .content,
+.indexCard .body .description .content {
+  font-family: montserrat;
+  font-size: 1.5em;
+  /* width: 32em; */
+}
+
+.indexCard .body .description img {
+  max-width: 100%;
+}
+
+
+.indexCard .body .title .content {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.3em;
+  font-size: 2em;
+}
+
+
+.indexCard .info .media {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.indexCard .info .media .content {
+  margin: 1em;
+  max-width: 100%;
+  display: flex;
+  border: 1px solid;
+  padding: 10px;
+  min-height: 15em;
+  /* justify-content: stretch; */
+  /* align-items: stretch; */
+}
+
+.indexCard .info .media .meta {
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+
+.indexCard .media .content img {
+  max-width: 100%;
+  max-height: 100%;
+}
 .indexCard .footer .source,
 .indexCard .footer .contact {
   display: flex;
@@ -174,43 +244,10 @@ export default {
   display: flex;
 }
 
-.indexCard .meta {
-  width: 8em;
-  text-align: right;
-  margin-right: 1em;
-}
 
-.indexCard .content {
-  width: 24em;
-}
-
-.indexCard .title .content,
-.indexCard .description .content {
-  font-family: montserrat;
-  font-size: 1.5em;
-  /* width: 32em; */
-}
-
-.indexCard .title .content {
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-underline-offset: 0.3em;
-  font-size: 2em;
-}
 .indexCard .tags .content .list {
   display: flex;
   flex-direction: column;
-}
-
-table {
-  margin-left: 10em;
-  margin-top: 20em !important;
-  /* max-width: 90%; */
-  background: var(--lightestorange);
-}
-
-.resourceContainer td {
-  background: unset !important;
 }
   
   

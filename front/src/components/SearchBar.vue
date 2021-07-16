@@ -14,13 +14,13 @@ export default {
     search() {
       if (this.$refs.input.value != '') {
         this.$router.push({
-          path: '/',
+          path: '/archive',
           query: { 
             search: this.$refs.input.value.trim().toLowerCase()
           }
         })
       } else {
-        this.$router.push('/')
+        this.$router.push('/archive')
         this.$refs.input.focus()
       }
     }
@@ -33,8 +33,8 @@ export default {
 
 <style scoped>
 input {
-  margin-left: auto;
-  position: absolute;
+  /* margin-left: auto; */
+  /* position: absolute; */
   width: 12em;
   right: 0;
   top: 0;
@@ -48,6 +48,8 @@ input {
   box-shadow: none;
   transition: all var(--landing) ease;
   /* transition: border 0.2s ease; */
+  border: 2px solid #cbbef0;
+  height: 100%;
 }
 .landing input {
   top: calc(50% - 1em);

@@ -14,6 +14,7 @@
       <CollectionBody
         v-if="items.length > 0"
         :collectionItems="items"
+        :isMyCollection="isMyCollection"
       />
     </div>
   </div>
@@ -41,6 +42,7 @@ export default {
         this.$route.params.slug
       )
     )},
+    isMyCollection() { return this.collection.slug == this.$store.state.myCollection.slug },
     items()       { return this.collection.items },
     id()          { return this.collection.id },
     title()       { return this.collection.Title },

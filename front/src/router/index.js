@@ -22,6 +22,16 @@ export default createRouter({
       component: Home,
     },
     {
+      path: '/archive',
+      name: 'Archive',
+      component: Home,
+    },
+    {
+      path: '/upload',
+      name: 'Upload',
+      component: Home,
+    },
+    {
       path: '/resources',
       name: 'Resources',
       component: Resources,

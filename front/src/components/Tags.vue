@@ -8,18 +8,15 @@
         '--top': top()
       }"
     >
-      <Checkbox />
+      <Checkbox 
+        :checked="isInQuery(item.slug)"
+      />
 
-      <router-link 
-        :to="{
-          path: '/',
-          query: { tag: item.slug }
-        }"
-      >
+      <a @click="toggleTag(item.slug)">
         <span
-          v-html="$highlight(item.Name, query )"
+          v-html="$highlight(item.Name, queries )"
         ></span>    
-      </router-link>
+      </a>
       <!-- <span v-if="!isLast(item, tags)">, </span> -->
       
       
@@ -28,26 +25,65 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import Checkbox from './Checkbox'
 
 export default {
   name: 'Tags',
+  components: { Checkbox },
   props: [
   ],
-  components: { Checkbox },
+  data() {
+    return {
+    }
+  },
   computed: {
     ...mapState([
       'tags',
       'query',
-    ])
+      'selectedTags'
+    ]),
+    ...mapGetters(['queries'])
   },
   methods: {
     isLast: (item, array) => (
       array.indexOf(item) === array.length - 1
     ),
-    // top: () => Math.random() * 100 + '%'
     top: () => Math.random() * 50 + '%',
+    
+    toggleTag(slug) {
+      const currentTags = this.$route.query.tag
+      if (currentTags) {
+        if (!this.isInQuery(slug)) {
+          this.$router.push({
+            path: '/archive',
+            query: { 
+              ...this.$route.query,
+              ...{ tag: [...currentTags, ...[slug]] }
+            }
+          })
+        } else {
+          this.$router.push({
+            path: '/archive',
+            query: {
+              ...this.$route.query,
+              ...{ tag: currentTags.filter(t => t !== slug) }
+            }
+          })
+        }
+      } else { 
+        this.$router.push({
+          path: '/archive',
+          query: {
+            ...this.$route.query,
+            ...{ tag: [slug] }
+          }
+        })
+      }
+    },
+    isInQuery(tag) {
+      return this.$route.query.tag && this.$route.query.tag.includes(tag)
+    }     
   }
 }
 </script>
@@ -69,14 +105,19 @@ export default {
   /* justify-content: center; */
   /* align-items: center; */
   /* align-content: flex-start; */
+  overflow: scroll;
   transition: all var(--landing) ease;
+  /* box-shadow: 0 0em 5em 0em #ffffffa4; */
+  
 }
 .tag {
   margin: 0.5em 2em;
   display: flex;
   align-items: center;
   /* margin-top: 0; */
+  max-width: 20%;
   transition: all var(--landing) ease;
+  cursor: pointer;
 }
 .landing .tags {
   max-height: 100%;

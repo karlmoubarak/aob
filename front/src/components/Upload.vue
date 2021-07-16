@@ -1,85 +1,116 @@
 <template>
-  <div 
-    v-if="artwork"
-    class="artwork"
-  >
-    <div @click.stop class="indexCard">
+  <div @click.stop="$router.push('/archive')" class="upload">
+  
+    <div 
+      @click.stop 
+      v-if="!selectedType"
+      class="form"
+    >
+      <span
+        class="option"
+        @click.stop="selectedType = 'resource'"
+      >resource</span>
+      <span
+        class="option"
+        @click.stop="selectedType = 'artwork'"
+      >artwork</span>
+    </div>
     
+    <div         
+      v-if="selectedType == 'artwork'"
+      @click.stop 
+      class="form"
+    >
       <div class="body">
         <div class="artist">
           <p class="meta">artist:</p>
-          <p class="content">{{ artist }}</p>
+          <input
+            type="text"
+            name="artist"
+            ref="artist"
+            placeholder="artist"
+            class="content"
+          />
         </div>
         <div class="title">
           <p class="meta">title:</p>
-          <p class="content">{{ title }}</p>
+          <input
+            type="text"
+            name="title"
+            ref="title"
+            placeholder="title"
+            class="content"
+          />
         </div>
         <div class="description">
           <p class="meta">description:</p>
-          <vue3-markdown-it
+          <textarea
+            rows="10"
+            name="description"
+            ref="description"
+            placeholder="description"
             class="content"
-            :source="description"
-          ></vue3-markdown-it>
+          />
         </div>  
       </div>
       
       <div class="info">
         <div class="media">
           <div class="content">
-            <img 
+            <!-- <img 
               v-if="media"
               class="cover"
               :src="cover"
-            />
+            /> -->
           </div>  
-          <div class="meta">{{ medium }}</div>
+          <!-- <div class="meta">{{ medium }}</div> -->
         </div>
         <div class="id">
           <p class="meta">id:</p>
-          <p class="content">( {{ id }} )</p>
+          <!-- <p class="content">( {{ id }} )</p> -->
         </div>
         <div class="updated">
           <p class="meta">updated:</p>
-          <p class="content">( {{ updated }} )</p>
+          <!-- <p class="content">( {{ updated }} )</p> -->
         </div>
         <div class="source">
           <p class="meta">source:</p>
           <p class="content">
-            <a
+            <!-- <a
               :href="link"
               target="_blank"
             >
               {{ link }}
-            </a>
+            </a> -->
           </p>
         </div>
         <div class="contact">
           <p class="meta">contact:</p>
           <p class="content">
-            <a
+            <!-- <a
               :href="'mailto:' + link"
               target="_blank"
             > 
               {{ contact }} 
-            </a>
+            </a> -->
           </p>
         </div> 
         <div class="tags">
           <p class="meta">tags:</p>
           <p class="content">
-            <List 
+            <!-- <List 
               :list="tags"
               :collection="'tag'"
-            /> 
+            />  -->
           </p>
         </div>
         <div class="locations">
           <p class="meta">locations:</p>
           <p class="content">
-            <List 
+            <!-- <List 
               :list="locations"
               :collection="'location'"
-            /> 
+            />  -->
           </p>
         </div> 
       </div>
@@ -90,19 +121,19 @@
 
 <script>
 import moment from 'moment'
-import List from '../components/List'
+// import List from '../components/List'
 import { processImages } from '../utils'
 
 export default {
-  name: 'Artwork',
+  name: 'Upload',
   components: {
-    List
+    // List
   },
   props: [
-    'artwork',
   ],
   data() {
     return {
+      selectedType: ''
     }
   },
   computed: {
@@ -132,107 +163,124 @@ export default {
 <style scoped>
 
 
-
-.artwork {
+.upload {
+  box-sizing: border-box;
   width: 100%;
-  /* max-height: 50vh; */
-  overflow: visible;
-  /* background: #f2e4c4; */
+  height: 100%;
+  position: fixed;
+  top: 0em;
+  background: #ffffffa4;
+  overflow: scroll;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  transform: translateY(0) !important;
 }
 
-.indexCard {
+.fade-enter-from ,
+.fade-leave-to {
+  padding-top: 10%;
+}
+
+.form {
   position: relative;
   box-sizing: border-box;
-  margin-top: 6em;
-  height: 100%;
-  min-height: 120vh;
-  width: calc(100% - 15em);
+  margin-top: 5em;
+  /* height: 80%; */
+  width: 80%;
   padding: 8em 5em;
-  background: var(--lightblue);
   background: #f2e4c4;
   display: flex;
 }
 
-.indexCard p {
+.form p {
   margin-top: 0;
 }
-.indexCard .meta {
+.form .meta {
   width: 8em;
   flex-shrink: 0;
   text-align: right;
   margin-right: 1em;
 }
-.indexCard .content {
+.form .content {
   width: 100%;
 }
-.indexCard .content a {
+.form .content a {
   word-break: break-all;
 }
 
-.indexCard .body {
+.form .body {
   box-sizing: border-box;
   padding-right: 1em;
   flex-basis: 65%;
 }
 
-.indexCard .info {
+.form .info {
   max-width: 30%;
+  flex-basis: 30%;
   flex-shrink: 0;
   margin-left: auto;
 }
 
-.indexCard .body .artist,
-.indexCard .body .title,
-.indexCard .body .description,
-.indexCard .info .id,
-.indexCard .info .updated,
-.indexCard .info .source,
-.indexCard .info .contact,
-.indexCard .info .tags,
-.indexCard .info .locations,
-.indexCard .info .media {
+.form .body .artist,
+.form .body .title,
+.form .body .description,
+.form .info .id,
+.form .info .updated,
+.form .info .source,
+.form .info .contact,
+.form .info .tags,
+.form .info .locations,
+.form .info .media {
   display: flex;
   align-items: baseline;
   width: 100%;
 }
 
-.indexCard .body .artist .content,
-.indexCard .body .title .content,
-.indexCard .body .description .content {
+.form .body .artist .content,
+.form .body .title .content,
+.form .body .description .content {
   font-family: montserrat;
   font-size: 1.5em;
+  width: 100%;
+}
+
+.form .body input {
   /* width: 32em; */
 }
 
-.indexCard .body .description img {
-  max-width: 100%;
-}
 
-
-.indexCard .body .title .content {
+.form .body .title .content {
   text-decoration: underline;
   text-decoration-style: dotted;
   text-underline-offset: 0.3em;
   font-size: 2em;
 }
 
+.form .body .description img {
+  max-width: 100%;
+}
 
-.indexCard .info .media {
+
+
+
+.form .info .media {
   flex-direction: column;
   align-items: center;
   margin-bottom: 1em;
 }
-.indexCard .info .media .content {
+.form .info .media .content {
   margin: 1em;
   max-width: 100%;
   display: flex;
   border: 1px solid;
   padding: 10px;
+  min-height: 20em;
   /* justify-content: stretch; */
   /* align-items: stretch; */
 }
 
-.indexCard .info .media .meta {
+.form .info .media .meta {
   font-style: italic;
   text-align: center;
   margin: 0;
@@ -240,22 +288,22 @@ export default {
 }
 
 
-.indexCard .media .content img {
+.form .media .content img {
   max-width: 100%;
   max-height: 100%;
 }
-.indexCard .footer .source,
-.indexCard .footer .contact {
+.form .footer .source,
+.form .footer .contact {
   display: flex;
 }
 
-.indexCard .footer .tags,
-.indexCard .footer .locations {
+.form .footer .tags,
+.form .footer .locations {
   display: flex;
 }
 
 
-.indexCard .tags .content .list {
+.form .tags .content .list {
   display: flex;
   flex-direction: column;
 }

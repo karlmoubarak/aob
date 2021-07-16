@@ -192,6 +192,7 @@ export default {
 
 .indexCard p {
   margin-top: 0;
+  font-size: 1em;
 }
 
 .indexCard .header,
@@ -241,7 +242,7 @@ export default {
 .indexCard .title .content,
 .indexCard .description .content {
   font-family: montserrat;
-  font-size: 1.5em;
+  font-size: 0,5em;
   /* width: 32em; */
 }
 .indexCard .tags .content .list {

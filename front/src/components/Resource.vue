@@ -1,49 +1,55 @@
 <template>
-  <td class="id"> 
-    <span 
+  <div class="col id"> 
+    <p 
       v-if="isInMyCollection(slug)"
       class="remove"
       @click.stop="removeFromCollection(resource)"
-    >-</span>
-    <span 
+    >-</p>
+    <p 
       v-else
       class="add"
       @click.stop="addToCollection(resource)"
-    >+</span> 
-  </td>
-  <td class="organization"> 
+    >+</p> 
+  </div>
+  <div 
+    class="col organization"
+    @click.stop="$emit('clicked')"    
+  > 
     <p
-      v-html="$highlight( org, query )"
+      v-html="$highlight( org, queries )"
     ></p>
-  </td>
-  <td class="tags">
+  </div>
+  <div class="col tags">
     <List 
       :list="tags"
       :collection="'tag'"
     /> 
-  </td>
-  <td class="description"> 
+  </div>
+  <div 
+    class="col description"
+    @click.stop="$emit('clicked')"    
+  > 
     <p
-      v-html="$highlight( description, query )"
+      v-html="$highlight( description, queries )"
     ></p>
-  </td>
-  <td class="locations"> 
+  </div>
+  <div class="col locations"> 
     <List 
       :list="locations"
       :collection="'location'"
     /> 
-  </td>
-  <td class="source" v-if="files">
+  </div>
+  <div class="col source" v-if="files">
     <FileList 
       :list="files"
     />   
-  </td>
-  <!-- <td class="source" v-if="files">
+  </div>
+  <!-- <div class="source" v-if="files">
     <FileList 
       :list="files"
     />   
-  </td> -->
-  <td class="source" v-else>
+  </div> -->
+  <div class="col source" v-else>
     <a
       @click.stop
       :href="link"
@@ -52,15 +58,15 @@
       <!-- v-html="$highlight( link, query )" -->
     🔗
     </a>
-  </td>
-  <td class="contact">
+  </div>
+  <div class="col contact">
      <a
       :href="'mailto:' + contact"
       target="_blank"
-      v-html="$highlight( contact, query )"
+      v-html="$highlight( contact, queries )"
     ></a>
-  </td>
-  <td class="updated"> {{ updated }} </td>
+  </div>
+  <!-- <div class="updated"> {{ updated }} </div> -->
 </template>
 
 <script>
@@ -97,7 +103,8 @@ export default {
       'query'
     ]),
     ...mapGetters([
-      'isInMyCollection'
+      'isInMyCollection',
+      'queries'
     ]),
 
     
@@ -116,30 +123,11 @@ export default {
 </script>
 
 <style scoped>
-td {
-  transition: all 0.2s ease;
-  max-width: 100%;
-}
-
-td {
-  position: relative;
-  padding: 0.5em;
-  vertical-align: top;
-  background: white;
-}
-td p {
-  margin: 0;
-}
-td.source a {
-  text-decoration: none;
-}
-
-td.id {
+.col.id {
   padding-top: 0;
 }
-
-td.id .add,
-td.id .remove {
-  font-size: 2em;
+.col.organization,
+.col.description {
+  cursor: pointer;
 }
 </style>
