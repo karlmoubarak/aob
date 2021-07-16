@@ -19,7 +19,7 @@
           marginLeft: inTable ? 'initial' : randomMargin(),
         }"  
     >
-      <div 
+      <!-- <div 
         class="header"
         @mousemove="headerHovered = true"
         @mouseleave="headerHovered = false"
@@ -32,7 +32,7 @@
           class="artist"
           v-html="$highlight( artist, queries )"
         ></p>
-      </div>
+      </div> -->
       <img 
         v-if="media"
         class="cover"
@@ -149,22 +149,28 @@ export default {
   flex-direction: column;
   overflow: hidden;
   /* background: wheat; */
-   /* background: white;*/
-   /* transition: all 0.2s ease; */
+   /* background: white; */
+   transition: all 0.2s ease;
   /* box-shadow: 0 0 10em 10em var(--orange); */
   cursor: pointer;
   box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);
   border: 0.2em solid #e3edff;
 }
 .header {
+  margin: 0.3em;
+  box-sizing: border-box;
   padding: 0.6em;
   cursor: pointer;
   position: absolute;
   top: 0;
   background: var(--lightblue);
-  width: 100%;
+  width: 98.5%;
   /* transition: all 0.2s ease; */
   /* height: 100%; */
+  border-radius: inherit;
+}
+.header p {
+  /* background: var(--lightblue); */
 }
 .artwork p {
   margin: 0;
