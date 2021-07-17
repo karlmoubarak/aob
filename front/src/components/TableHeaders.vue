@@ -1,5 +1,5 @@
 <template>
-  <div class="row header">
+  <!-- <div class="row header">
     <div class="col id"><p>:)</p></div>
     <div class="col organization"><p>organisation</p></div>
     <div class="col tags"><p>tags</p></div>
@@ -7,12 +7,21 @@
     <div class="col locations"><p>locations</p></div>
     <div class="col source"><p>source</p></div>
     <div class="col contact"><p>contact</p></div>
-  </div>  
+  </div>  -->
+  <div class="row header">
+    <div
+      v-for="(th, key) in $locale.tableHeaders"
+      :key="key"
+      :class="['col', key]"
+      >
+        <p>{{ th.name[$store.state.locale] }}</p>
+      </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "TableHeaders"
+  name: "TableHeaders",
 }
 </script>
 

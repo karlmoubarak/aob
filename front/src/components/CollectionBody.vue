@@ -129,7 +129,7 @@ export default {
   min-width: 8%;
   max-width: 8%;
 }
-.col.organization {
+.col.organisation {
   flex-basis: 12%;
   min-width: 12%;
   max-width: 12%;

@@ -135,7 +135,7 @@ export default {
   margin-top: 6em;
   height: 100%;
   min-height: 120vh;
-  width: calc(100% - 15em);
+  width: calc(100% - 13em);
   padding: 8em 5em;
   background: var(--lightblue);
   background: #f2e4c4;

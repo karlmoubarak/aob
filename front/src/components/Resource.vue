@@ -12,7 +12,7 @@
     >+</p> 
   </div>
   <div 
-    class="col organization"
+    class="col organisation"
     @click.stop="$emit('clicked')"    
   > 
     <p
@@ -86,7 +86,7 @@ export default {
     'resource'
   ],
   emits: [
-    'click'
+    'clicked'
   ],
   computed: {
     id()          { return this.resource.id },
@@ -126,7 +126,7 @@ export default {
 .col.id {
   padding-top: 0;
 }
-.col.organization,
+.col.organisation,
 .col.description {
   cursor: pointer;
 }

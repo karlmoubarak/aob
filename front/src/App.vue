@@ -1,11 +1,11 @@
 <template>
   <div 
     id="app" 
-    dir="ltr"
-    :class="{ 
+    :dir="direction"
+    :class="[ locale, { 
       mobile: isMobile,
-      landing: landing
-    }" 
+      landing: landing,
+    }]" 
   >
     
     <Header />
@@ -37,10 +37,12 @@ export default {
   computed: {
     ...mapState([
       'isMobile',
+      'locale',
       'tags',
       'locations'
     ]),
-    landing() { return this.$route.fullPath == '/'}
+    landing()   { return this.$route.fullPath == '/'},
+    direction() { return this.locale == 'ar' ? 'rtl' : 'ltr'}
     
   },
   created() {
@@ -49,6 +51,12 @@ export default {
     window.addEventListener('resize', () => {
       this.$store.commit('setMobile', this.checkIfMobile())
     })
+    
+    this.$store.commit('setLocale', 
+      this.getLocale().includes('ar') ? 'ar' : 'en'
+    )
+    
+    console.log(this.locale)
 
     this.getTags()
     this.getLocations()
@@ -95,6 +103,13 @@ export default {
   methods: {
 
     checkIfMobile: () => window.innerWidth < 700,
+    
+    getLocale: () => (
+      navigator.languages && 
+      navigator.languages.length ? 
+      navigator.languages[0] : 
+      navigator.language
+    ),
     
     getTags() {
       api

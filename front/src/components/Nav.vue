@@ -2,19 +2,20 @@
   <nav>
     <Tags />
     <Locations />
+    <SearchBar />
   </nav>
 </template>
 
 <script>
 import Locations from './Locations'
-// import SearchBar from './SearchBar'
+import SearchBar from './SearchBar'
 import Tags from './Tags'
 
 export default {
   name: 'Nav',
   components: { 
     Tags,
-    // SearchBar,
+    SearchBar,
     Locations,
   },
 }

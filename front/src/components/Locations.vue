@@ -106,7 +106,7 @@ export default {
   
 }
 .location {
-  margin: 0.5em 1.5em;
+  margin: 0.5em;
   display: flex;
   align-items: center;
   transition: all var(--landing) ease;

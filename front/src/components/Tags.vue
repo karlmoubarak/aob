@@ -7,19 +7,17 @@
       :style="{
         '--top': top()
       }"
+      @click="toggleTag(item.slug)"
     >
       <Checkbox 
         :checked="isInQuery(item.slug)"
       />
 
-      <a @click="toggleTag(item.slug)">
+      <a>
         <span
           v-html="$highlight(item.Name, queries )"
         ></span>    
       </a>
-      <!-- <span v-if="!isLast(item, tags)">, </span> -->
-      
-      
     </span>
   </div>
 </template>
@@ -36,6 +34,9 @@ export default {
   data() {
     return {
     }
+  },
+  created() {
+    //            console.log(this.tags)
   },
   computed: {
     ...mapState([
@@ -111,10 +112,9 @@ export default {
   
 }
 .tag {
-  margin: 0.5em 2em;
+  margin: 0.5em;
   display: flex;
   align-items: center;
-  /* margin-top: 0; */
   max-width: 20%;
   transition: all var(--landing) ease;
   cursor: pointer;

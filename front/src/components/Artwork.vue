@@ -150,7 +150,7 @@ export default {
   overflow: hidden;
   /* background: wheat; */
    /* background: white; */
-   transition: all 0.2s ease;
+   /* transition: all 0.2s ease; */
   /* box-shadow: 0 0 10em 10em var(--orange); */
   cursor: pointer;
   box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);

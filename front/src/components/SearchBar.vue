@@ -2,7 +2,7 @@
   <input 
     type="search"
     ref="input" 
-    placeholder="search"
+    :placeholder="$locale.search.placeholder[$store.state.locale]"
     @input="search"
   />
 </template>
@@ -33,15 +33,15 @@ export default {
 
 <style scoped>
 input {
-  /* margin-left: auto; */
-  /* position: absolute; */
+  margin-left: auto;
+  position: absolute;
   width: 12em;
   right: 0;
   top: 0;
   border: unset;
   height: 2em;
   background: var(--lightestorange);
-  padding: 0.5em;
+  /* padding: 0.5em; */
   border: none;
   outline: none;
   filter: none;
@@ -49,7 +49,6 @@ input {
   transition: all var(--landing) ease;
   /* transition: border 0.2s ease; */
   border: 2px solid #cbbef0;
-  height: 100%;
 }
 .landing input {
   top: calc(50% - 1em);
@@ -60,4 +59,15 @@ input:focus {
   border: 2px solid #cbbef0;
   filter: drop-shadow(0 0 1em #cbbef0);
 }
+.ar input {
+  margin-left: unset;
+  margin-right: auto;
+  right: unset;
+  left: 0;
+}
+.ar.landing input {
+  right: unset;
+  left: calc(50% - 6em);
+}
+
 </style>
