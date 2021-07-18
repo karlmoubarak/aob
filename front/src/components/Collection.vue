@@ -14,7 +14,7 @@
         <div class="header">
           <p class="title">{{ title }}</p>
           <p 
-            class="artist"
+            class="author"
           >{{ author }}</p>
         </div>
         <div class="body">
@@ -80,20 +80,25 @@ export default {
   box-sizing: border-box;
   flex-basis: 32%;
   min-width: 32%;
-  max-width: 32%;
-  margin: 0.5em;
+  /* max-width: 33%; */
+  width: 32%;
+  margin: 0.5%;
   background: var(--lightgreen);
+  cursor: pointer;
+  border-radius: 0.5em;
+  transition: all 0.2s ease;
 }
 .collectionContainer .collection {
   max-height: 23em;
   margin: 0.5em;
   font-family: Montserrat;
-  border-radius: 0.5em;
+  border-radius: inherit;
   background: var(--green);
   display: flex;
   justify-content: space-between;
   /* flex-direction: column; */
   overflow: hidden;
+  transition: all 0.2s ease;
   padding: 1em;
 }
 .collectionContainer .collection .circleContainer {
@@ -105,6 +110,7 @@ export default {
   height: 3em;
   background-color: white;
   background: var(--lightgreen);
+  transition: all 0.2s ease;
   border-radius: 3em;
 }
 .collectionContainer .collection .info {
@@ -159,5 +165,46 @@ export default {
   content: '→ ';
 }
 
+.collectionContainer:hover {
+  background: var(--green);
+}
+.collectionContainer:hover .collection {
+  background: var(--lightgreen);
+}
+.collectionContainer:hover .collection .circleContainer .circle {
+  background: var(--green);
+}
+
+.mobile .collectionContainer {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.mobile .collectionContainer .circleContainer {
+  position: absolute;
+}
+.mobile .collectionContainer .info {
+  flex-basis: 100%;
+  padding: 0;
+}
+
+.mobile .collectionContainer .info .header {
+  margin-left: 4em;
+  margin-top: 0.3em;
+}
+.mobile .collectionContainer .info .body {
+  margin-top: 1em;
+}
+.mobile .collectionContainer .info .body .description {
+  flex-basis: 100%;
+}
+.mobile .collectionContainer .info .body .overview {
+  display: none;
+}
+.mobile .collectionContainer .author  {
+  margin: 0;
+}
 
 </style>

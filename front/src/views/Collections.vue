@@ -32,12 +32,17 @@ export default {
   height: 100%;
   width: 100%;
   overflow: scroll;
-  margin: 0.5em;
+  padding: 0.5em;
   margin-top: 2em;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
   align-items: flex-start;
+}
+
+.mobile .collections {
+  /* flex-wrap: nowrap; */
+  margin-top: 0;
 }
 </style>
