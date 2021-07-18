@@ -280,6 +280,9 @@ color: var(--orange);
 #app.mobile {
   font-size: 12pt;
   display: block;
+}
+
+#app.mobile.landing {
   overflow: scroll;
 }
 
@@ -294,6 +297,7 @@ color: var(--orange);
 }
 
 .mobile.landing main {
+  position: relative;
   max-height: unset;
   height: unset;
 }

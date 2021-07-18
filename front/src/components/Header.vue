@@ -165,6 +165,8 @@ li.my-collection {
 
 
 .mobile header {
+  position: sticky;
+  top: 0;
   display: block;
   flex-direction: column;
   max-height: 2em;
@@ -188,6 +190,8 @@ li.my-collection {
 
 .mobile.landing header {
   max-height: 20em;
+  position: relative;
 }
+
 
 </style>

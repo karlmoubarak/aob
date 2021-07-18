@@ -270,5 +270,28 @@ table {
 .resourceContainer td {
   background: unset !important;
 }
+
+
+.mobile .indexCard {
+  margin: 0;
+  width: 100%;
+  padding: 0.8em 0.8em;
+  display: block;
+}
+
+.mobile .indexCard .info {
+  margin-left: unset;
+  max-width: unset;
+}
+.mobile .indexCard .body .artist .meta,
+.mobile .indexCard .body .title .meta,
+.mobile .indexCard .body .description .meta {
+  display: none;
+}
+.mobile .indexCard .body .artist .content {
+  margin-top: 0.2em;
+  text-indent: 2.4em;
+}
+
   
 </style>

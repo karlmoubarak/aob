@@ -166,10 +166,10 @@ export default {
 }
 
 .collectionBody {
-  position: fixed !important;
+  position: fixed;
   top: calc(100% - 10em);
   left: 10em;
-  width: calc(100% - 10em) !important;
+  width: calc(100% - 10em);
   /* margin-left: 10em; */
   background: var(--lightestorange);
   /* height: 0; */
@@ -207,4 +207,33 @@ export default {
   top: 10em;
   box-shadow: 0 50em 200em 200em #ffffffa4;
 }
+
+
+.mobile .itemContainer {
+  position: relative;
+  height: unset;
+  overflow: unset;
+}
+.mobile .item {
+  height: unset;
+  overflow: unset;
+}
+
+.mobile .itemContainer .item .circle {
+  top: 1em;
+  left: 1em;
+  height: 2em;
+  width: 2em;
+}
+.mobile .itemContainer .item .circle * {
+  font-size: 2em;
+}
+
+.mobile .collectionBody {
+  position: relative;
+  width: unset;
+  left: unset;
+}
+
+
 </style>

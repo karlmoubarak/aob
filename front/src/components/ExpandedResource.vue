@@ -250,5 +250,36 @@ export default {
   flex-direction: column;
 }
   
-  
+.mobile .indexCard {
+  margin: 0;
+  width: 100%;
+  padding: 0.8em 0.8em;
+  display: block;
+}
+
+.mobile .indexCard .info {
+  margin-left: unset;
+  max-width: unset;
+}
+.mobile .indexCard .body .title .meta,
+.mobile .indexCard .body .description .meta {
+  display: none;
+}
+.mobile .indexCard .body .title .content {
+  text-indent: 1.8em;
+}
+
+
+/* .mobile .indexCard .body .artist,
+.mobile .indexCard .body .title,
+.mobile .indexCard .body .description,
+.mobile .indexCard .info .id,
+.mobile .indexCard .info .updated,
+.mobile .indexCard .info .source,
+.mobile .indexCard .info .contact,
+.mobile .indexCard .info .tags,
+.mobile .indexCard .info .locations,
+.mobile .indexCard .info .media {
+  flex-direction: column;
+} */
 </style>

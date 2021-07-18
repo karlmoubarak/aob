@@ -197,6 +197,7 @@ export default {
 
 .mobile .artwork {
   max-width: 100%;
+  max-height: 10em;
 }
 
 </style>
