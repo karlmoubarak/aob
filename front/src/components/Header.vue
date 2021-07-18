@@ -95,7 +95,7 @@ header {
   text-align: center;
   font-family: montserrat;
   display: flex;
-  height: 2em;
+  max-height: 2em;
   overflow: visible;
 }
 header a {
@@ -239,6 +239,7 @@ li.my-collection:hover a:hover  {
 }
 
 .mobile.landing header {
+  height: unset;
   max-height: 20em;
   position: relative;
 }
