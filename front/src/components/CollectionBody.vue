@@ -184,6 +184,7 @@ export default {
 .mobile .collectionBody {
   margin-top: 0.5em;
   max-height: unset;
+  padding: 0;
 }
 
 .mobile .row {

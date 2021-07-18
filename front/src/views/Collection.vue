@@ -96,4 +96,12 @@ export default {
   /* min-height: 60vh; */
   width: 100%;
 }
+.mobile .collection .info {
+  max-width: 100%;
+  margin: 1em;
+}
+
+.mobile .collection .body {
+  padding: 1em;
+}
 </style>

@@ -49,5 +49,6 @@ export default {
 }
 .mobile #home {
   margin-top: 0;
+  padding: 0.5em;
 }
 </style>

@@ -42,7 +42,8 @@ export default {
 }
 
 .mobile .collections {
-  /* flex-wrap: nowrap; */
+  flex-direction: column;
+  flex-wrap: nowrap;
   margin-top: 0;
 }
 </style>

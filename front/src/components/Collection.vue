@@ -167,6 +167,7 @@ export default {
 
 .collectionContainer:hover {
   background: var(--green);
+  box-shadow: 0 0 1.5em 0 var(--green);
 }
 .collectionContainer:hover .collection {
   background: var(--lightgreen);
@@ -179,6 +180,7 @@ export default {
   min-width: 100%;
   max-width: 100%;
   width: 100%;
+  margin: 0;
   margin-bottom: 0.5em;
 }
 
