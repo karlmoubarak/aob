@@ -126,6 +126,7 @@ export default {
 .col.id {
   padding-top: 0;
 }
+.col.id,
 .col.organisation,
 .col.description {
   cursor: pointer;

@@ -29,6 +29,14 @@
         {{ myCollection.Title }} 
         <span>( {{ myCollectionCount }} )</span>
       </router-link>
+      <router-link 
+        v-for="item in myCollection.items"
+        :key="item.slug"
+        :to="{
+        name: item.Title ? 'Artwork' : 'Resource',
+        params: { slug: item.slug }
+      }"
+      >{{ item.Organisation || item.Title }}</router-link>
     </li>
   </header>
 </template>
@@ -87,6 +95,8 @@ header {
   text-align: center;
   font-family: montserrat;
   display: flex;
+  height: 2em;
+  overflow: visible;
 }
 header a {
   color: var(--lightblue);
@@ -100,11 +110,12 @@ header li {
   position: relative;
   list-style: none; 
   padding: 0.3em 1em;
-  height: 2em;
+  height: 100%;
+  max-height: 2em;
   display: flex;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 header li.aob {
   max-width: 4em;
@@ -141,17 +152,56 @@ header li:nth-of-type(6) {
   background-color: #C4C4C4;
   border-radius: 90%;
 } 
-header li:last-of-type {
+
+
+li.my-collection {
   margin-left: auto;
   background: var(--green);
   min-width: 13.1em;
-}
- header li:last-of-type a {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0;
+  height: 100%;
+  /* max-height: 2em; */
+} 
+
+li.my-collection a {
+  box-sizing: border-box;
   color: var(--brightgreen);
   color: unset;
+  transition: all 0.2s ease;
 }
-li.my-collection {
-} 
+li.my-collection a:first-of-type {
+  height: 100%;
+  padding: 0.3em 1em;
+}
+li.my-collection a {
+  height: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+li.my-collection:hover {
+  background: var(--green);
+  box-shadow: 0 0 1.5em 0 var(--lightgreen);
+  max-height: 10em;
+  /* border-radius: 0.5em; */
+}
+
+li.my-collection:hover a  {
+  border-radius: inherit;
+  height: 2em;
+  padding: 0.3em 1em;
+  background: var(--lightgreen);
+}
+
+li.my-collection:hover a:hover  {
+  height: 2em;
+  background: var(--green);
+}
+
+
 
 
 .ar header li:nth-of-type(6) {
