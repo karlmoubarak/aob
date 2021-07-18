@@ -190,4 +190,13 @@ export default {
   border-radius: inherit;
 }
 
+.mobile .artworkContainer,
+.mobile .artworkContainer.inTable .artwork {
+  margin: 0;
+}
+
+.mobile .artwork {
+  max-width: 100%;
+}
+
 </style>

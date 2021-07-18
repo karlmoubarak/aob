@@ -1,18 +1,17 @@
 <template>
-  <div class="tags">
+  <div :class="type + 's'">
     <span
-      v-for="item in tags"
+      v-for="item in list"
       :key="item.slug"
-      class="tag"
+      :class="type"
       :style="{
         '--top': top()
       }"
-      @click="toggleTag(item.slug)"
+      @click="toggle(item.slug)"
     >
       <Checkbox 
         :checked="isInQuery(item.slug)"
       />
-
       <a>
         <span
           v-html="$highlight(item.Name, queries )"
@@ -27,40 +26,33 @@ import { mapGetters, mapState } from 'vuex'
 import Checkbox from './Checkbox'
 
 export default {
-  name: 'Tags',
+  name: 'SubMenuList',
   components: { Checkbox },
   props: [
+    'list',
+    'type'
   ],
-  data() {
-    return {
-    }
-  },
-  created() {
-    //            console.log(this.tags)
-  },
   computed: {
-    ...mapState([
-      'tags',
-      'query',
-      'selectedTags'
-    ]),
-    ...mapGetters(['queries'])
+    ...mapState([ 'query' ]),
+    ...mapGetters([ 'queries' ])
   },
   methods: {
-    isLast: (item, array) => (
-      array.indexOf(item) === array.length - 1
-    ),
     top: () => Math.random() * 50 + '%',
-    
-    toggleTag(slug) {
-      const currentTags = this.$route.query.tag
-      if (currentTags) {
+    isInQuery(slug) {
+      return (
+        this.$route.query[this.type] && 
+        this.$route.query[this.type].includes(slug)
+      )
+    },     
+    toggle(slug) {
+      const currentSelected = this.$route.query[this.type]
+      if (currentSelected) {
         if (!this.isInQuery(slug)) {
           this.$router.push({
             path: '/archive',
             query: { 
               ...this.$route.query,
-              ...{ tag: [...currentTags, ...[slug]] }
+              ...{ [this.type]: [...currentSelected, ...[slug]] }
             }
           })
         } else {
@@ -68,7 +60,7 @@ export default {
             path: '/archive',
             query: {
               ...this.$route.query,
-              ...{ tag: currentTags.filter(t => t !== slug) }
+              ...{ [this.type]: currentSelected.filter(t => t !== slug) }
             }
           })
         }
@@ -77,61 +69,81 @@ export default {
           path: '/archive',
           query: {
             ...this.$route.query,
-            ...{ tag: [slug] }
+            ...{ [this.type]: [slug] }
           }
         })
       }
     },
-    isInQuery(tag) {
-      return this.$route.query.tag && this.$route.query.tag.includes(tag)
-    }     
   }
 }
 </script>
 
 <style scoped>
-.tags {
+.tags,
+.locations {
   box-sizing: border-box;
-  /* margin: 1em; */
-  font-size: inherit;
-  background-color: var(--lightorange);
-  background-size: 40% auto;
+  /* position: relative; */
   width: 40%;
   height: 100%;
-  max-height: 12em;
   padding: 0.4em;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  /* justify-content: center; */
-  /* align-items: center; */
+  /* justify-content: flex-start; */
+  /* align-items: flex-start; */
   /* align-content: flex-start; */
-  overflow: scroll;
+  overflow: scroll; 
   transition: all var(--landing) ease;
-  /* box-shadow: 0 0em 5em 0em #ffffffa4; */
-  
 }
-.tag {
+.tags {
+  background-color: var(--lightorange);
+  max-height: 12em;
+}
+.locations {
+  background-color: var(--lightestorange);
+  max-height: 8em;
+}
+.tag,
+.location {
   margin: 0.5em;
   display: flex;
   align-items: center;
-  max-width: 20%;
+  max-width: 25%;
   transition: all var(--landing) ease;
   cursor: pointer;
 }
-.landing .tags {
+.landing .tags,
+.landing .locations {
   max-height: 100%;
-  width: 50%;
-  
+  width: 50%; 
 }
-.landing .tag {
+.landing .tag,
+.landing .location {
   margin-top: var(--top);
 }
 a,
 a:visited,
 a:active,
 a:hover {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-decoration: none;
+}
+
+
+.mobile .tags,
+.mobile .locations {
+  flex-wrap: nowrap;
+  /* flex-basis: 50%; */
+}
+
+.mobile.landing .tag,
+.mobile.landing .location {
+  max-width: 100%;
+  margin-top: 0.5em;
 }
 </style>
 

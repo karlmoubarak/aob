@@ -68,6 +68,7 @@ export default {
   position: relative;
   width: 100%;
   margin-top: 1em;
+  padding: 0 0.5em;
   transition: all 0.5s ease;
   height: 100%;
   max-height: 200vh;
@@ -79,7 +80,7 @@ export default {
   /* cursor: pointer; */
   max-height: 10em;
   width: 100%;
-  margin: 0.5em;
+  margin-bottom: 0.5em;
   /* overflow: hidden; */
 }
 .row.artworkTR {
@@ -180,7 +181,41 @@ export default {
   opacity: 0;
 }
 
+.mobile .collectionBody {
+  margin-top: 0.5em;
+  max-height: unset;
+}
 
+.mobile .row {
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  max-height: 30em;
+}
 
+.mobile .col {
+  margin: 0;
+}
+
+.mobile .col.tags,
+.mobile .col.locations,
+.mobile .col.description {
+  flex-basis: 100%;
+  min-width: 100%;
+  max-width: unset;
+}
+
+.mobile .col.id,
+.mobile .col.col.source {
+  flex-basis: 10%;
+  min-width: 10%;
+  max-width: 10%;
+}
+
+.mobile .col.organisation,
+.mobile .col.contact {
+  flex-basis: 90%;
+  min-width: 90%;
+  max-width: 90%;
+}
 
 </style>

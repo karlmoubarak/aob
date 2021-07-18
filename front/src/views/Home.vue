@@ -47,4 +47,7 @@ export default {
   /* height: 100%; */
   /* overflow: hidden; */
 }
+.mobile #home {
+  margin-top: 0;
+}
 </style>

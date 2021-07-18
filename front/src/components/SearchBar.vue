@@ -48,7 +48,9 @@ input {
   box-shadow: none;
   transition: all var(--landing) ease;
   /* transition: border 0.2s ease; */
+  font-size: inherit;
   border: 2px solid #cbbef0;
+  border-radius: 0;
 }
 .landing input {
   top: calc(50% - 1em);
@@ -68,6 +70,20 @@ input:focus {
 .ar.landing input {
   right: unset;
   left: calc(50% - 6em);
+}
+
+.mobile input {
+  box-sizing: border-box;
+  flex-basis: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.mobile.landing input,
+.mobile.landing.ar input {
+  top: unset;
+  left: unset;
+  right: unset;  
 }
 
 </style>

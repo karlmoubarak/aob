@@ -1,11 +1,13 @@
 module.exports = {
-  menuItems: [{
-      name: {
-        en: 'AOB',
-        ar: 'أرشيف الانتماء',
-      },
-      slug: '/'
-    },
+  aob: {
+    name: {
+      en: 'Archive of Belonging',
+      ar: 'أرشيف الانتماء',
+      shorthand: 'AOB',
+      slug: '/',
+    }
+  },
+  menuItems: [
     {
       name: {
         en: 'Archive',

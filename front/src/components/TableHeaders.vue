@@ -1,13 +1,4 @@
 <template>
-  <!-- <div class="row header">
-    <div class="col id"><p>:)</p></div>
-    <div class="col organization"><p>organisation</p></div>
-    <div class="col tags"><p>tags</p></div>
-    <div class="col description"><p>description</p></div>
-    <div class="col locations"><p>locations</p></div>
-    <div class="col source"><p>source</p></div>
-    <div class="col contact"><p>contact</p></div>
-  </div>  -->
   <div class="row header">
     <div
       v-for="(th, key) in $locale.tableHeaders"
@@ -52,5 +43,7 @@ export default {
   padding: 0.5em;
 }
 
-
+.mobile .header {
+  display: none;
+}
 </style>

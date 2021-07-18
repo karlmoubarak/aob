@@ -277,6 +277,25 @@ color: var(--orange);
   opacity: 0;
 }
 
+#app.mobile {
+  font-size: 12pt;
+  display: block;
+  overflow: scroll;
+}
 
+.mobile a:hover {
+  color: initial;
+}
+
+.mobile main {
+  position: relative;
+  max-height: unset;
+  padding-top: unset;
+}
+
+.mobile.landing main {
+  max-height: unset;
+  height: unset;
+}
 
 </style>

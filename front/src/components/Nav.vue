@@ -1,53 +1,65 @@
 .<template>
   <nav>
-    <Tags />
-    <Locations />
     <SearchBar />
+    <SubMenuList
+      :list="tags"
+      :type="'tag'"
+    />
+    <SubMenuList
+      :list="locations"
+      :type="'location'"
+    />
   </nav>
 </template>
 
 <script>
-import Locations from './Locations'
+import { mapState } from 'vuex'
 import SearchBar from './SearchBar'
-import Tags from './Tags'
+import SubMenuList from './SubMenuList.vue'
 
 export default {
   name: 'Nav',
   components: { 
-    Tags,
     SearchBar,
-    Locations,
+    SubMenuList,
   },
+  computed: {
+    ...mapState([
+      'tags',
+      'locations'
+    ])
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
 nav {
   position: relative;
   box-sizing: border-box;
   height: 100%;
   max-height: 10em;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: stretch;
   transition: all var(--landing) ease;
   z-index: 2;
-  /* filter: drop-shadow(0 0 5em pink); */
-  /* filter: drop-shadow(0 0 5em #ffffffa4); */
-  /* filter: drop-shadow(0 0 5em var(--lightblue)); */
 }
+
 .landing nav {
-  /* flex-basis: 100%; */
   max-height: 100vh;
 }
 
-/* header.landing .navItem,  */
-.landing nav .tag, 
-.landing nav .location {
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
+.mobile.landing nav {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  height: 100%;
+  max-height: unset;
 }
+.mobile nav {
+  overflow: hidden;
+  max-height: 0;
+}
+
 
 </style>
