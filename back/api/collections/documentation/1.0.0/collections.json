@@ -717,6 +717,12 @@
                             "type": "string"
                           }
                         },
+                        "Media": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
                         "localizations": {
                           "type": "array",
                           "items": {
@@ -943,6 +949,12 @@
                           }
                         },
                         "locations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "Media": {
                           "type": "array",
                           "items": {
                             "type": "string"
