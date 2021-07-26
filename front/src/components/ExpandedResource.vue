@@ -112,10 +112,14 @@ export default {
     description() { return processImages(this.resource.Description) },
     files()       { return this.resource.Files.length > 0 && this.resource.Files },
     media()       { return this.resource.Media && this.resource.Media.length > 0 && this.resource.Media },
-    cover()       { return this.media && this.$apiURL + this.media[0].formats.medium.url },
     link()        { return this.resource.Link },
     contact()     { return this.resource.Contact || 'N/A'},
     updated()     { return moment(this.resource.updated_at).format('DD/MM/yyyy') },
+    cover()       { return this.media && 
+      this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
+      this.media[0].formats.small ? this.$apiURL + this.media[0].formats.small.url :
+      this.$apiURL + this.media[0].url
+    },
   },
   
 }
@@ -215,6 +219,8 @@ export default {
   margin: 1em;
   max-width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid;
   padding: 10px;
   min-height: 15em;

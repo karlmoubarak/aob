@@ -609,6 +609,9 @@
                     "type": "string"
                   }
                 },
+                "Name_AR": {
+                  "type": "string"
+                },
                 "localizations": {
                   "type": "array",
                   "items": {
@@ -664,6 +667,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "Name_AR": {
+                  "type": "string"
                 },
                 "localizations": {
                   "type": "array",
@@ -797,6 +803,9 @@
                     "type": "string"
                   }
                 },
+                "Name_AR": {
+                  "type": "string"
+                },
                 "localizations": {
                   "type": "array",
                   "items": {
@@ -817,6 +826,9 @@
                 }
               }
             }
+          },
+          "Description_AR": {
+            "type": "string"
           },
           "localizations": {
             "type": "array",
@@ -907,6 +919,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "Description_AR": {
+                  "type": "string"
                 },
                 "localizations": {
                   "type": "array",
@@ -1017,6 +1032,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "Description_AR": {
+            "type": "string"
           },
           "localizations": {
             "type": "array",

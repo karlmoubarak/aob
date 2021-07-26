@@ -32,7 +32,7 @@
               :src="cover"
             />
           </div>  
-          <div class="meta">{{ medium }}</div>
+          <div class="caption">{{ caption }}</div>
         </div>
         <div class="id">
           <p class="meta">id:</p>
@@ -52,6 +52,10 @@
               {{ link }}
             </a>
           </p>
+        </div>
+        <div class="medium">
+          <p class="meta">medium:</p>
+          <p class="content">{{ medium }}</p>
         </div>
         <div class="contact">
           <p class="meta">contact:</p>
@@ -106,6 +110,7 @@ export default {
     }
   },
   computed: {
+    locale()      { return this.$store.state.locale },
     id()          { return this.artwork.id },
     title()       { return this.artwork.Title },
     artist()      { return this.artwork.ArtistName },
@@ -115,6 +120,7 @@ export default {
     locations()   { return this.artwork.location.length > 0 && this.artwork.location },
     media()       { return this.artwork.Media && this.artwork.Media.length > 0 && this.artwork.Media },
     cover()       { return this.media && this.$apiURL + this.media[0].formats.medium.url },
+    caption()     { return this.cover && this.media[0].caption || this.$locale.media.unknownRights[this.locale] },
     updated()     { return moment(this.artwork.updated_at).format('DD/MM/yyyy') },
     link()        { return this.artwork.Link },
     contact()     { return this.artwork.Contact || 'N/A'},
@@ -187,6 +193,7 @@ export default {
 .indexCard .info .id,
 .indexCard .info .updated,
 .indexCard .info .source,
+.indexCard .info .medium,
 .indexCard .info .contact,
 .indexCard .info .tags,
 .indexCard .info .locations,
@@ -228,11 +235,9 @@ export default {
   display: flex;
   border: 1px solid;
   padding: 10px;
-  /* justify-content: stretch; */
-  /* align-items: stretch; */
 }
 
-.indexCard .info .media .meta {
+.indexCard .info .media .caption {
   font-style: italic;
   text-align: center;
   margin: 0;

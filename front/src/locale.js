@@ -86,6 +86,12 @@ module.exports = {
       en: 'search',
       ar: 'ابحث'
     }
+  },
+  media: {
+    unknownRights: {
+      en: "Copyright information not provided",
+      ar: "لم يتم توفير معلومات حقوق النشرs"
+    }
   }
 
 }

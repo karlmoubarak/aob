@@ -638,6 +638,9 @@
                             "type": "string"
                           }
                         },
+                        "Description_AR": {
+                          "type": "string"
+                        },
                         "localizations": {
                           "type": "array",
                           "items": {
@@ -722,6 +725,12 @@
                           "items": {
                             "type": "string"
                           }
+                        },
+                        "Organisation_AR": {
+                          "type": "string"
+                        },
+                        "Description_AR": {
+                          "type": "string"
                         },
                         "localizations": {
                           "type": "array",
@@ -875,6 +884,9 @@
                             "type": "string"
                           }
                         },
+                        "Description_AR": {
+                          "type": "string"
+                        },
                         "localizations": {
                           "type": "array",
                           "items": {
@@ -959,6 +971,12 @@
                           "items": {
                             "type": "string"
                           }
+                        },
+                        "Organisation_AR": {
+                          "type": "string"
+                        },
+                        "Description_AR": {
+                          "type": "string"
                         },
                         "localizations": {
                           "type": "array",

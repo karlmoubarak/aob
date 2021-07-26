@@ -118,13 +118,13 @@
       ]
     },
     "location": {
-      "collection": "locations",
       "via": "artworks",
+      "collection": "locations",
       "dominant": true
     },
     "hometown": {
-      "collection": "locations",
       "via": "artist",
+      "collection": "locations",
       "dominant": true
     },
     "ArtistWebsite": {
@@ -160,9 +160,17 @@
       }
     },
     "tags": {
-      "collection": "tags",
       "via": "artworks",
+      "collection": "tags",
       "dominant": true
+    },
+    "Description_AR": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
     }
   }
 }

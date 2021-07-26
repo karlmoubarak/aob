@@ -649,6 +649,12 @@
                     "type": "string"
                   }
                 },
+                "Organisation_AR": {
+                  "type": "string"
+                },
+                "Description_AR": {
+                  "type": "string"
+                },
                 "localizations": {
                   "type": "array",
                   "items": {
@@ -760,6 +766,9 @@
                     "type": "string"
                   }
                 },
+                "Description_AR": {
+                  "type": "string"
+                },
                 "localizations": {
                   "type": "array",
                   "items": {
@@ -780,6 +789,9 @@
                 }
               }
             }
+          },
+          "Name_AR": {
+            "type": "string"
           },
           "localizations": {
             "type": "array",
@@ -815,6 +827,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "Name_AR": {
+                  "type": "string"
                 },
                 "localizations": {
                   "type": "array",
@@ -871,6 +886,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "Name_AR": {
+            "type": "string"
           },
           "localizations": {
             "type": "array",

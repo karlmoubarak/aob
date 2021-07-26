@@ -45,6 +45,14 @@
     "artist": {
       "via": "hometown",
       "collection": "artworks"
+    },
+    "Name_AR": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }
