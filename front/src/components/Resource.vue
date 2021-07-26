@@ -89,12 +89,19 @@ export default {
     'clicked'
   ],
   computed: {
+    locale()      { return this.$store.state.locale },
     id()          { return this.resource.id },
     slug()        { return this.resource.slug },
-    org()         { return this.resource.Organisation },
+    org()         { return this.locale == 'ar' && this.resource.Organisation_AR
+      ? this.resource.Organisation_AR
+      : this.resource.Organisation
+    },
+    description() { return this.locale == 'ar' && this.resource.Description_AR
+      ? this.resource.Description_AR
+      : this.resource.Description 
+    },
     tags()        { return this.resource.tags && this.resource.tags.length > 0 && this.resource.tags },
     locations()   { return this.resource.locations && this.resource.locations.length > 0 && this.resource.locations },
-    description() { return this.resource.Description },
     files()       { return this.resource.Files.length > 0 && this.resource.Files },
     link()        { return this.resource.Link },
     contact()     { return this.resource.Contact || 'N/A'},

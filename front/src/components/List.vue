@@ -13,7 +13,7 @@
         }"
       >
         <span
-          v-html="$highlight(item.Name, queries )"
+          v-html="$highlight(name(item), queries )"
         ></span>
         <br>
       </router-link>
@@ -30,12 +30,17 @@ export default {
     'collection'
   ],
   computed: {
-    queries() { return this.$store.getters.queries }
+    queries() { return this.$store.getters.queries },
+    locale()  { return this.$store.state.locale },
   },
   methods: {
     isLast: (item, array) => (
       array.indexOf(item) === array.length - 1
     ),
+    name(item) { return this.locale == 'ar' && item.Name_AR 
+      ? item.Name_AR
+      : item.Name
+    },
     
 
   }

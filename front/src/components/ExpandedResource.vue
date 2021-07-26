@@ -14,7 +14,7 @@
           <p class="meta">description:</p>
           <vue3-markdown-it
             class="content"
-            :source="description"
+            :source="processImages(description)"
           ></vue3-markdown-it>
         </div>  
       </div>
@@ -106,10 +106,17 @@ export default {
   ],
   computed: {
     id()          { return this.resource.id },
-    org()         { return this.resource.Organisation },
+    locale()      { return this.$store.state.locale },
+    org()         { return this.locale == 'ar' && this.resource.Organisation_AR
+      ? this.resource.Organisation_AR
+      : this.resource.Organisation
+    },
     tags()        { return this.resource.tags && this.resource.tags.length > 0 && this.resource.tags },
     locations()   { return this.resource.locations && this.resource.locations.length > 0 && this.resource.locations },
-    description() { return processImages(this.resource.Description) },
+    description() { return this.locale == 'ar' && this.resource.Description_AR
+      ? this.resource.Description_AR
+      : this.resource.Description 
+    },
     files()       { return this.resource.Files.length > 0 && this.resource.Files },
     media()       { return this.resource.Media && this.resource.Media.length > 0 && this.resource.Media },
     link()        { return this.resource.Link },
@@ -121,6 +128,9 @@ export default {
       this.$apiURL + this.media[0].url
     },
   },
+  methods: {
+   processImages,
+  }
   
 }
 </script>

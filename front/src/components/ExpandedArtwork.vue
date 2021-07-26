@@ -18,7 +18,7 @@
           <p class="meta">description:</p>
           <vue3-markdown-it
             class="content"
-            :source="description"
+            :source="processImages(description)"
           ></vue3-markdown-it>
         </div>  
       </div>
@@ -114,7 +114,10 @@ export default {
     id()          { return this.artwork.id },
     title()       { return this.artwork.Title },
     artist()      { return this.artwork.ArtistName },
-    description() { return processImages(this.artwork.Description) },
+    description() { return this.locale == 'ar' && this.artwork.Description_AR
+      ? this.artwork.Description_AR
+      : this.artwork.Description 
+    },
     medium()      { return this.artwork.Medium },
     tags()        { return this.artwork.tags.length > 0 && this.artwork.tags },
     locations()   { return this.artwork.location.length > 0 && this.artwork.location },
@@ -129,7 +132,7 @@ export default {
   mounted() {
   },
   methods: {
-    
+    processImages,
   }
   
 }
