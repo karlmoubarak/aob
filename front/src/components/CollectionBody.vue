@@ -81,10 +81,11 @@ export default {
   max-height: 10em;
   width: 100%;
   margin-bottom: 0.5em;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .row.artworkTR {
-  max-height: 3.3em;
+  max-height: 3.5em;
+  
 }
 .row.artworkTR:hover {
   z-index: 3;
@@ -176,7 +177,8 @@ export default {
 
 .list-enter-from,
 .list-leave-to {
-  max-height: 0;
+  max-height: 0 !important;
+  margin: 0;
   transform: translateY(-5em);
   opacity: 0;
 }

@@ -41,7 +41,7 @@ module.exports = {
     id: {
       name: {
         en: ':)',
-        ar: ':)',
+        ar: 'رمز',
       },
     },
     organisation: {
@@ -80,6 +80,31 @@ module.exports = {
         ar: 'اتصل',
       },
     },
+    updated: {
+      name: {
+        en: 'updated',
+        ar: 'محدث',
+      },
+    },
+    artist: {
+      name: {
+        en: 'artist',
+        ar: 'فنان',
+      },
+    },
+    medium: {
+      name: {
+        en: 'medium',
+        ar: 'الوسيط',
+      },
+    },
+    title: {
+      name: {
+        en: 'title',
+        ar: 'اسم',
+      },
+    },
+    
   },
   search: {
     placeholder: {
@@ -89,8 +114,12 @@ module.exports = {
   },
   media: {
     unknownRights: {
-      en: "Copyright information not provided",
-      ar: "لم يتم توفير معلومات حقوق النشرs"
+      en: "Copyright information not provided.",
+      ar: "لم يتم توفير معلومات حقوق النشر."
+    },
+    mediaNotAvailable: {
+      en: "No media available for this entry.",
+      ar: "لا توجد وسائط متاحة لهذا الإدخال."
     }
   }
 

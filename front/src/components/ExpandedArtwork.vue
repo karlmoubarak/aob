@@ -7,15 +7,15 @@
     
       <div class="body">
         <div class="artist">
-          <p class="meta">artist:</p>
+          <p class="meta">{{ localizeMeta('artist') }}:</p>
           <p class="content">{{ artist }}</p>
         </div>
         <div class="title">
-          <p class="meta">title:</p>
+          <p class="meta">{{ localizeMeta('title') }}:</p>
           <p class="content">{{ title }}</p>
         </div>
         <div class="description">
-          <p class="meta">description:</p>
+          <p class="meta">{{ localizeMeta('description') }}:</p>
           <vue3-markdown-it
             class="content"
             :source="processImages(description)"
@@ -25,25 +25,20 @@
       
       <div class="info">
         <div class="media">
-          <div class="content">
-            <img 
-              v-if="media"
-              class="cover"
-              :src="cover"
-            />
-          </div>  
-          <div class="caption">{{ caption }}</div>
+          <MultiMedia 
+            :media="media"
+          />
         </div>
         <div class="id">
-          <p class="meta">id:</p>
+          <p class="meta">{{ localizeMeta('id') }}:</p>
           <p class="content">( {{ id }} )</p>
         </div>
         <div class="updated">
-          <p class="meta">updated:</p>
+          <p class="meta">{{ localizeMeta('updated') }}:</p>
           <p class="content">( {{ updated }} )</p>
         </div>
         <div class="source">
-          <p class="meta">source:</p>
+          <p class="meta">{{ localizeMeta('source') }}:</p>
           <p class="content">
             <a
               :href="link"
@@ -54,11 +49,11 @@
           </p>
         </div>
         <div class="medium">
-          <p class="meta">medium:</p>
+          <p class="meta">{{ localizeMeta('medium') }}:</p>
           <p class="content">{{ medium }}</p>
         </div>
         <div class="contact">
-          <p class="meta">contact:</p>
+          <p class="meta">{{ localizeMeta('contact') }}:</p>
           <p class="content">
             <a
               :href="'mailto:' + link"
@@ -69,7 +64,7 @@
           </p>
         </div> 
         <div class="tags">
-          <p class="meta">tags:</p>
+          <p class="meta">{{ localizeMeta('tags') }}:</p>
           <p class="content">
             <List 
               :list="tags"
@@ -78,7 +73,7 @@
           </p>
         </div>
         <div class="locations">
-          <p class="meta">locations:</p>
+          <p class="meta">{{ localizeMeta('locations') }}:</p>
           <p class="content">
             <List 
               :list="locations"
@@ -96,11 +91,13 @@
 import moment from 'moment'
 import List from '../components/List'
 import { processImages } from '../utils'
+import MultiMedia from './MultiMedia.vue'
 
 export default {
   name: 'Artwork',
   components: {
-    List
+    List,
+    MultiMedia
   },
   props: [
     'artwork',
@@ -133,6 +130,8 @@ export default {
   },
   methods: {
     processImages,
+    localizeMeta(meta) { return this.$locale.tableHeaders[meta]['name'][this.locale] }
+    
   }
   
 }
@@ -232,26 +231,7 @@ export default {
   align-items: center;
   margin-bottom: 1em;
 }
-.indexCard .info .media .content {
-  margin: 1em;
-  max-width: 100%;
-  display: flex;
-  border: 1px solid;
-  padding: 10px;
-}
 
-.indexCard .info .media .caption {
-  font-style: italic;
-  text-align: center;
-  margin: 0;
-  width: 100%;
-}
-
-
-.indexCard .media .content img {
-  max-width: 100%;
-  max-height: 100%;
-}
 .indexCard .footer .source,
 .indexCard .footer .contact {
   display: flex;
@@ -279,6 +259,17 @@ table {
   background: unset !important;
 }
 
+
+.ar .indexCard .info {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+.ar .indexCard .meta {
+  text-align: left;
+  margin-right: unset;
+  margin-left: 1em;
+}
 
 .mobile .indexCard {
   margin: 0;

@@ -63,6 +63,7 @@ export default {
     }
   },
   computed: {
+    locale()      { return this.$store.state.locale },
     id()          { return this.artwork.id },
     title()       { return this.artwork.Title },
     artist()      { return this.artwork.ArtistName },
@@ -104,7 +105,7 @@ export default {
   max-width: 100%;
   /* max-height: 50em; */
   /* max-height: 3.5em; */
-  max-height: 100%;
+  /* max-height: 100%; */
   display: flex;
   align-items: flex-start;
   justify-content: var(--position);
@@ -150,7 +151,7 @@ export default {
   overflow: hidden;
   /* background: wheat; */
    /* background: white; */
-   /* transition: all 0.2s ease; */
+   transition: all 0.2s ease;
   /* box-shadow: 0 0 10em 10em var(--orange); */
   cursor: pointer;
   box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);
@@ -185,7 +186,6 @@ export default {
   width: 100%;
   border-bottom-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
-  /* transition: opacity 0.2s ease; */
   max-height: 100%;
   border-radius: inherit;
 }

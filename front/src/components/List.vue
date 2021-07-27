@@ -1,6 +1,6 @@
 
 <template>
-  <div class="list body">
+  <div class="list">
     <span
       v-for="item in list"
       :key="item.slug"

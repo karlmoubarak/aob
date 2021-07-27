@@ -4,7 +4,7 @@
       v-for="(th, key) in $locale.tableHeaders"
       :key="key"
       :class="['col', key]"
-      >
+    >
         <p>{{ th.name[$store.state.locale] }}</p>
       </div>
   </div>
@@ -41,6 +41,13 @@ export default {
   background: var(--lightblue);
   /* width: auto; */
   padding: 0.5em;
+}
+
+.col.artist,
+.col.medium,
+.col.title,
+.col.updated {
+  display: none;
 }
 
 .mobile .header {

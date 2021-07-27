@@ -7,11 +7,11 @@
     
       <div class="body">
         <div class="title">
-          <p class="meta">organisation:</p>
+          <p class="meta">{{ localizeMeta('organisation') }}:</p>
           <p class="content">{{ org }}</p>
         </div>
         <div class="description">
-          <p class="meta">description:</p>
+          <p class="meta">{{ localizeMeta('description') }}:</p>
           <vue3-markdown-it
             class="content"
             :source="processImages(description)"
@@ -21,24 +21,20 @@
       
       <div class="info">
         <div class="media">
-          <div class="content">
-            <img 
-              v-if="media"
-              class="cover"
-              :src="cover"
-            />
-          </div>  
+          <MultiMedia 
+            :media="media"
+          />
         </div>
         <div class="id">
-          <p class="meta">id:</p>
+          <p class="meta">{{ localizeMeta('id') }}:</p>
           <p class="content">( {{ id }} )</p>
         </div>
         <div class="updated">
-          <p class="meta">updated:</p>
+          <p class="meta">{{ localizeMeta('updated') }}:</p>
           <p class="content">( {{ updated }} )</p>
         </div>
         <div class="source">
-          <p class="meta">source:</p>
+          <p class="meta">{{ localizeMeta('source') }}:</p>
           <p class="content">
             <FileList 
               v-if="files"
@@ -54,7 +50,7 @@
           </p>
         </div>
         <div class="contact">
-          <p class="meta">contact:</p>
+          <p class="meta">{{ localizeMeta('contact') }}:</p>
           <p class="content">
             <a
               :href="'mailto:' + link"
@@ -65,7 +61,7 @@
           </p>
         </div> 
         <div class="tags">
-          <p class="meta">tags:</p>
+          <p class="meta">{{ localizeMeta('tags') }}:</p>
           <p class="content">
             <List 
               :list="tags"
@@ -74,7 +70,7 @@
           </p>
         </div>
         <div class="locations">
-          <p class="meta">locations:</p>
+          <p class="meta">{{ localizeMeta('locations') }}:</p>
           <p class="content">
             <List 
               :list="locations"
@@ -92,14 +88,16 @@
 
 import moment from 'moment'
 import { processImages } from '../utils'
-import FileList from '../components/FileList'
-import List from '../components/List'
+import FileList from './FileList'
+import List from './List'
+import MultiMedia from './MultiMedia'
 
 export default {
   name: 'Resource',
   components: {
     FileList,
     List,
+    MultiMedia
   },
   props: [
     'resource'
@@ -130,6 +128,7 @@ export default {
   },
   methods: {
    processImages,
+   localizeMeta(meta) { return this.$locale.tableHeaders[meta]['name'][this.locale] }
   }
   
 }
@@ -264,6 +263,17 @@ export default {
 .indexCard .tags .content .list {
   display: flex;
   flex-direction: column;
+}
+
+.ar .indexCard .info {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+.ar .indexCard .meta {
+  text-align: left;
+  margin-right: unset;
+  margin-left: 1em;
 }
   
 .mobile .indexCard {

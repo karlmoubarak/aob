@@ -14,7 +14,7 @@
       />
       <a>
         <span
-          v-html="$highlight(item.Name, queries )"
+          v-html="$highlight(name(item), queries )"
         ></span>    
       </a>
     </span>
@@ -33,7 +33,7 @@ export default {
     'type'
   ],
   computed: {
-    ...mapState([ 'query' ]),
+    ...mapState([ 'query', 'locale' ]),
     ...mapGetters([ 'queries' ])
   },
   methods: {
@@ -44,6 +44,10 @@ export default {
         this.$route.query[this.type].includes(slug)
       )
     },     
+    name(item) { return this.locale == 'ar' && item.Name_AR 
+      ? item.Name_AR
+      : item.Name
+    },
     toggle(slug) {
       const currentSelected = this.$route.query[this.type]
       if (currentSelected) {

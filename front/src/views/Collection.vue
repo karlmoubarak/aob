@@ -22,7 +22,7 @@
 
 <script>
 
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import CollectionBody from '../components/CollectionBody.vue'
 
 export default {
@@ -31,11 +31,10 @@ export default {
     CollectionBody
   },
   computed: {
-    ...mapState([
-      'query'
-    ]),
     ...mapGetters([
-      'collectionBySlug'
+      'collectionBySlug',
+      'resourceBySlug',
+      'artworkBySlug'
     ]),
     collection() { return (
       this.collectionBySlug(
@@ -43,11 +42,15 @@ export default {
       )
     )},
     isMyCollection() { return this.collection.slug == this.$store.state.myCollection.slug },
-    items()       { return this.collection.items },
     id()          { return this.collection.id },
     title()       { return this.collection.Title },
     author()      { return this.collection.Author },
     description() { return this.collection.Description },
+    items()       { 
+      return this.collection.items.map(i => i.Organisation ?
+        this.resourceBySlug(i.slug) : this.artworkBySlug(i.slug)
+      )
+    },
   },
   created() {
   },

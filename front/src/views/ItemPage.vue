@@ -208,6 +208,15 @@ export default {
   box-shadow: 0 50em 200em 200em #ffffffa4;
 }
 
+.ar .item .circle {
+  left: unset;
+  right: 1em;
+}
+
+.ar .collectionBody {
+  right: 10em;
+  left: unset;
+}
 
 .mobile .itemContainer {
   position: relative;
