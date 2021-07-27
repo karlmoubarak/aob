@@ -118,7 +118,7 @@ export default {
     medium()      { return this.artwork.Medium },
     tags()        { return this.artwork.tags.length > 0 && this.artwork.tags },
     locations()   { return this.artwork.location.length > 0 && this.artwork.location },
-    media()       { return this.artwork.Media && this.artwork.Media.length > 0 && this.artwork.Media },
+    media()       { return this.artwork.Media },
     cover()       { return this.media && this.$apiURL + this.media[0].formats.medium.url },
     caption()     { return this.cover && this.media[0].caption || this.$locale.media.unknownRights[this.locale] },
     updated()     { return moment(this.artwork.updated_at).format('DD/MM/yyyy') },

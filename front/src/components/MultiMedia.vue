@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="media" 
+    v-if="media.length > 0" 
     class="mediaContainer"
   >
     <div 
@@ -83,6 +83,9 @@ export default {
   },
   computed: {
     locale()      { return this.$store.state.locale },
+  },
+  watch: {
+    media() { this.i = 0 }
   },
   methods: {
     type(i)      { return ( 

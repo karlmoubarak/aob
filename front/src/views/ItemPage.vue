@@ -1,25 +1,28 @@
 <template>
   <div 
-    class="itemContainer"
-    :class="{ reltedItemsVisible: reltedItemsVisible } "
+    :class="[
+      'itemContainer',
+      { relatedItemsVisible: relatedItemsVisible },
+      transitionClass
+    ]"
     ref="itemContainer"
-    @click.stop="$router.go(-1)"
+    @click.stop="$router.push(parentRoute)"
   >
     <div 
-      v-if="item" 
+      v-if="renderedItem" 
       class="item"
       @scroll="handleScroll"
     >
       <div 
         class="circle"
         @click.stop="
-          isInMyCollection(item.slug) ? 
+          isInMyCollection(renderedItem.slug) ? 
           removeFromCollection(item) :
-          addToCollection(item)  
+          addToCollection(renderedItem)  
         "
       >
         <span 
-          v-if="isInMyCollection(item.slug)"
+          v-if="isInMyCollection(renderedItem.slug)"
           class="remove"
         >-</span>
         <span 
@@ -28,12 +31,12 @@
         >+</span>   
       </div>
       <ExpandedResource
-        v-if="item.Organisation"
-        :resource="item"
+        v-if="renderedItem.Organisation"
+        :resource="renderedItem"
       />
       <ExpandedArtwork
-        v-else-if="item.Title"
-        :artwork="item"
+        v-else-if="renderedItem.Title"
+        :artwork="renderedItem"
       />
     </div>
     <CollectionBody
@@ -42,7 +45,7 @@
       :collectionItems="relatedItems"
       @mouseenter="hovered = true"
       @mouseleave="hovered = false"
-      @click.stop="reltedItemsVisible = !reltedItemsVisible"
+      @click.stop="relatedItemsVisible = !relatedItemsVisible"
     />
   </div>
 </template>
@@ -53,9 +56,6 @@ import CollectionBody from '../components/CollectionBody.vue'
 import ExpandedArtwork from '../components/ExpandedArtwork.vue'
 import ExpandedResource from '../components/ExpandedResource.vue'
 
-      // :style="{ top: `calc(100% - ${top}em)` }"
-
-
 export default {
   name: 'Page',
   components: {
@@ -63,22 +63,37 @@ export default {
     ExpandedResource,
     ExpandedArtwork,
   },
-  props: [
-  ],
   data() {
     return {
+      renderedItem: null,
       hovered: false,
       top: 10,
-      reltedItemsVisible: false,
+      relatedItemsVisible: false,
+      transitionClass: null,
     }
   },
   computed: {
+  
     ...mapGetters([
       'resourceBySlug',
       'artworkBySlug',
       'mainCollection',
       'isInMyCollection'
     ]),
+    
+    parentRoute() {
+      return this
+      .$store
+      .state
+      .history
+      .filter(p => 
+        p.split('/').length == 2
+       ||
+        p.includes('collections')
+      )[0] 
+       || '/archive'
+    },
+    
     item() { return (
       this.resourceBySlug(
         this.$route.params.slug
@@ -88,6 +103,7 @@ export default {
         this.$route.params.slug
       )
     )},
+    
     tags() { return (
       this.item &&
       this.item.tags && 
@@ -108,18 +124,36 @@ export default {
           i.slug != this.item.slug
         )
       )
+    }  
+  },
+  watch: {
+  
+    item(newVal, oldVal) {
+      if (!oldVal) {
+        this.renderedItem = this.item
+      } else {
+        this.$refs.itemContainer.scroll({
+          top: 0,
+          behavior: 'smooth'
+        })
+        this.transitionClass = 'leave'
+        setTimeout(() => {
+          this.renderedItem = this.item
+          this.transitionClass = 'enter'
+        }, 200)
+      }
+    },
+    
+  },
+  mounted() {
+  
+    if (!this.renderedItem) {
+        this.renderedItem = this.item
     }
     
   },
-  watch: {
-    item() {
-      this.$refs.itemContainer.scroll({
-        top: 0,
-        behavior: 'smooth'
-      })
-    }
-  },
   methods: {
+  
     ...mapActions([
       'addToCollection',
       'removeFromCollection'
@@ -132,6 +166,7 @@ export default {
         this.top = 10
       }
     }
+    
   }
   
 }
@@ -155,6 +190,14 @@ export default {
   padding-top: 10%;
 }
 
+.leave .item {
+  transform: translateY(-100vh);
+  opacity: 0;
+}
+.enter .item {
+  transform: translateY(0vh);
+}
+
   
 .item {
   position: relative;
@@ -163,6 +206,7 @@ export default {
   /* max-height: calc(100% - 20em); */
   max-height: 100%;
   overflow: scroll;
+  transition: all 0.2s ease;
 }
 
 .collectionBody {
@@ -203,7 +247,7 @@ export default {
   font-size: 3em;
 }
   
-.reltedItemsVisible table {
+.relatedItemsVisible table {
   top: 10em;
   box-shadow: 0 50em 200em 200em #ffffffa4;
 }

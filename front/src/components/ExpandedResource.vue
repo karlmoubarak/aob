@@ -116,7 +116,7 @@ export default {
       : this.resource.Description 
     },
     files()       { return this.resource.Files.length > 0 && this.resource.Files },
-    media()       { return this.resource.Media && this.resource.Media.length > 0 && this.resource.Media },
+    media()       { return this.resource.Media },
     link()        { return this.resource.Link },
     contact()     { return this.resource.Contact || 'N/A'},
     updated()     { return moment(this.resource.updated_at).format('DD/MM/yyyy') },

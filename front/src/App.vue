@@ -81,6 +81,7 @@ export default {
     })
 
     this.$router.afterEach(to => {
+      this.$store.commit('addToHistory', to.path)
       if (to.query.tag) {
         this.$store.commit('selectTags', to.query.tag)
       } else {

@@ -10,6 +10,7 @@ export default createStore({
   state: {
     isMobile          : false,
     locale            : '',  
+    history           : [],
     tags              : [],
     locations         : [],
     resources         : [],
@@ -30,6 +31,7 @@ export default createStore({
   mutations: {
     setMobile        : (state, mobile)      => state.isMobile    = mobile,
     setLocale        : (state, locale)      => state.locale      = locale,
+    addToHistory     : (state, path)        => state.history.unshift(path),
     setTags          : (state, tags)        => state.tags        = tags,
     setLocations     : (state, locations)   => state.locations   = locations,
     setResources     : (state, resources)   => state.resources   = resources,
