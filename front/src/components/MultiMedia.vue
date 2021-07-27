@@ -35,7 +35,7 @@
         />
       </div>
     </div>
-    <div class="item">
+    <div :class="[ 'item', { border: border } ]">
       <div class="content">
         <img
           v-if="type(i) == 'image'" 
@@ -75,7 +75,7 @@
 <script>
 export default {
   name: "MultiMedia",
-  props: [ 'media' ],
+  props: [ 'media', 'border' ],
   data() {
     return {
       i: 0
@@ -107,7 +107,6 @@ export default {
 <style scoped>
 
 .mediaContainer {
-  margin: 1em;
   width: 100%;
   max-width: 100%;
   display: flex;
@@ -169,14 +168,18 @@ export default {
 }
 
 .item .content {
+  box-sizing: border-box;
   min-width: 100%;
-  padding: 0.6em;
-  border: 1px solid;
   display: flex;
 }
 
+.item.border .content {
+  padding: 0.6em;
+  border: 1px solid;
+}
 
 .item .content .cover {
+  box-sizing: border-box;
   min-width: 100%;
   max-width: 100%;
   /* max-height: 100%; */

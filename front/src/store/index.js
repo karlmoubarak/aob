@@ -20,10 +20,19 @@ export default createStore({
     selectedLocations : [],
     query             : '',
     myCollection      : {
-      Title: 'Your Collection',
+      Title: {
+        en: 'Your Collection',
+        ar: 'مجموعتك'
+      },
       slug: 'my-collection',
-      Author: 'Anonymous',
-      Description: 'No Description',
+      Author: {
+        en: 'Optionally add your name',
+        ar: 'أضف اسمك اختياريًا'
+      },
+      Description: {
+        en: 'Describe this collection.',
+        ar: 'صِف هذه المجموعة',
+      },
       items: [],
     },
   },

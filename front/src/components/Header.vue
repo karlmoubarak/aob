@@ -26,7 +26,7 @@
     </li>
     <li :class="myCollection.slug"> 
       <router-link :to="'/collections/' + myCollection.slug">
-        {{ myCollection.Title }} 
+        {{ myCollection.Title[locale] }} 
         <span>( {{ myCollectionCount }} )</span>
       </router-link>
       <router-link 

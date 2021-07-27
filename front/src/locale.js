@@ -121,6 +121,36 @@ module.exports = {
       en: "No media available for this entry.",
       ar: "لا توجد وسائط متاحة لهذا الإدخال."
     }
+  },
+  collections: {
+    defaults: {
+      Title: {
+        en: 'Unnamed Collection',
+        ar: 'مجموعة بدون اسم',
+      },
+      Author: {
+        en: 'Anonymous',
+        ar: 'المؤلف غير معروف'
+      },
+      Description: {
+        en: 'No Description',
+        ar: 'الوصف غير موجود',
+      },
+    },
+  },
+  buttons: {
+    submit: {
+      en: 'submit',
+      ar: 'أرسل'
+    },
+    print: {
+      en: 'print',
+      ar: 'اطبع'
+    },
+    clear: {
+      en: 'clear',
+      ar: 'عيد'
+    }
   }
 
 }

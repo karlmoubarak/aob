@@ -16,13 +16,11 @@
         @click.stop="$emit('clicked')"  
         :style="{
           marginTop: inTable ? 'initial' : randomMargin(),
-          marginLeft: inTable ? 'initial' : randomMargin(),
+          marginLeft: inTable ? 'initial' : 'initial',
         }"  
     >
-      <!-- <div 
+      <div 
         class="header"
-        @mousemove="headerHovered = true"
-        @mouseleave="headerHovered = false"
       >
         <p 
           class="title"
@@ -32,11 +30,11 @@
           class="artist"
           v-html="$highlight( artist, queries )"
         ></p>
-      </div> -->
-      <img 
+      </div>
+      <MultiMedia 
         v-if="media"
-        class="cover"
-        :src="cover"
+        :media="[media[0]]"
+        :border="false"
       />
     </div>
   </div>
@@ -46,10 +44,12 @@
 
 
 import { mapGetters, mapState } from 'vuex'
+import MultiMedia from './MultiMedia.vue'
 
 export default {
   name: 'Artwork',
   components: {
+    MultiMedia
   },
   props: [
     'artwork',
@@ -91,7 +91,8 @@ export default {
       'flex-end'
     ][Math.floor(Math.random()*3)],
     
-    randomMargin: () => Math.random() * -15 + 'em',
+    // randomMargin: () => Math.random() * -10 + 'em',
+    randomMargin: ()=> '1em',
 
   }
   
@@ -120,7 +121,10 @@ export default {
   opacity: 0;
 } */
 .artworkContainer.inTable .header{
-  /* opacity: 0; */
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
 }
 .artworkContainer.inTable .artwork {
   margin: 0 0.5em;
@@ -136,33 +140,24 @@ export default {
   /* max-width: 24%; */
   position: relative;
   max-width: 42%;
-  /* max-width: 32%; */
-  /* max-height: 21em; */
-  /* max-width: 72%;
-  max-height: 73em; */
   max-height: 100%;
   margin: 0 1em;
   font-family: Montserrat;
-  /* border: 1px solid lightblue; */
   border-radius: 0.5em;
-  /* background: #E3EDFF; */
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* background: wheat; */
-   /* background: white; */
-   transition: all 0.2s ease;
-  /* box-shadow: 0 0 10em 10em var(--orange); */
+  transition: all 0.2s ease;
   cursor: pointer;
   box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);
   border: 0.2em solid #e3edff;
+  background: #e3edff;
 }
 .header {
   margin: 0.3em;
   box-sizing: border-box;
   padding: 0.6em;
   cursor: pointer;
-  position: absolute;
   top: 0;
   background: var(--lightblue);
   width: 98.5%;

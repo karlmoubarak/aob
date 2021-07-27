@@ -38,8 +38,8 @@ export default {
   background: #ffffffa4;
   overflow: scroll;
   z-index: 2;
-  padding: 20em;
-  padding-top: 15em;
+  padding: 10em;
+  padding-top: 10em;
   display: flex;
   justify-content: center;
   transform: translateY(0) !important;

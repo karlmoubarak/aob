@@ -81,7 +81,7 @@ export default {
   max-height: 10em;
   width: 100%;
   margin-bottom: 0.5em;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .row.artworkTR {
   max-height: 3.5em;
@@ -91,7 +91,7 @@ export default {
   z-index: 3;
 }
 .artworksOnly .row.artworkTR {
-  max-height: 21em;
+  max-height: 100em;
 }
 .artworkTD {
   display:block;

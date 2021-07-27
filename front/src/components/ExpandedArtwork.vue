@@ -27,6 +27,7 @@
         <div class="media">
           <MultiMedia 
             :media="media"
+            :border="true"
           />
         </div>
         <div class="id">
