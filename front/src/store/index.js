@@ -128,9 +128,9 @@ export default createStore({
           r.Contact,
           r.Link,
           r.tags.map(t => t.Name.toLowerCase()),
-          r.tags.map(t => t.Name_AR.toLowerCase()),
+          r.tags.map(t =>  t.Name_AR && t.Name_AR.toLowerCase()),
           r.locations.map(l => l.Name.toLowerCase()),
-          r.locations.map(l => l.Name_AR.toLowerCase()),
+          r.locations.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
         ].flat().join(' ').includes(q))
       )) 
     ),
@@ -158,9 +158,9 @@ export default createStore({
           a.Link,
           a.tags.map(t => t.Name.toLowerCase()),
           a.location.map(l => l.Name.toLowerCase()),
-          a.location.map(l => l.Name_AR.toLowerCase()),
+          a.location.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
           a.hometown.map(l => l.Name.toLowerCase()),
-          a.hometown.map(l => l.Name_AR.toLowerCase()),
+          a.hometown.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
         ].flat().join(' ').includes(q))
       )) 
     ),

@@ -157,8 +157,11 @@ export default {
 
 .info .options {
   display: flex;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
+  align-items: flex-start;
+  margin-top: 1em;
 }
+
 .header {
 
 }
@@ -185,6 +188,12 @@ export default {
 }
 .collection .info textarea {
   height: 10em;
+  margin-bottom: 0;
+}
+.collection .info .options input {
+  cursor: pointer;
+  max-width: 8em;
+  margin-right: 1em;
   margin-bottom: 0;
 }
 .body {
