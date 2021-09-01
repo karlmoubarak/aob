@@ -1,5 +1,8 @@
 <template>
-  <div v-if="collection" class="collection">
+  <div 
+    v-if="collection" 
+    class="collection"
+  >
     <div 
       v-if="isMyCollection"
       class="info"
@@ -112,7 +115,7 @@ export default {
   data() {
     return {
       titleEmpty: false,
-      status: ''
+      status: '',
     }
   },
   computed: {
@@ -178,11 +181,11 @@ export default {
     clear() {
       this.items.map(i => this.removeFromCollection(i));
       ['title', 'author', 'description'].map(a => this.$refs[a].value = '')
-      this.$store.commit('setMyCollectionData', {})
+      this.$store.commit('updateMyCollection', {})
     },
     
     save() {
-      this.$store.commit('setMyCollectionData', {
+      this.$store.commit('updateMyCollection', {
         Title: this.$refs.title.value,
         Author: this.$refs.author.value,
         Description: this.$refs.description.value,

@@ -54,7 +54,7 @@ export default createStore({
     rmFromCollection : (state, item) => {
       state.myCollection.items.splice(state.myCollection.items.indexOf(item), 1)
     },
-    setMyCollectionData : (state, data) => {
+    updateMyCollection : (state, data) => {
       state.myCollection = { ...state.myCollection, ...data }
     }
     
@@ -101,6 +101,20 @@ export default createStore({
     
     sortedCollections: state => (
       sortByUpdate([...state.collections])
+      .filter(c => c.slug !== 'exhibition')
+    ),
+    
+    exhibition: state => (
+      state
+      .collections
+      .find(c => c.slug == 'exhibition') 
+     || {
+      Title: '',
+      Description: '',
+      items: [],
+      
+      
+     }
     ),
       
     resourceBySlug: state => slug => (

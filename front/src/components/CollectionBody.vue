@@ -1,34 +1,42 @@
 <template>
-  <div :class="['collectionBody', { artworksOnly: artworksOnly }]">
+  <div 
+    :class="[
+      'collectionBody', { 
+        artworksOnly: artworksOnly,
+        myCollection: isMyCollection
+      }
+    ]">
     <transition name="list" mode="out-in">
       <TableHeaders v-if="!artworksOnly"/>
     </transition>
     <transition name="list" mode="out-in">
-      <p v-if="collectionItems.length == 0" class="empty">{{ emptyMessage }} </p>
+      <p v-if="items.length == 0" class="empty">{{ emptyMessage }} </p>
     </transition>
-    <transition-group name="list" mode="out-in">
-    <div
-      v-for="item in collectionItems"
-      :key="item.slug"
-      :class="['row', { artworkTR: item.Title }]"
-    >
-      <div
-        class="move"
-        v-if="isMyCollection"
-      >↕</div>
-      <Resource
-        v-if="item.Organisation"
-        :resource="item"
-        @clicked="clickHandler(item)"    
-      />
-      <Artwork 
-        v-else
-        :artwork="item"
-        :inTable="!artworksOnly"
-        @clicked="clickHandler(item)"    
-      />
-    </div>
-    </transition-group>
+    <draggable v-model="items" >
+      <transition-group name="list" mode="out-in">
+        <div
+          v-for="item in items"
+          :key="item.slug"
+          :class="['row', { artworkTR: item.Title }]"
+        >
+          <div
+            class="move"
+            v-if="isMyCollection"
+          >↕</div>
+          <Resource
+            v-if="item.Organisation"
+            :resource="item"
+            @clicked="clickHandler(item)"    
+          />
+          <Artwork 
+            v-else
+            :artwork="item"
+            :inTable="!artworksOnly"
+            @clicked="clickHandler(item)"    
+          />
+        </div>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
@@ -36,14 +44,15 @@
 import Artwork from './Artwork.vue'
 import Resource from './Resource.vue'
 import TableHeaders from './TableHeaders.vue'
-// import draggable from 'vuedraggable';
+import { VueDraggableNext } from 'vue-draggable-next'
 
 export default {
   name: 'CollectionBody',
   components: {
     TableHeaders,
     Resource,
-    Artwork
+    Artwork,
+    draggable: VueDraggableNext
   },
   props: [
     'collectionItems',
@@ -51,8 +60,12 @@ export default {
     'isMyCollection',
   ],
   computed: {
+    items: {
+      get() { return this.collectionItems },
+      set(val) { return this.isMyCollection && this.$store.commit('updateMyCollection', { items: val }) }
+    },
     artworksOnly() {
-      return !this.collectionItems.find(i => i.Organisation)
+      return !this.items.find(i => i.Organisation)
     },
   },
   methods: {
@@ -88,6 +101,10 @@ export default {
   width: 100%;
   margin-bottom: 0.5em;
   /* overflow: hidden; */
+}
+.myCollection .row,
+.myCollection .row .col.description {
+  cursor: move !important;
 }
 .row.artworkTR {
   max-height: 3.5em;

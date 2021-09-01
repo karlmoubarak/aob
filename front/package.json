@@ -15,6 +15,7 @@
     "moment": "^2.29.1",
     "smoothscroll-polyfill": "^0.4.4",
     "vue": "^3.1.1",
+    "vue-draggable-next": "^2.0.1",
     "vue-highlight-text": "^1.6.2",
     "vue-highlight-words": "^1.2.0",
     "vue-router": "^4.0.8",

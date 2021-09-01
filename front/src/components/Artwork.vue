@@ -9,6 +9,18 @@
     }"
     
   >
+    <div class="col id"> 
+      <p 
+        v-if="isInMyCollection(slug)"
+        class="remove"
+        @click.stop="removeFromCollection(artwork)"
+      >-</p>
+      <p 
+        v-else
+        class="add"
+        @click.stop="addToCollection(artwork)"
+      >+</p> 
+    </div>
     <div 
         class="artwork"
         @mousemove="headerHovered ? hovered = true : hovered = true"
@@ -43,7 +55,7 @@
 <script>
 
 
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 import MultiMedia from './MultiMedia.vue'
 
 export default {
@@ -65,6 +77,7 @@ export default {
   computed: {
     locale()      { return this.$store.state.locale },
     id()          { return this.artwork.id },
+    slug()        { return this.artwork.slug },
     title()       { return this.artwork.Title },
     artist()      { return this.artwork.ArtistName },
     description() { return this.artwork.Description },
@@ -77,7 +90,10 @@ export default {
     ...mapState([
       'query'
     ]),
-    ...mapGetters(['queries'])
+    ...mapGetters([
+      'isInMyCollection',
+      'queries'
+    ]),
     
   },
   mounted() {
@@ -85,6 +101,11 @@ export default {
   },
   methods: {
   
+    ...mapActions([
+      'addToCollection',
+      'removeFromCollection'
+    ]),
+    
     randomPosition: () => [
       'flex-start',
       'center',
@@ -102,6 +123,7 @@ export default {
 <style scoped>
 
 .artworkContainer {
+  position: relative;
   width: 100%;
   max-width: 100%;
   /* max-height: 50em; */
@@ -135,6 +157,24 @@ export default {
 }
 .artworkContainer.inTable .artwork:hover .header {
   opacity: 0;
+}
+
+.artworkContainer .id {
+  position: absolute;
+  left: 0;
+  background: unset;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
+}
+.artworkContainer:hover .id {
+  opacity: 1;
+}
+.artworkContainer:hover .id:hover {
+  background: white;
 }
 .artwork {
   /* max-width: 24%; */

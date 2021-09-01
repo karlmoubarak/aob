@@ -8,7 +8,7 @@ import Artworks from '../views/Artworks'
 import Collections from '../views/Collections'
 import Collection from '../views/Collection'
 import About from '../views/About'
-import Contact from '../views/Contact'
+import Exhibition from '../views/Exhibition'
 import ItemPage from '../views/ItemPage'
 
 const path = '/' 
@@ -36,12 +36,6 @@ export default createRouter({
       name: 'Resources',
       component: Resources,
     },
-    // {
-    //   path: '/resources/:slug',
-    //   name: 'Resource',
-    //   props: true,
-    //   component: Resource,
-    // },
     {
       path: '/resources/:slug',
       name: 'Resource',
@@ -53,12 +47,6 @@ export default createRouter({
       name: 'Artworks',
       component: Artworks,
     },
-    // {
-    //   path: '/artworks/:slug',
-    //   name: 'Artwork',
-    //   props: true,
-    //   component: Artwork,
-    // },
     {
       path: '/artworks/:slug',
       name: 'Artwork',
@@ -82,9 +70,9 @@ export default createRouter({
       component: About,
     },
     {
-      path: '/Contact',
-      name: 'Contact',
-      component: Contact,
+      path: '/Exhibition',
+      name: 'Exhibition',
+      component: Exhibition,
     },
   ],
 })

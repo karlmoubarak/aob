@@ -20,7 +20,8 @@ module.exports = {
         en: 'Exhibition',
         ar: 'المعرض',
       },
-      slug: '/artworks'
+      slug: '/exhibition'
+      // slug: '/artworks'
     },
     {
       name: {
