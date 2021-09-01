@@ -516,7 +516,8 @@
     "schemas": {
       "Collections": {
         "required": [
-          "id"
+          "id",
+          "slug"
         ],
         "properties": {
           "id": {
@@ -768,6 +769,9 @@
         }
       },
       "NewCollections": {
+        "required": [
+          "slug"
+        ],
         "properties": {
           "Title": {
             "type": "string"
