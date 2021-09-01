@@ -517,7 +517,8 @@
       "Locations": {
         "required": [
           "id",
-          "Name"
+          "Name",
+          "slug"
         ],
         "properties": {
           "id": {
@@ -534,7 +535,8 @@
             "items": {
               "required": [
                 "id",
-                "Organisation"
+                "Organisation",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -844,7 +846,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -909,7 +912,8 @@
       },
       "NewLocations": {
         "required": [
-          "Name"
+          "Name",
+          "slug"
         ],
         "properties": {
           "Name": {

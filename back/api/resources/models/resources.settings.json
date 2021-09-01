@@ -32,7 +32,8 @@
         }
       },
       "type": "uid",
-      "targetField": "Organisation"
+      "targetField": "Organisation",
+      "required": true
     },
     "Description": {
       "pluginOptions": {

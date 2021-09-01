@@ -517,7 +517,8 @@
       "Resources": {
         "required": [
           "id",
-          "Organisation"
+          "Organisation",
+          "slug"
         ],
         "properties": {
           "id": {
@@ -613,7 +614,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -672,7 +674,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -807,7 +810,8 @@
             "items": {
               "required": [
                 "id",
-                "Organisation"
+                "Organisation",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -890,7 +894,8 @@
       },
       "NewResources": {
         "required": [
-          "Organisation"
+          "Organisation",
+          "slug"
         ],
         "properties": {
           "Organisation": {

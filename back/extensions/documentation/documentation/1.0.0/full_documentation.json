@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "09/01/2021 12:50:41 PM"
+    "x-generation-date": "09/01/2021 12:52:59 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4895,7 +4895,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -4954,7 +4955,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -5089,7 +5091,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -5544,7 +5547,8 @@
                     "resource": {
                       "required": [
                         "id",
-                        "Organisation"
+                        "Organisation",
+                        "slug"
                       ],
                       "properties": {
                         "id": {
@@ -5794,7 +5798,8 @@
                     "resource": {
                       "required": [
                         "id",
-                        "Organisation"
+                        "Organisation",
+                        "slug"
                       ],
                       "properties": {
                         "id": {
@@ -5888,7 +5893,8 @@
       "Locations": {
         "required": [
           "id",
-          "Name"
+          "Name",
+          "slug"
         ],
         "properties": {
           "id": {
@@ -5905,7 +5911,8 @@
             "items": {
               "required": [
                 "id",
-                "Organisation"
+                "Organisation",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -6215,7 +6222,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -6280,7 +6288,8 @@
       },
       "NewLocations": {
         "required": [
-          "Name"
+          "Name",
+          "slug"
         ],
         "properties": {
           "Name": {
@@ -6334,7 +6343,8 @@
       "Resources": {
         "required": [
           "id",
-          "Organisation"
+          "Organisation",
+          "slug"
         ],
         "properties": {
           "id": {
@@ -6430,7 +6440,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -6489,7 +6500,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -6624,7 +6636,8 @@
             "items": {
               "required": [
                 "id",
-                "Organisation"
+                "Organisation",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -6707,7 +6720,8 @@
       },
       "NewResources": {
         "required": [
-          "Organisation"
+          "Organisation",
+          "slug"
         ],
         "properties": {
           "Organisation": {
@@ -6767,7 +6781,8 @@
       "Tags": {
         "required": [
           "id",
-          "Name"
+          "Name",
+          "slug"
         ],
         "properties": {
           "id": {
@@ -6854,7 +6869,8 @@
             "items": {
               "required": [
                 "id",
-                "Organisation"
+                "Organisation",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -7049,7 +7065,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -7114,7 +7131,8 @@
       },
       "NewTags": {
         "required": [
-          "Name"
+          "Name",
+          "slug"
         ],
         "properties": {
           "Name": {

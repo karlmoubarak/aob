@@ -683,7 +683,8 @@
                     "resource": {
                       "required": [
                         "id",
-                        "Organisation"
+                        "Organisation",
+                        "slug"
                       ],
                       "properties": {
                         "id": {
@@ -933,7 +934,8 @@
                     "resource": {
                       "required": [
                         "id",
-                        "Organisation"
+                        "Organisation",
+                        "slug"
                       ],
                       "properties": {
                         "id": {

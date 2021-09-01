@@ -580,7 +580,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -639,7 +640,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
@@ -774,7 +776,8 @@
             "items": {
               "required": [
                 "id",
-                "Name"
+                "Name",
+                "slug"
               ],
               "properties": {
                 "id": {
