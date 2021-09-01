@@ -2,6 +2,7 @@
   <div id="home">
     <CollectionBody
       :collectionItems="mainCollection"
+      :emptyMessage="emptyMessage"
     />
     <transition name="fade">
       <Upload
@@ -26,6 +27,9 @@ export default {
     ...mapGetters([
       'mainCollection'
     ]),
+    emptyMessage() {
+      return this.$locale.search.empty[this.$store.state.locale]
+    }
   },
   watch: {
     mainCollection() {

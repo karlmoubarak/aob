@@ -20,19 +20,19 @@ export default createStore({
     selectedLocations : [],
     query             : '',
     myCollection      : {
-      Title: {
-        en: 'Your Collection',
-        ar: 'مجموعتك'
-      },
       slug: 'my-collection',
-      Author: {
-        en: 'Optionally add your name',
-        ar: 'أضف اسمك اختياريًا'
-      },
-      Description: {
-        en: 'Describe this collection.',
-        ar: 'صِف هذه المجموعة',
-      },
+      // Title: {
+      //   en: 'Your Collection',
+      //   ar: 'مجموعتك'
+      // },
+      // Author: {
+      //   en: 'Optionally add your name',
+      //   ar: 'أضف اسمك اختياريًا'
+      // },
+      // Description: {
+      //   en: 'Describe this collection.',
+      //   ar: 'صِف هذه المجموعة',
+      // },
       items: [],
     },
   },
@@ -54,6 +54,9 @@ export default createStore({
     rmFromCollection : (state, item) => {
       state.myCollection.items.splice(state.myCollection.items.indexOf(item), 1)
     },
+    setMyCollectionData : (state, data) => {
+      state.myCollection = { ...state.myCollection, ...data }
+    }
     
   },
 

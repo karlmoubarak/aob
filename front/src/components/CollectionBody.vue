@@ -1,7 +1,11 @@
 <template>
   <div :class="['collectionBody', { artworksOnly: artworksOnly }]">
-    
-    <TableHeaders v-if="!artworksOnly || collectionItems.length == 0"/>
+    <transition name="list" mode="out-in">
+      <TableHeaders v-if="!artworksOnly"/>
+    </transition>
+    <transition name="list" mode="out-in">
+      <p v-if="collectionItems.length == 0" class="empty">{{ emptyMessage }} </p>
+    </transition>
     <transition-group name="list" mode="out-in">
     <div
       v-for="item in collectionItems"
@@ -43,6 +47,7 @@ export default {
   },
   props: [
     'collectionItems',
+    'emptyMessage',
     'isMyCollection',
   ],
   computed: {
@@ -103,6 +108,10 @@ export default {
   display: block;
   position: absolute;
   font-size: 1.5em;
+}
+
+.empty {
+  margin: 5em 2em;
 }
 
 
