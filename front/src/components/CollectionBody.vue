@@ -19,10 +19,6 @@
           :key="item.slug"
           :class="['row', { artworkTR: item.Title }]"
         >
-          <div
-            class="move"
-            v-if="isMyCollection"
-          >↕</div>
           <Resource
             v-if="item.Organisation"
             :resource="item"
