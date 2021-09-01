@@ -153,11 +153,12 @@ header li:nth-of-type(6) {
   border-radius: 90%;
 } 
 
-
+  
 li.my-collection {
   margin-left: auto;
   background: var(--green);
   min-width: 13.1em;
+  max-width: 13.1em;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -171,28 +172,29 @@ li.my-collection a {
   color: var(--brightgreen);
   color: unset;
   transition: all 0.2s ease;
-}
-li.my-collection a:first-of-type {
-  height: 100%;
-  padding: 0.3em 1em;
-}
-li.my-collection a {
   height: 0;
   overflow: hidden;
   flex-shrink: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
+li.my-collection a:first-of-type {
+  padding: 0.3em 1em;
+  height: 100%;
+}
 li.my-collection:hover {
   background: var(--green);
   box-shadow: 0 0 1.5em 0 var(--lightgreen);
   max-height: 10em;
-  /* border-radius: 0.5em; */
 }
 
 li.my-collection:hover a  {
+  padding: 0.3em 1em;
   border-radius: inherit;
   height: 2em;
-  padding: 0.3em 1em;
   background: var(--lightgreen);
 }
 

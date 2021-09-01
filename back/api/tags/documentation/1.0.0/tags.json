@@ -682,6 +682,7 @@
               "required": [
                 "id",
                 "Title",
+                "slug",
                 "ArtistName"
               ],
               "properties": {

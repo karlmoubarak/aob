@@ -518,6 +518,7 @@
         "required": [
           "id",
           "Title",
+          "slug",
           "ArtistName"
         ],
         "properties": {
@@ -836,6 +837,7 @@
               "required": [
                 "id",
                 "Title",
+                "slug",
                 "ArtistName"
               ],
               "properties": {
@@ -956,6 +958,7 @@
       "NewArtworks": {
         "required": [
           "Title",
+          "slug",
           "ArtistName"
         ],
         "properties": {

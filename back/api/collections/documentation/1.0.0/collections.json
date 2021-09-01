@@ -554,6 +554,7 @@
                       "required": [
                         "id",
                         "Title",
+                        "slug",
                         "ArtistName"
                       ],
                       "properties": {
@@ -800,6 +801,7 @@
                       "required": [
                         "id",
                         "Title",
+                        "slug",
                         "ArtistName"
                       ],
                       "properties": {

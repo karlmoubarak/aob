@@ -138,4 +138,18 @@ export default {
 .col.description {
   cursor: pointer;
 }
+.col.description p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 4em;
+  transition: all 0.2s ease;
+}
+
+/* .col.description p:hover {
+  -webkit-line-clamp: 5;
+  max-height: 6em;
+} */
 </style>

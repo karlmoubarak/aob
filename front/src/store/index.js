@@ -38,6 +38,7 @@ export default createStore({
   },
 
   mutations: {
+  
     setMobile        : (state, mobile)      => state.isMobile    = mobile,
     setLocale        : (state, locale)      => state.locale      = locale,
     addToHistory     : (state, path)        => state.history.unshift(path),
@@ -53,6 +54,7 @@ export default createStore({
     rmFromCollection : (state, item) => {
       state.myCollection.items.splice(state.myCollection.items.indexOf(item), 1)
     },
+    
   },
 
   actions: {

@@ -32,7 +32,8 @@
         }
       },
       "type": "uid",
-      "targetField": "Title"
+      "targetField": "Title",
+      "required": true
     },
     "StartYear": {
       "pluginOptions": {

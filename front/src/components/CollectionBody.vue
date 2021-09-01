@@ -1,6 +1,7 @@
 <template>
   <div :class="['collectionBody', { artworksOnly: artworksOnly }]">
-    <TableHeaders v-if="!artworksOnly"/>
+    
+    <TableHeaders v-if="!artworksOnly || collectionItems.length == 0"/>
     <transition-group name="list" mode="out-in">
     <div
       v-for="item in collectionItems"

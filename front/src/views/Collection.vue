@@ -68,7 +68,6 @@
     </div>
     <div class="body">
       <CollectionBody
-        v-if="items.length > 0"
         :collectionItems="items"
         :isMyCollection="isMyCollection"
       />
@@ -78,7 +77,8 @@
 
 <script>
 
-import { mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
+import api from '../api'
 import CollectionBody from '../components/CollectionBody.vue'
 
 export default {
@@ -132,6 +132,58 @@ export default {
   created() {
   },
   methods: {
+  
+    ...mapActions([
+      'removeFromCollection'
+    ]),
+  
+    clear() {
+      this.items.map(i => this.removeFromCollection(i));
+      ['title', 'author', 'description'].map(a => this.$refs[a].value = '')
+    },
+    
+    submit() {
+      const 
+        Title = this.$refs.title.value,
+        Author = this.$refs.author.value,
+        Description = this.$refs.description.value,
+        Item = this.items.map(i => (
+          i.Organisation ? {
+            __component: "item.resource",
+            resource: i.id 
+          } : {
+            __component: "item.item",
+            artwork: i.id 
+          }
+        ))
+        
+      if (Title) {
+        
+        const 
+          data = {
+            Title,
+            Author,
+            Description,
+            Item,
+            published_at: null,
+          },
+          formData = new FormData()
+        formData.append('data', JSON.stringify(data))
+
+        api
+        .collections
+        .post(formData)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => console.log(err) )
+        
+      } else {
+        console.log('No Title')
+        
+            
+      }
+    }
 
   }
   

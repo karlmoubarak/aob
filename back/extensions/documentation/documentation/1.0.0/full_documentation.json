@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "07/26/2021 12:34:27 PM"
+    "x-generation-date": "09/01/2021 12:49:33 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4833,6 +4833,7 @@
         "required": [
           "id",
           "Title",
+          "slug",
           "ArtistName"
         ],
         "properties": {
@@ -5151,6 +5152,7 @@
               "required": [
                 "id",
                 "Title",
+                "slug",
                 "ArtistName"
               ],
               "properties": {
@@ -5271,6 +5273,7 @@
       "NewArtworks": {
         "required": [
           "Title",
+          "slug",
           "ArtistName"
         ],
         "properties": {
@@ -5412,6 +5415,7 @@
                       "required": [
                         "id",
                         "Title",
+                        "slug",
                         "ArtistName"
                       ],
                       "properties": {
@@ -5658,6 +5662,7 @@
                       "required": [
                         "id",
                         "Title",
+                        "slug",
                         "ArtistName"
                       ],
                       "properties": {
@@ -5974,6 +5979,7 @@
               "required": [
                 "id",
                 "Title",
+                "slug",
                 "ArtistName"
               ],
               "properties": {
@@ -6088,6 +6094,7 @@
               "required": [
                 "id",
                 "Title",
+                "slug",
                 "ArtistName"
               ],
               "properties": {
@@ -6921,6 +6928,7 @@
               "required": [
                 "id",
                 "Title",
+                "slug",
                 "ArtistName"
               ],
               "properties": {

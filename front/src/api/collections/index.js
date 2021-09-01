@@ -41,9 +41,26 @@ const
         )
       )
     )
+  },
+  
+  post = collection => {
+    return new Promise ((resolve, reject) => axios
+      .post(URL + 'collections', collection)
+      .then(response => 
+        resolve(
+          response.data
+        )
+      )
+      .catch(error => 
+        reject(
+          error
+        )
+      )
+    )
   }
 
 export default {
   getAll,
-  get
+  get,
+  post,
 }
