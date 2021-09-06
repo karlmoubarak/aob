@@ -303,4 +303,26 @@ color: var(--orange);
   height: unset;
 }
 
+@page {
+  size: A5;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body,
+  #app,
+  main,
+  #home,
+  .collectionBody {
+    height: auto !important;
+    max-height: unset !important;
+    overflow: scroll;
+  }
+  header,
+  nav {
+    display: none !important;
+  }
+}
+
 </style>

@@ -173,12 +173,11 @@ li.my-collection a {
   color: unset;
   transition: all 0.2s ease;
   height: 0;
-  overflow: hidden;
   flex-shrink: 0;
+  overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 li.my-collection a:first-of-type {
@@ -192,7 +191,7 @@ li.my-collection:hover {
 }
 
 li.my-collection:hover a  {
-  padding: 0.3em 1em;
+  padding: 0.5em 1em;
   border-radius: inherit;
   height: 2em;
   background: var(--lightgreen);

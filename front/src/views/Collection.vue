@@ -229,6 +229,10 @@ export default {
         this.$refs.title.focus()
             
       }
+    },
+    
+    print() {
+      window.print()
     }
 
   }

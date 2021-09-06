@@ -12,7 +12,7 @@
     <transition name="list" mode="out-in">
       <p v-if="items.length == 0" class="empty">{{ emptyMessage }} </p>
     </transition>
-    <draggable v-model="items" >
+    <draggable v-if="isMyCollection" v-model="items" >
       <transition-group name="list" mode="out-in">
         <div
           v-for="item in items"
@@ -33,6 +33,25 @@
         </div>
       </transition-group>
     </draggable>
+    <transition-group v-else name="list" mode="out-in">
+      <div
+        v-for="item in items"
+        :key="item.slug"
+        :class="['row', { artworkTR: item.Title }]"
+      >
+        <Resource
+          v-if="item.Organisation"
+          :resource="item"
+          @clicked="clickHandler(item)"    
+        />
+        <Artwork 
+          v-else
+          :artwork="item"
+          :inTable="!artworksOnly"
+          @clicked="clickHandler(item)"    
+        />
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -86,7 +105,7 @@ export default {
   padding: 0 0.5em;
   transition: all 0.5s ease;
   height: 100%;
-  max-height: 200vh;
+  /* max-height: 200vh; */
 }
 .row {
   position: relative;
@@ -97,6 +116,9 @@ export default {
   width: 100%;
   margin-bottom: 0.5em;
   /* overflow: hidden; */
+}
+.myCollection  {
+  height: auto;
 }
 .myCollection .row,
 .myCollection .row .col.description {
