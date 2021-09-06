@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "09/06/2021 3:57:27 PM"
+    "x-generation-date": "09/06/2021 4:01:16 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6515,7 +6515,11 @@
           "About",
           "Contact",
           "PrivacyPolicy",
-          "UsageInstructions"
+          "UsageInstructions",
+          "AboutAR",
+          "ContactAR",
+          "PrivacyPolicyAR",
+          "UsageInstructionsAR"
         ],
         "properties": {
           "id": {
@@ -6543,6 +6547,22 @@
           },
           "LinkToPublicCodeRepository": {
             "type": "string"
+          },
+          "AboutAR": {
+            "type": "string",
+            "default": "About in Arabic"
+          },
+          "ContactAR": {
+            "type": "string",
+            "default": "Contact info in Arabic"
+          },
+          "PrivacyPolicyAR": {
+            "type": "string",
+            "default": "Privacy Policy in Arabic"
+          },
+          "UsageInstructionsAR": {
+            "type": "string",
+            "default": "Usage instructions in arabic"
           }
         }
       },
@@ -6551,7 +6571,11 @@
           "About",
           "Contact",
           "PrivacyPolicy",
-          "UsageInstructions"
+          "UsageInstructions",
+          "AboutAR",
+          "ContactAR",
+          "PrivacyPolicyAR",
+          "UsageInstructionsAR"
         ],
         "properties": {
           "About": {
@@ -6576,6 +6600,22 @@
           },
           "LinkToPublicCodeRepository": {
             "type": "string"
+          },
+          "AboutAR": {
+            "type": "string",
+            "default": "About in Arabic"
+          },
+          "ContactAR": {
+            "type": "string",
+            "default": "Contact info in Arabic"
+          },
+          "PrivacyPolicyAR": {
+            "type": "string",
+            "default": "Privacy Policy in Arabic"
+          },
+          "UsageInstructionsAR": {
+            "type": "string",
+            "default": "Usage instructions in arabic"
           },
           "created_by": {
             "type": "string"

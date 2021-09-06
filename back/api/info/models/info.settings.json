@@ -2,7 +2,8 @@
   "kind": "singleType",
   "collectionName": "infos",
   "info": {
-    "name": "Info"
+    "name": "Info",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -37,6 +38,26 @@
     },
     "LinkToPublicCodeRepository": {
       "type": "string"
+    },
+    "AboutAR": {
+      "type": "richtext",
+      "default": "About in Arabic",
+      "required": true
+    },
+    "ContactAR": {
+      "type": "richtext",
+      "default": "Contact info in Arabic",
+      "required": true
+    },
+    "PrivacyPolicyAR": {
+      "type": "richtext",
+      "default": "Privacy Policy in Arabic",
+      "required": true
+    },
+    "UsageInstructionsAR": {
+      "type": "richtext",
+      "default": "Usage instructions in arabic",
+      "required": true
     }
   }
 }

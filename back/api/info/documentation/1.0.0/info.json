@@ -316,7 +316,11 @@
           "About",
           "Contact",
           "PrivacyPolicy",
-          "UsageInstructions"
+          "UsageInstructions",
+          "AboutAR",
+          "ContactAR",
+          "PrivacyPolicyAR",
+          "UsageInstructionsAR"
         ],
         "properties": {
           "id": {
@@ -344,6 +348,22 @@
           },
           "LinkToPublicCodeRepository": {
             "type": "string"
+          },
+          "AboutAR": {
+            "type": "string",
+            "default": "About in Arabic"
+          },
+          "ContactAR": {
+            "type": "string",
+            "default": "Contact info in Arabic"
+          },
+          "PrivacyPolicyAR": {
+            "type": "string",
+            "default": "Privacy Policy in Arabic"
+          },
+          "UsageInstructionsAR": {
+            "type": "string",
+            "default": "Usage instructions in arabic"
           }
         }
       },
@@ -352,7 +372,11 @@
           "About",
           "Contact",
           "PrivacyPolicy",
-          "UsageInstructions"
+          "UsageInstructions",
+          "AboutAR",
+          "ContactAR",
+          "PrivacyPolicyAR",
+          "UsageInstructionsAR"
         ],
         "properties": {
           "About": {
@@ -377,6 +401,22 @@
           },
           "LinkToPublicCodeRepository": {
             "type": "string"
+          },
+          "AboutAR": {
+            "type": "string",
+            "default": "About in Arabic"
+          },
+          "ContactAR": {
+            "type": "string",
+            "default": "Contact info in Arabic"
+          },
+          "PrivacyPolicyAR": {
+            "type": "string",
+            "default": "Privacy Policy in Arabic"
+          },
+          "UsageInstructionsAR": {
+            "type": "string",
+            "default": "Usage instructions in arabic"
           },
           "created_by": {
             "type": "string"
