@@ -56,8 +56,7 @@ export default {
       this.getLocale().includes('ar') ? 'ar' : 'en'
     )
     
-    console.log(this.locale)
-
+    this.getInfo()
     this.getTags()
     this.getLocations()
     this.getResources()
@@ -112,13 +111,19 @@ export default {
       navigator.language
     ),
     
+    getInfo() {
+      api
+      .info
+      .get()
+      .then(data => this.$store.commit('setInfo', data))
+      .catch(error => console.log(error))
+    },
+    
     getTags() {
       api
       .tags
       .getAll()
-      .then(data => 
-        this.$store.commit('setTags', data)
-      )
+      .then(data => this.$store.commit('setTags', data))
       .catch(error => console.log(error))
     },
     
@@ -126,9 +131,7 @@ export default {
       api
       .locations
       .getAll()
-      .then(data => 
-        this.$store.commit('setLocations', data)
-      )
+      .then(data => this.$store.commit('setLocations', data))
       .catch(error => console.log(error))
     },
     
@@ -136,9 +139,7 @@ export default {
       api
       .resources
       .getAll()
-      .then(data => {
-        this.$store.commit('setResources', data)
-      })
+      .then(data => this.$store.commit('setResources', data))
       .catch(error => console.log(error))
     },
 
@@ -146,9 +147,7 @@ export default {
       api
       .artworks
       .getAll()
-      .then(data => {
-        this.$store.commit('setArtworks', data)
-      })
+      .then(data => this.$store.commit('setArtworks', data))
       .catch(error => console.log(error))
     },
     
@@ -156,9 +155,7 @@ export default {
       api
       .collections
       .getAll()
-      .then(data => 
-        this.$store.commit('setCollections', data)
-      )
+      .then(data => this.$store.commit('setCollections', data))
       .catch(error => console.log(error))
     },
 

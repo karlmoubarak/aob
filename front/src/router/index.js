@@ -2,12 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '../views/Home'
 import Resources from '../views/Resources'
-// import Resource from '../views/Resource'
 import Artworks from '../views/Artworks'
-// import Artwork from '../views/Artwork'
 import Collections from '../views/Collections'
 import Collection from '../views/Collection'
-import About from '../views/About'
+import Info from '../views/Info'
 import Exhibition from '../views/Exhibition'
 import ItemPage from '../views/ItemPage'
 
@@ -65,9 +63,9 @@ export default createRouter({
       component: Collection
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About,
+      path: '/info',
+      name: 'Info',
+      component: Info,
     },
     {
       path: '/Exhibition',

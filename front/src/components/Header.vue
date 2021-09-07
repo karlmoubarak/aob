@@ -155,6 +155,7 @@ header li:nth-of-type(6) {
 
   
 li.my-collection {
+  box-sizing: border-box;
   margin-left: auto;
   background: var(--green);
   min-width: 13.1em;
@@ -164,7 +165,7 @@ li.my-collection {
   justify-content: flex-start;
   padding: 0;
   height: 100%;
-  /* max-height: 2em; */
+  max-height: 2em;
 } 
 
 li.my-collection a {
@@ -182,7 +183,7 @@ li.my-collection a {
 }
 li.my-collection a:first-of-type {
   padding: 0.3em 1em;
-  height: 100%;
+  height: 2em;
 }
 li.my-collection:hover {
   background: var(--green);
@@ -191,14 +192,13 @@ li.my-collection:hover {
 }
 
 li.my-collection:hover a  {
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
   border-radius: inherit;
   height: 2em;
   background: var(--lightgreen);
 }
 
 li.my-collection:hover a:hover  {
-  height: 2em;
   background: var(--green);
 }
 

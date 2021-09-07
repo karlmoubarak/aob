@@ -28,6 +28,12 @@ const
     ))
   },
   
+  // sortBy = (arr, sort) => (
+  //   sort == 'updated_at' ? sortByUpdate(arr) :
+  //   sort == 'alphabetical' ? sortAlphabetically(arr) :
+    
+  // ),
+  
   highlight = (source, queries) => {
     if (queries.length > 0) {
       for (let query of queries) {
@@ -55,6 +61,7 @@ export {
   toObject,
   sortAlphabetically, 
   sortByUpdate, 
+  // sortBy,
   highlight,
   processImages
 }

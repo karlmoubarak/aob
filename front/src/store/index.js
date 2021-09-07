@@ -8,53 +8,51 @@ export default createStore({
   strict: process.env.NODE_ENV !== 'production',
 
   state: {
+  
     isMobile          : false,
     locale            : '',  
+    info              : {},
     history           : [],
+    
     tags              : [],
     locations         : [],
     resources         : [],
     artworks          : [],
     collections       : [],
+    
     selectedTags      : [],
     selectedLocations : [],
     query             : '',
+    
     myCollection      : {
       slug: 'my-collection',
-      // Title: {
-      //   en: 'Your Collection',
-      //   ar: 'مجموعتك'
-      // },
-      // Author: {
-      //   en: 'Optionally add your name',
-      //   ar: 'أضف اسمك اختياريًا'
-      // },
-      // Description: {
-      //   en: 'Describe this collection.',
-      //   ar: 'صِف هذه المجموعة',
-      // },
       items: [],
     },
+    
   },
 
   mutations: {
   
-    setMobile        : (state, mobile)      => state.isMobile    = mobile,
-    setLocale        : (state, locale)      => state.locale      = locale,
-    addToHistory     : (state, path)        => state.history.unshift(path),
-    setTags          : (state, tags)        => state.tags        = tags,
-    setLocations     : (state, locations)   => state.locations   = locations,
-    setResources     : (state, resources)   => state.resources   = resources,
-    setArtworks      : (state, artworks)    => state.artworks    = artworks,
-    setCollections   : (state, collections) => state.collections = collections,
-    selectTags       : (state, tags)        => state.selectedTags = tags,
-    selectLocations  : (state, locations)   => state.selectedLocations = locations,
-    setQuery         : (state, query)       => state.query       = query,
-    addToCollection  : (state, item)        => state.myCollection.items.push(item),
-    rmFromCollection : (state, item) => {
-      state.myCollection.items.splice(state.myCollection.items.indexOf(item), 1)
+    setMobile        : (state, mobile)      => state.isMobile                    = mobile,
+    setLocale        : (state, locale)      => state.locale                      = locale,
+    setInfo          : (state, info)        => state.info                        = info,
+    addToHistory     : (state, path)        => state.history.unshift             ( path ),
+    
+    setTags          : (state, tags)        => state.tags                        = tags,
+    setLocations     : (state, locations)   => state.locations                   = locations,
+    setResources     : (state, resources)   => state.resources                   = resources,
+    setArtworks      : (state, artworks)    => state.artworks                    = artworks,
+    setCollections   : (state, collections) => state.collections                 = collections,
+    
+    selectTags       : (state, tags)        => state.selectedTags                = tags,
+    selectLocations  : (state, locations)   => state.selectedLocations           = locations,
+    setQuery         : (state, query)       => state.query                       = query,
+    
+    addToCollection  : (state, item)        => state.myCollection.items.push     ( item ),
+    rmFromCollection : (state, item)        => {
+      state.myCollection.items.splice( state.myCollection.items.indexOf ( item ), 1 )
     },
-    updateMyCollection : (state, data) => {
+    updateMyCollection : (state, data)      => {
       state.myCollection = { ...state.myCollection, ...data }
     }
     
@@ -109,21 +107,21 @@ export default createStore({
       .collections
       .find(c => c.slug == 'exhibition') 
      || {
-      Title: '',
-      Description: '',
-      items: [],
-      
-      
-     }
+        Title: '',
+        Description: '',
+        items: [], 
+      }
     ),
       
     resourceBySlug: state => slug => (
-      state.resources
+      state
+      .resources
       .find(c => c.slug == slug)
     ),
     
     artworkBySlug: state => slug => (
-      state.artworks
+      state
+      .artworks
       .find(c => c.slug == slug)
     ),
     
@@ -133,10 +131,18 @@ export default createStore({
     filteredResources: (state, getters) => (
       state.resources.filter(r => (
         state.selectedTags
-        .every(t => r.tags.map(r => r.slug).includes(t))
+        .every(t => r
+          .tags
+          .map(r => r.slug)
+          .includes(t)
+        )
        && 
         state.selectedLocations
-        .every(l => r.locations.map(r => r.slug).includes(l))
+        .every(l => r
+          .locations
+          .map(r => r.slug)
+          .includes(l)
+        )
        &&
         getters.queries
         .every(q => [
@@ -157,7 +163,11 @@ export default createStore({
     filteredArtworks: (state, getters) => ( 
       state.artworks.filter(a => (
         state.selectedTags
-        .every(t => a.tags.map(a => a.slug).includes(t))
+        .every(t => a
+          .tags
+          .map(a => a.slug)
+          .includes(t)
+        )
        &&
         state.selectedLocations
         .every(l => (

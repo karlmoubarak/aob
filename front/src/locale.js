@@ -32,10 +32,10 @@ module.exports = {
     },
     {
       name: {
-        en: 'About',
+        en: 'Info',
         ar: 'حول',
       },
-      slug: '/about'
+      slug: '/info'
     },
   ],
   tableHeaders: {
@@ -115,6 +115,12 @@ module.exports = {
     empty: {
       en: 'Your query yields 0 results.',
       ar: 'استفسارك يعطي 0 نتائج.'
+    }
+  },
+  info: {
+    updated_at:{
+      en: 'This text was last updated on',
+      ar: 'تم تحديث هذا النص آخر مرة في'
     }
   },
   media: {
