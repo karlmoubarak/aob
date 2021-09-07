@@ -1,7 +1,5 @@
 import { createStore } from 'vuex'
 import { sortAlphabetically, sortByUpdate } from '../utils'
-// import api from '../api'
-
 
 export default createStore({
 
@@ -200,7 +198,6 @@ export default createStore({
         ...getters.filteredArtworks
       ], 'slug')
     )
-    
     
   }
 
