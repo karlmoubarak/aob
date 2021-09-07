@@ -3,7 +3,7 @@
     id="artworks"
     @click="$router.go(-1)"
   >
-    <CollectionBody
+    <Table
       :collectionItems="filteredArtworks"
     />
   </div>
@@ -11,12 +11,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import CollectionBody from '../components/CollectionBody.vue'
+import Table from '../components/Table'
 
 export default {
   name: 'Artworks',
   components: {
-    CollectionBody,
+    Table,
   },
   computed: {
     ...mapGetters([

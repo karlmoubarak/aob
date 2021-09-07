@@ -92,7 +92,7 @@
       ></vue3-markdown-it>
     </div>
     <div class="body">
-      <CollectionBody
+      <Table
         :collectionItems="items"
         :isMyCollection="isMyCollection"
         :emptyMessage="emptyText"
@@ -105,12 +105,12 @@
 
 import { mapActions, mapGetters, mapState } from 'vuex'
 import api from '../api'
-import CollectionBody from '../components/CollectionBody.vue'
+import Table from '../components/Table'
 
 export default {
   name: 'Collection',
   components: {
-    CollectionBody
+    Table
   },
   data() {
     return {

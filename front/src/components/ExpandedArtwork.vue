@@ -89,10 +89,10 @@
 </template>
 
 <script>
-import moment from 'moment'
-import List from '../components/List'
-import { processImages } from '../utils'
-import MultiMedia from './MultiMedia.vue'
+import moment             from 'moment'
+import { processImages }  from '../utils'
+import List               from './Utils/List'
+import MultiMedia         from './Utils/MultiMedia'
 
 export default {
   name: 'Artwork',
@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     locale()      { return this.$store.state.locale },
-    id()          { return this.artwork.id },
+    id()          { return this.$locale.num[this.locale](this.artwork.id) },
     title()       { return this.artwork.Title },
     artist()      { return this.artwork.ArtistName },
     description() { return this.locale == 'ar' && this.artwork.Description_AR
@@ -122,7 +122,7 @@ export default {
     media()       { return this.artwork.Media },
     cover()       { return this.media && this.$apiURL + this.media[0].formats.medium.url },
     caption()     { return this.cover && this.media[0].caption || this.$locale.media.unknownRights[this.locale] },
-    updated()     { return moment(this.artwork.updated_at).format('DD/MM/yyyy') },
+    updated()     { return moment(this.artwork.updated_at).locale(this.locale).format('DD/MM/yyyy') },
     link()        { return this.artwork.Link },
     contact()     { return this.artwork.Contact || 'N/A'},
     

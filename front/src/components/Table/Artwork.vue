@@ -54,9 +54,9 @@
 
 <script>
 
-
 import { mapGetters, mapState, mapActions } from 'vuex'
-import MultiMedia from './MultiMedia.vue'
+
+import MultiMedia from '../Utils/MultiMedia'
 
 export default {
   name: 'Artwork',

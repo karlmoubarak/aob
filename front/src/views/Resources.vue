@@ -1,17 +1,17 @@
 <template>
-  <CollectionBody
+  <Table
     :collectionItems="filteredResources"
   />
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import CollectionBody from '../components/CollectionBody'
+import Table from '../components/Table'
 
 export default {
   name: 'Resources',
   components: {
-    CollectionBody
+    Table
   },
   computed: {
     ...mapGetters([

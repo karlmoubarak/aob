@@ -26,7 +26,7 @@
 import { mapState } from 'vuex'
 import api from './api'
 import Header from './components/Header'
-import Nav from './components/Nav.vue'
+import Nav from './components/Header/Nav'
 
 export default {
   name: 'App',
@@ -311,7 +311,7 @@ color: var(--orange);
   #app,
   main,
   #home,
-  .collectionBody {
+  .table {
     height: auto !important;
     max-height: unset !important;
     overflow: scroll;

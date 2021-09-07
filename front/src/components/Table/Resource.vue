@@ -44,11 +44,6 @@
       :list="files"
     />   
   </div>
-  <!-- <div class="source" v-if="files">
-    <FileList 
-      :list="files"
-    />   
-  </div> -->
   <div class="col source" v-else>
     <a
       @click.stop
@@ -70,9 +65,9 @@
 </template>
 
 <script>
-import moment from 'moment'
-import FileList from './FileList'
-import List from './List'
+import moment     from 'moment'
+import FileList   from '../Utils/FileList'
+import List       from '../Utils/List'
 
 import { mapActions, mapGetters, mapState } from 'vuex'
 

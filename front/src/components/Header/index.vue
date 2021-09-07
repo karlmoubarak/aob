@@ -73,7 +73,7 @@ export default {
       return this.expanded ? this.$locale.aob.name[this.locale] : this.$locale.aob.name.shorthand
     },
     myCollectionCount() {
-      return this.myCollection.items.length
+      return this.$locale.num[this.locale](this.myCollection.items.length)
     },
   },
   methods: {

@@ -8,7 +8,7 @@
         
       ></vue3-markdown-it>
     </div>
-    <CollectionBody
+    <Table
       :collectionItems="items"
     />
   </div>
@@ -17,12 +17,12 @@
 <script>
 import { processImages } from '../utils'
 import { mapGetters } from 'vuex'
-import CollectionBody from '../components/CollectionBody'
+import Table from '../components/Table'
 
 export default {
   name: 'Exhibitionn',
   components: {
-    CollectionBody,
+    Table,
   },
   computed: {
     ...mapGetters([

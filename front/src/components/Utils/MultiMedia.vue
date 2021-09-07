@@ -31,7 +31,7 @@
         <img
           class="thumb"
           v-else-if="type(key) == 'audio'"
-          src="../assets/icons/audio.png"
+          src="../../assets/icons/audio.png"
         />
       </div>
     </div>
@@ -150,7 +150,7 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  background: url(../assets/icons/video.png);
+  background: url(../../assets/icons/video.png);
   background-size: 70% 70%;
   background-position: center;
   background-repeat: no-repeat;

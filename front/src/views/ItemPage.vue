@@ -39,7 +39,7 @@
         :artwork="renderedItem"
       />
     </div>
-    <CollectionBody
+    <Table
       v-if="relatedItems.length > 0"
       ref="table"
       :collectionItems="relatedItems"
@@ -52,14 +52,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import CollectionBody from '../components/CollectionBody.vue'
+import Table from '../components/Table'
 import ExpandedArtwork from '../components/ExpandedArtwork.vue'
 import ExpandedResource from '../components/ExpandedResource.vue'
 
 export default {
   name: 'Page',
   components: {
-    CollectionBody,
+    Table,
     ExpandedResource,
     ExpandedArtwork,
   },
@@ -209,7 +209,7 @@ export default {
   transition: all 0.2s ease;
 }
 
-.collectionBody {
+.table {
   position: fixed;
   top: calc(100% - 10em);
   left: 10em;
@@ -221,7 +221,7 @@ export default {
   /* z-index: 4; */
 }
 
-.collectionBody:hover {
+.table:hover {
   top: calc(100% - 15em);
 }
 
@@ -257,7 +257,7 @@ export default {
   right: 1em;
 }
 
-.ar .collectionBody {
+.ar .table {
   right: 10em;
   left: unset;
 }
@@ -282,7 +282,7 @@ export default {
   font-size: 2em;
 }
 
-.mobile .collectionBody {
+.mobile .table {
   position: relative;
   width: unset;
   left: unset;

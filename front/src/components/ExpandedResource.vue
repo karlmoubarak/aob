@@ -87,11 +87,12 @@
 
 <script>
 
-import moment from 'moment'
+import moment            from 'moment'
 import { processImages } from '../utils'
-import FileList from './FileList'
-import List from './List'
-import MultiMedia from './MultiMedia'
+
+import FileList          from './Utils/FileList'
+import List              from './Utils/List'
+import MultiMedia        from './Utils/MultiMedia'
 
 export default {
   name: 'Resource',
@@ -104,7 +105,7 @@ export default {
     'resource'
   ],
   computed: {
-    id()          { return this.resource.id },
+    id()          { return this.$locale.num[this.locale](this.resource.id) },
     locale()      { return this.$store.state.locale },
     org()         { return this.locale == 'ar' && this.resource.Organisation_AR
       ? this.resource.Organisation_AR
@@ -120,7 +121,7 @@ export default {
     media()       { return this.resource.Media },
     link()        { return this.resource.Link },
     contact()     { return this.resource.Contact || 'N/A'},
-    updated()     { return moment(this.resource.updated_at).format('DD/MM/yyyy') },
+    updated()     { return moment(this.resource.updated_at).locale(this.locale).format('DD/MM/yyyy') },
     cover()       { return this.media && 
       this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
       this.media[0].formats.small ? this.$apiURL + this.media[0].formats.small.url :

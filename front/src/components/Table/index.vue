@@ -1,7 +1,7 @@
 <template>
   <div 
     :class="[
-      'collectionBody', { 
+      'table', { 
         artworksOnly: artworksOnly,
         myCollection: isMyCollection
       }
@@ -56,13 +56,13 @@
 </template>
 
 <script>
-import Artwork from './Artwork.vue'
-import Resource from './Resource.vue'
-import TableHeaders from './TableHeaders.vue'
+import Artwork              from './Artwork'
+import Resource             from './Resource'
+import TableHeaders         from './TableHeaders'
 import { VueDraggableNext } from 'vue-draggable-next'
 
 export default {
-  name: 'CollectionBody',
+  name: 'Table',
   components: {
     TableHeaders,
     Resource,
@@ -97,7 +97,7 @@ export default {
 
 <style >
 
-.collectionBody {
+.table {
   box-sizing: border-box;
   position: relative;
   width: 100%;
@@ -228,7 +228,7 @@ export default {
   opacity: 0;
 }
 
-.mobile .collectionBody {
+.mobile .table {
   margin-top: 0.5em;
   max-height: unset;
   padding: 0;

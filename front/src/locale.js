@@ -1,4 +1,23 @@
 module.exports = {
+  num: {
+    en: num => num,
+    ar: num => num
+    .toString()
+    .replace( /[0-9]/g, 
+      w => [
+        '۰',
+        '۱',
+        '۲',
+        '۳',
+        '۴',
+        '۵',
+        '۶',
+        '۷',
+        '۸',
+        '۹'
+      ][+w]
+    )
+  },
   aob: {
     name: {
       en: 'Archive of Belonging',
@@ -121,7 +140,41 @@ module.exports = {
     updated_at:{
       en: 'This text was last updated on',
       ar: 'تم تحديث هذا النص آخر مرة في'
+    },
+    inNumbers: {
+      en: 'The Archive in Numbers',
+      ar: 'الأرشيف بالأرقام'
+    },
+    total: {
+      en: 'Total entries',
+      ar: 'إجمالي الإدخالات'
+    },
+    resources: {
+      en: 'Resources',
+      ar: 'مصادر'
+    },
+    artworks: {
+      en: 'Artworks',
+      ar: 'اعمال فنية'
+    },
+    collections: {
+      en: 'Collections',
+      ar: 'مجموعات'
+    },
+    archive_updated_at: {
+      en: 'The archive was last updated on',
+      ar: 'تم تحديث الأرشيف في'
+    },
+    contribute: {
+      en: 'You can contribute a resource or artwork to the archive.',
+      ar: 'يمكنك المساهمة بمصدر أو بعمل فني إلى الأرشيف.'
+    },
+    repo: {
+      en: 'The code running the archive is published under the CC-by-SA-4.0 license and can be found here:',
+      ar: 'يتم نشر الكود الذي يقوم بتشغيل الأرشيف بموجب ترخيص CC-by-SA-4.0 ويمكن العثور عليه هنا:'
     }
+    
+    
   },
   media: {
     unknownRights: {
@@ -148,8 +201,8 @@ module.exports = {
         ar: 'الوصف غير موجود',
       },
       empty: {
-        en: 'There is nothing in your collection.',
-        ar: 'مجموعتك فارغة.'
+        en: 'There is nothing in your collection. To add a resource or artwork to your collection, click the plus button to the left of it.',
+        ar: 'مجموعتك فارغة. لإضافة مورد أو عمل فني إلى مجموعتك ، انقر فوق زر علامة الجمع الموجود على يسارها.'
       }
     },
     mine: {

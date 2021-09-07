@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <CollectionBody
+    <Table
       v-if="relatedItems.length > 0"
       :collectionItems="relatedItems"
     />
@@ -95,14 +95,14 @@ import moment from 'moment'
 import FileList from '../components/FileList'
 import List from '../components/List'
 import { mapState, mapGetters } from 'vuex'
-import CollectionBody from '../components/CollectionBody.vue'
+import Table from '../components/Table'
 
 export default {
   name: 'Resource',
   components: {
     FileList,
     List,
-    CollectionBody,
+    Table,
   },
   props: [
   ],

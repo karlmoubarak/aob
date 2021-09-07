@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <CollectionBody
+    <Table
       :collectionItems="mainCollection"
       :emptyMessage="emptyMessage"
     />
@@ -14,13 +14,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import CollectionBody from '../components/CollectionBody'
+import Table from '../components/Table'
 import Upload from '../components/Upload'
 
 export default {
   name: 'Home',
   components: {
-    CollectionBody,
+    Table,
     Upload
   },
   computed: {

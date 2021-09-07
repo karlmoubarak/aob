@@ -9,15 +9,44 @@
           :source="source(section)"
         ></vue3-markdown-it>
         <div class="updatedAt">
-          <p>{{ updatedAt }}</p>
+          <p>{{ updatedAt }}.</p>
         </div>
       </div>
       <div class="meta">
-        <h1> The Archive in Numbers</h1>
-        <p> Total entries: {{ count('mainCollection') }} </p>
-        <p> Resources: {{ count('filteredResources') }} </p>
-        <p> Artworks: {{ count('filteredArtworks') }} </p>
-        <p> The archive was last updated on: {{ archiveLastUpdated }} </p>
+        <table>
+          <tr> 
+            <th colspan="2">{{ $locale['info']['inNumbers'][locale] }}</th>
+          </tr>
+          <tr> 
+            <th>{{ $locale['info']['total'][locale] }}</th>
+            <th>{{ count('mainCollection') }}</th>
+          </tr>
+          <tr> 
+            <th>{{ $locale['info']['resources'][locale] }}</th>
+            <th>{{ count('filteredResources') }}</th>
+          </tr>
+          <tr> 
+            <th>{{ $locale['info']['artworks'][locale] }}</th>
+            <th>{{ count('filteredArtworks') }}</th>
+          </tr>
+          <tr> 
+            <th>{{ $locale['info']['collections'][locale] }}</th>
+            <th>{{ count('sortedCollections') }}</th>
+          </tr>
+        </table>
+        <div class="updatedAt">
+          <p>{{ $locale['info']['archive_updated_at'][locale] }} {{ archiveLastUpdated}}.</p>
+        </div>
+        <div class="contribute">
+          <p>{{ $locale['info']['contribute'][locale] }} </p>
+        </div>
+        <div class="repo">
+          <p>{{ $locale['info']['repo'][locale] }} <a  
+              target="blank"
+              :src="info.LinkToPublicCodeRepository"
+            >{{ info.LinkToPublicCodeRepository }}</a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -75,7 +104,7 @@ export default {
       )
     },
     count(arr) { 
-      return this.$store.getters[arr].length
+      return this.$locale.num[this.locale](this.$store.getters[arr].length)
     },
   }
 }
@@ -107,8 +136,34 @@ export default {
 .meta {
   font-family: 'Courier New', Courier, monospace;
   background: var(--lightgreen);
+  max-width: 25em;
+}
+.meta table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.meta table tr th {
+  border: 1px solid;
+  font-weight: normal;
+  padding: 0.3em;
+  text-align: left;
+}
+.meta table tr th:nth-of-type(2) {
+  text-align: center;
+}
+.meta table tr:first-of-type th {
+  font-weight: bold;
 }
 .updatedAt {
   font-style: italic;
 }
+
+.ar .meta table tr th {
+  text-align: right;
+}
+.ar .meta table tr th:nth-of-type(2) {
+  text-align: center;
+}
+
+
 </style>

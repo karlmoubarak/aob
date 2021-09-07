@@ -14,8 +14,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import SearchBar from './SearchBar'
-import SubMenuList from './SubMenuList.vue'
+import SearchBar    from './SearchBar'
+import SubMenuList  from './SubMenuList'
 
 export default {
   name: 'Nav',

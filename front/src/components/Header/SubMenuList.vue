@@ -23,7 +23,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import Checkbox from './Checkbox'
+import Checkbox                 from './Checkbox'
 
 export default {
   name: 'SubMenuList',
