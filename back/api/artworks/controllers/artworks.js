@@ -33,7 +33,6 @@ module.exports = {
           }
         }
       }
-      // Overwrite the ctx.request.body.tags with the new integer based array
       artwork.tags = tags
       console.log(artwork.tags)
     }
@@ -48,6 +47,6 @@ module.exports = {
     //   // pass the new request body with the proper array of IDs and create the article
     //   entity = await strapi.services.article.create(newArticle);
     // }
-    return sanitizeEntity(entity, { model: strapi.models.article });
+    return sanitizeEntity(entity, { model: strapi.models.artwork });
   },
 };
