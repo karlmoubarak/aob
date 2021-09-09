@@ -11,6 +11,7 @@ module.exports = {
       tags = [],
       locations = []
 
+    console.lo(resource, ctx)
 
     if (resource.tags.length > 0) {
       for (let i = 0; i < resource.tags.length; i++) {
