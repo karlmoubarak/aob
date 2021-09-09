@@ -31,7 +31,8 @@ module.exports = {
         }
       }
       // Overwrite the ctx.request.body.tags with the new integer based array
-      // newArticle.tags = tags
+      artwork.tags = tags
+      console.log(artwork.tags)
     }
 
 
