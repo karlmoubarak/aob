@@ -254,6 +254,14 @@ module.exports = {
     }
   },
   buttons: {
+    submitResource: {
+      en: 'submit a resource',
+      ar: 'قدم مصدر '
+    },
+    submitArtwork: {
+      en: 'submit an artwork',
+      ar: 'قدم عمل فني  '
+    },
     submit: {
       en: 'submit',
       ar: 'أرسل'

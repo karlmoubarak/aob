@@ -4,24 +4,17 @@
       :collectionItems="mainCollection"
       :emptyMessage="emptyMessage"
     />
-    <transition name="fade">
-      <Upload
-        v-if="$route.path == '/upload'"
-      />
-    </transition>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Table from '../components/Table'
-import Upload from '../components/Upload'
 
 export default {
   name: 'Home',
   components: {
-    Table,
-    Upload
+    Table
   },
   computed: {
     ...mapGetters([

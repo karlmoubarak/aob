@@ -176,6 +176,7 @@ export default {
   --black: rgb(119, 119, 119);
   --orange: #FF740A;
   --lightorange: #FFF7DE;
+  --lighterorange: #f5eed4;
   --lightestorange: #FEFBF1;
   --lightblue: #F2F5FB;
   --landing: 2s;
@@ -220,6 +221,10 @@ main {
   flex-shrink: 1;
   max-height: 0;
   overflow: hidden;
+}
+
+.center {
+  text-align: center;
 }
 
 

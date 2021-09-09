@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '../views/Home'
-import Resources from '../views/Resources'
-import Artworks from '../views/Artworks'
-import Collections from '../views/Collections'
-import Collection from '../views/Collection'
-import Info from '../views/Info'
-import Exhibition from '../views/Exhibition'
-import ItemPage from '../views/ItemPage'
+import Home           from '../views/Home'
+import Resources      from '../views/Resources'
+import Artworks       from '../views/Artworks'
+import Collections    from '../views/Collections'
+import Collection     from '../views/Collection'
+import Info           from '../views/Info'
+import Exhibition     from '../views/Exhibition'
+import ItemPage       from '../views/ItemPage'
 
 const path = '/' 
 
@@ -25,11 +25,6 @@ export default createRouter({
       component: Home,
     },
     {
-      path: '/upload',
-      name: 'Upload',
-      component: Home,
-    },
-    {
       path: '/resources',
       name: 'Resources',
       component: Resources,
@@ -39,6 +34,11 @@ export default createRouter({
       name: 'Resource',
       props: true,
       component: ItemPage,
+    },
+    {
+      path: '/Exhibition',
+      name: 'Exhibition',
+      component: Exhibition,
     },
     {
       path: '/artworks',
@@ -68,9 +68,19 @@ export default createRouter({
       component: Info,
     },
     {
-      path: '/Exhibition',
-      name: 'Exhibition',
-      component: Exhibition,
+      path: '/upload',
+      name: 'Upload',
+      component: Info,
+    },
+    {
+      path: '/upload/resource',
+      name: 'Upload Resource',
+      component: Info,
+    },
+    {
+      path: '/upload/artwork',
+      name: 'Upload Artwork',
+      component: Info,
     },
   ],
 })

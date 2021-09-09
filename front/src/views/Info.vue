@@ -39,15 +39,49 @@
         </div>
         <div class="contribute">
           <p>{{ $locale['info']['contribute'][locale] }} </p>
+          <div class="buttons">
+            <input 
+              class="submit"
+              name="submit resource"
+              ref="submitResource"
+              type="button"
+              :value="$locale['buttons']['submitResource'][locale]"
+              @click="$router.push('/upload/resource')"
+            />
+            <input 
+              class="submit"
+              name="submit artwork"
+              ref="submitArtwork"
+              type="button"
+              :value="$locale['buttons']['submitArtwork'][locale]"
+              @click="$router.push('/upload/artwork')"
+            />
+          </div>
         </div>
         <div class="repo">
-          <p>{{ $locale['info']['repo'][locale] }} <a  
-              target="blank"
-              :src="info.LinkToPublicCodeRepository"
-            >{{ info.LinkToPublicCodeRepository }}</a>
+          <p>{{ $locale['info']['repo'][locale] }}</p>
+          <p class="center">
+             →
+              <a  
+                target="blank"
+                :href="info.LinkToPublicCodeRepository"
+              >
+                {{ info.LinkToPublicCodeRepository }}
+              </a>
+              ←
           </p>
         </div>
       </div>
+      <transition name="fade">
+        <Upload
+          v-if="$route.path == '/upload/resource'"
+          selectedType="resource"
+        />
+        <Upload
+          v-else-if="$route.path == '/upload/artwork'"
+          selectedType="artwork"
+        />
+      </transition>
     </div>
   </div>
 </template>
@@ -56,9 +90,14 @@
 import { mapState } from 'vuex'
 import { processImages, sortByUpdate } from '../utils'
 import moment from 'moment'
+import Upload from '../components/Upload'
+
 
 export default {
   name: 'Info',
+  components: {
+    Upload
+  },
   data() {
     return {
       sections: [
@@ -135,7 +174,7 @@ export default {
 }
 .meta {
   font-family: 'Courier New', Courier, monospace;
-  background: var(--lightgreen);
+  background: var(--green);
   max-width: 25em;
 }
 .meta table {
@@ -154,6 +193,26 @@ export default {
 .meta table tr:first-of-type th {
   font-weight: bold;
 }
+.meta .contribute .buttons {
+  display: flex;
+  justify-content: center;
+}
+.meta .contribute input {
+  box-sizing: border-box;
+  background: var(--lightgreen);
+  border: none;
+  outline: none;
+  padding: 0.3em 1em;
+  font-family: montserrat;
+  cursor: pointer;
+  margin-right: 1em;
+  margin-bottom: 0;
+}
+.meta .contribute input:last-of-type {
+  margin-right: 0;
+}
+
+
 .updatedAt {
   font-style: italic;
 }
@@ -163,6 +222,13 @@ export default {
 }
 .ar .meta table tr th:nth-of-type(2) {
   text-align: center;
+}
+.ar .meta .contribute input {
+  margin-right: unset;
+  margin-left: 1em;
+}
+.ar .meta .contribute input:last-of-type {
+  margin-left: 0;
 }
 
 
