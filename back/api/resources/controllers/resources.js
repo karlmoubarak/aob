@@ -36,7 +36,7 @@ module.exports = {
     }
 
     if (resource.locations.length > 0) {
-      for (let i = 0; i < resource.location.length; i++) {
+      for (let i = 0; i < resource.locations.length; i++) {
         const location = resource.location[i]
         if (typeof(location) === 'number') {
           locations.push(location)

@@ -251,7 +251,7 @@ export default {
             location      : this.selectedLocations.map(l => l.id || l.Name),
           } : {
             Organisation  : this.organisation,
-            locations     : this.selectedLocations.map(l => l.id),
+            locations     : this.selectedLocations.map(l => l.id || l.Name),
           },
           ...{
             Description   : this.description,
