@@ -50,6 +50,6 @@ module.exports = {
       // pass the new request body with the proper array of IDs and create the article
       // entity = await strapi.services.article.create(newArticle);
     }
-    return sanitizeEntity(entity, { model: strapi.models.artwork });
+    return sanitizeEntity(entity, { model: strapi.models.artworks });
   },
 };
