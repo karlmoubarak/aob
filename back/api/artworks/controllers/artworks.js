@@ -22,13 +22,12 @@ module.exports = {
 
           console.log(check)
 
-          // If it exists, push that id into an array, else create it and push the new ID
-          // if (check.length > 0 && check[0].name === newArticle.tags[i]) {
-          //   tags.push(check[0].id)
-          // } else {
-          //   let newTag = await strapi.query('tag').create({ name: newArticle.tags[i]})
-          //   tags.push(newTag.id)
-          // }
+          if (check.length > 0 && check[0].Name === tag) {
+            tags.push(check[0].id)
+          } else {
+            let newTag = await strapi.query('tags').create({ Name: tag })
+            tags.push(newTag.id)
+          }
         }
       }
       // Overwrite the ctx.request.body.tags with the new integer based array

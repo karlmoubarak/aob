@@ -1,8 +1,32 @@
 'use strict';
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#lifecycle-hooks)
- * to customize this model
- */
-
-module.exports = {};
+module.exports = {
+  lifecycles: {
+    beforeCreate: async (data) => {
+      if (data.Name) {
+        data.slug = await strapi
+        .plugins['content-manager']
+        .services
+        .uid
+        .generateUIDField({
+          contentTypeUID: 'application::tags.tags',
+          field: 'slug',
+          data,
+        })
+      }
+    },
+    beforeUpdate: async (params, data) => {
+      if (data.Name) {
+        data.slug = await strapi
+        .plugins['content-manager']
+        .services
+        .uid
+        .generateUIDField({
+          contentTypeUID: 'application::tags.tags',
+          field: 'slug',
+          data,
+        })
+      }
+    },
+  },
+};
