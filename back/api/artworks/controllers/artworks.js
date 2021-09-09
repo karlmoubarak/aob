@@ -25,7 +25,10 @@ module.exports = {
           if (check.length > 0 && check[0].Name === tag) {
             tags.push(check[0].id)
           } else {
-            let newTag = await strapi.query('tags').create({ Name: tag })
+            let newTag = await strapi.query('tags').create({
+              Name: tag,
+              published_at: null
+            })
             tags.push(newTag.id)
           }
         }
