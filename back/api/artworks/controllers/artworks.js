@@ -10,8 +10,6 @@ module.exports = {
       entity,
       tags = []
 
-    // console.log(ctx, artwork)
-
     if (artwork.tags.length > 0) {
       for (let i = 0; i < artwork.tags.length; i++) {
         const tag = artwork.tags[i]
@@ -19,8 +17,6 @@ module.exports = {
           tags.push(tag)
         } else {
           let check = await strapi.query('tags').find({ Name: tag })
-
-          // console.log(check)
 
           if (check.length > 0 && check[0].Name === tag) {
             tags.push(check[0].id)
@@ -34,21 +30,16 @@ module.exports = {
         }
       }
       artwork.tags = tags
-      // console.log(artwork.tags)
     }
 
 
 
     if (ctx.is('multipart')) {
-      // need to adjust this for the tags, right now it will break
-      console.log('is Multipart')
       const { files } = parseMultipartData(ctx)
-      console.log(artwork, files)
-      entity = await strapi.services.artworks.create(artwork, { files });
-    // } else {
-      // pass the new request body with the proper array of IDs and create the article
-      // entity = await strapi.services.article.create(newArticle);
+      entity = await strapi.services.artworks.create(artwork, { files })
+    } else {
+      entity = await strapi.services.artworks.create(artwork)
     }
-    return sanitizeEntity(entity, { model: strapi.models.artworks });
+    return sanitizeEntity(entity, { model: strapi.models.artworks })
   },
 };
