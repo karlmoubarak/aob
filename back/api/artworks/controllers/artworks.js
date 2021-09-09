@@ -6,7 +6,7 @@ module.exports = {
 
   async create(ctx) {
     let
-      artwork = ctx.request.body,
+      artwork = JSON.parse(ctx.request.body.data),
       entity,
       tags = []
 
