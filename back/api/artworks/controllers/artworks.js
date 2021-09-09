@@ -49,7 +49,7 @@ module.exports = {
               Name: location,
               published_at: null
             })
-            tags.push(newLocation.id)
+            locations.push(newLocation.id)
           }
         }
       }
