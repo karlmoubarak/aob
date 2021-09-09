@@ -34,7 +34,7 @@ module.exports = {
       resource.tags = tags
     }
 
-    if (resource.location.length > 0) {
+    if (resource.locations.length > 0) {
       for (let i = 0; i < resource.location.length; i++) {
         const location = resource.location[i]
         if (typeof(location) === 'number') {
