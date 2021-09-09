@@ -42,7 +42,8 @@ module.exports = {
     if (ctx.is('multipart')) {
       // need to adjust this for the tags, right now it will break
       console.log('is Multipart')
-      // const { data, files } = parseMultipartData(ctx);
+      const { data, files } = parseMultipartData(ctx);
+      console.log(data, files)
       // entity = await strapi.services.article.create(data, { files });
     // } else {
       // pass the new request body with the proper array of IDs and create the article
