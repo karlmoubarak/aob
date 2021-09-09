@@ -43,6 +43,7 @@ module.exports = {
       // need to adjust this for the tags, right now it will break
       console.log('is Multipart')
       const { data, files } = parseMultipartData(ctx);
+      data.tags = tags
       console.log(data, files)
       // entity = await strapi.services.article.create(data, { files });
     // } else {
