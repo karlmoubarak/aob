@@ -248,7 +248,7 @@ export default {
             Title         : this.title,
             ArtistName    : this.artist,
             Medium        : this.medium,
-            location      : this.selectedLocations.map(l => l.id),
+            location      : this.selectedLocations.map(l => l.id || l.Name),
           } : {
             Organisation  : this.organisation,
             locations     : this.selectedLocations.map(l => l.id),

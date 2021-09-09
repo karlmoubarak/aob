@@ -8,7 +8,8 @@ module.exports = {
     let
       artwork = JSON.parse(ctx.request.body.data),
       entity,
-      tags = []
+      tags = [],
+      locations = []
 
 
     if (artwork.tags.length > 0) {
