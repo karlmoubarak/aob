@@ -18,7 +18,7 @@ module.exports = {
         if (typeof(tag) === 'number') {
           tags.push(tag)
         } else {
-          let check = await strapi.query('tag').find({ Name: tag })
+          let check = await strapi.query('tags').find({ Name: tag })
 
           console.log(check)
 
