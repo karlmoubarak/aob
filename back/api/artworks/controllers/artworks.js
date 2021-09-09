@@ -10,6 +10,7 @@ module.exports = {
       entity,
       tags = []
 
+
     if (artwork.tags.length > 0) {
       for (let i = 0; i < artwork.tags.length; i++) {
         const tag = artwork.tags[i]
@@ -32,7 +33,27 @@ module.exports = {
       artwork.tags = tags
     }
 
+    if (artwork.location.length > 0) {
+      for (let i = 0; i < artwork.location.length; i++) {
+        const location = artwork.location[i]
+        if (typeof(location) === 'number') {
+          locations.push(location)
+        } else {
+          let check = await strapi.query('locations').find({ Name: location })
 
+          if (check.length > 0 && check[0].Name === location) {
+            location.push(check[0].id)
+          } else {
+            let newLocation = await strapi.query('locations').create({
+              Name: location,
+              published_at: null
+            })
+            tags.push(newLocation.id)
+          }
+        }
+      }
+      artwork.location = locations
+    }
 
     if (ctx.is('multipart')) {
       const { files } = parseMultipartData(ctx)
