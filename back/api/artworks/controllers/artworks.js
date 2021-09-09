@@ -10,6 +10,8 @@ module.exports = {
       entity,
       tags = []
 
+    console.log(ctx, artwork)
+
     if (artwork.tags.length > 0) {
       for (let i = 0; i < artwork.tags.length; i++) {
         const tag = artwork.tags[i]
