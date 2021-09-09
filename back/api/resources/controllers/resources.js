@@ -37,14 +37,14 @@ module.exports = {
 
     if (resource.locations.length > 0) {
       for (let i = 0; i < resource.locations.length; i++) {
-        const location = resource.location[i]
+        const location = resource.locations[i]
         if (typeof(location) === 'number') {
           locations.push(location)
         } else {
           let check = await strapi.query('locations').find({ Name: location })
 
           if (check.length > 0 && check[0].Name === location) {
-            location.push(check[0].id)
+            locations.push(check[0].id)
           } else {
             let newLocation = await strapi.query('locations').create({
               Name: location,
