@@ -257,7 +257,7 @@ export default {
             Description   : this.description,
             Link          : this.link,
             Contact       : this.contact,
-            tags          : this.selectedTags.map(t => t.id),
+            tags          : this.selectedTags.map(t => t.id || t.Name),
             published_at  : null,
           },
         }
