@@ -45,7 +45,7 @@ module.exports = {
       const { data, files } = parseMultipartData(ctx);
       data.tags = tags
       console.log(data, files)
-      entity = await strapi.services.artwork.create(data, { files });
+      entity = await strapi.services.artworks.create(data, { files });
     // } else {
       // pass the new request body with the proper array of IDs and create the article
       // entity = await strapi.services.article.create(newArticle);
