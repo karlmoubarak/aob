@@ -31,28 +31,24 @@ export default createStore({
 
   mutations: {
   
-    setMobile        : (state, mobile)      => state.isMobile                    = mobile,
-    setLocale        : (state, locale)      => state.locale                      = locale,
-    setInfo          : (state, info)        => state.info                        = info,
-    addToHistory     : (state, path)        => state.history.unshift             ( path ),
+    setMobile          : (state, mobile)      => state.isMobile                    = mobile,
+    setLocale          : (state, locale)      => state.locale                      = locale,
+    setInfo            : (state, info)        => state.info                        = info,
+    addToHistory       : (state, path)        => state.history.unshift             ( path ),
     
-    setTags          : (state, tags)        => state.tags                        = tags,
-    setLocations     : (state, locations)   => state.locations                   = locations,
-    setResources     : (state, resources)   => state.resources                   = resources,
-    setArtworks      : (state, artworks)    => state.artworks                    = artworks,
-    setCollections   : (state, collections) => state.collections                 = collections,
+    setTags            : (state, tags)        => state.tags                        = tags,
+    setLocations       : (state, locations)   => state.locations                   = locations,
+    setResources       : (state, resources)   => state.resources                   = resources,
+    setArtworks        : (state, artworks)    => state.artworks                    = artworks,
+    setCollections     : (state, collections) => state.collections                 = collections,
     
-    selectTags       : (state, tags)        => state.selectedTags                = tags,
-    selectLocations  : (state, locations)   => state.selectedLocations           = locations,
-    setQuery         : (state, query)       => state.query                       = query,
+    selectTags         : (state, tags)        => state.selectedTags                = tags,
+    selectLocations    : (state, locations)   => state.selectedLocations           = locations,
+    setQuery           : (state, query)       => state.query                       = query,
     
-    addToCollection  : (state, item)        => state.myCollection.items.push     ( item ),
-    rmFromCollection : (state, item)        => {
-      state.myCollection.items.splice( state.myCollection.items.indexOf ( item ), 1 )
-    },
-    updateMyCollection : (state, data)      => {
-      state.myCollection = { ...state.myCollection, ...data }
-    }
+    addToCollection    : (state, item)        => state.myCollection.items.push     ( item ),
+    rmFromCollection   : (state, key)         => state.myCollection.items.splice   ( key, 1 ),
+    updateMyCollection : (state, data)        => state.myCollection                = { ...state.myCollection, ...data }
     
   },
 
@@ -72,9 +68,15 @@ export default createStore({
       }
     },
     
-    removeFromCollection: ({ commit, getters }, item) => {
+    removeFromCollection: ({ state, commit, getters }, item) => {
       if (getters.isInMyCollection(item.slug)) {
-        commit('rmFromCollection', item)
+        commit(
+          'rmFromCollection', 
+          state
+          .myCollection
+          .items
+          .indexOf(item)
+        )
       }
     },
   },

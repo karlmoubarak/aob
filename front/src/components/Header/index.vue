@@ -115,7 +115,7 @@ header li {
   display: flex;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
 }
 header li.aob {
   max-width: 4em;
@@ -172,7 +172,7 @@ li.my-collection a {
   box-sizing: border-box;
   color: var(--brightgreen);
   color: unset;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
   height: 0;
   flex-shrink: 0;
   overflow: hidden;
@@ -224,7 +224,7 @@ li.my-collection:hover a:hover  {
   overflow: hidden;
   /* max-height: 4em; */
   /* overflow: scroll; */
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
 }
 .mobile header a:hover {
   color: var(--lightblue);

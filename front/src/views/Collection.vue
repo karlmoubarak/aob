@@ -1,11 +1,15 @@
 <template>
   <div 
     v-if="collection" 
-    class="collection"
+    :class="[ 
+      'collection', 
+      { printing: printing }
+    ]"
   >
     <div 
       v-if="isMyCollection"
       class="info"
+      id="myCollection"
     >
       <div class="header">
         <p v-if="titleEmpty" class="error">This field is mandatory.</p>
@@ -82,6 +86,9 @@
       v-else
       class="info"
     >
+      <div class="qrCode">
+        <canvas ref="qr"></canvas>
+      </div>
       <div class="header">
         <p class="title"> {{ title }}</p>
         <p class="author"> {{ author }}</p>
@@ -90,12 +97,24 @@
         class="description"
         :source="description"
       ></vue3-markdown-it>
+      <div class="options">
+        <input 
+          class="print"
+          name="print"
+          ref="print"
+          type="button"
+          :disabled="empty"
+          :value="printText"
+          @click="print"
+        />
+      </div>
     </div>
     <div class="body">
       <Table
         :collectionItems="items"
         :isMyCollection="isMyCollection"
         :emptyMessage="emptyText"
+        :printing="printing"
       />
     </div>
   </div>
@@ -105,6 +124,8 @@
 
 import { mapActions, mapGetters, mapState } from 'vuex'
 import api from '../api'
+import QRCode from 'qrcode'
+import print from 'vue3-print-nb'
 import Table from '../components/Table'
 
 export default {
@@ -112,10 +133,21 @@ export default {
   components: {
     Table
   },
+  directives: {
+    print   
+  },
   data() {
     return {
       titleEmpty: false,
       status: '',
+      qrOptions: {
+        margin: 0,  
+        scale: 4,
+        color: {
+          light: '#ffffff00'
+        }  
+      },
+      printing: false,
     }
   },
   computed: {
@@ -171,6 +203,12 @@ export default {
     
     empty()      { return this.items.length == 0 },
     isMyCollection() { return this.collection.slug == this.$store.state.myCollection.slug },
+  },
+  
+  mounted() {
+  
+
+  
   },
   methods: {
   
@@ -232,7 +270,19 @@ export default {
     },
     
     print() {
-      window.print()
+      this.printing = true
+      QRCode.toCanvas(
+        this.$refs.qr, 
+        window.location.href,
+        this.qrOptions,
+        error => {
+        if (error) console.error(error)
+          setTimeout(() => {
+            window.print()
+            this.printing = false
+          }, 500)
+        }
+      )  
     }
 
   }
@@ -244,8 +294,8 @@ export default {
 
 .collection {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   height: 100%;
 }
 
@@ -327,7 +377,9 @@ export default {
   padding-top: 0em;
   /* min-height: 60vh; */
   width: 100%;
+  padding-top: 2.5em;
 }
+
 .mobile .collection .info {
   max-width: 100%;
   margin: 1em;
@@ -342,4 +394,15 @@ export default {
   margin-left: 1em;
 }
 
+.collection.printing .body {
+  background: #f2e4c4;
+  padding: 0;
+}
+@media print {
+  .collection .body {
+    position: relative;
+    page-break-before: always;
+    padding: 0;
+  }
+}
 </style>

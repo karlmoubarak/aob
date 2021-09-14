@@ -140,7 +140,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: 4em;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
 }
 
 /* .col.description p:hover {

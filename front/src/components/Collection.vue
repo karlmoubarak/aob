@@ -86,7 +86,7 @@ export default {
   background: var(--lightgreen);
   cursor: pointer;
   border-radius: 0.5em;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
 }
 .collectionContainer .collection {
   max-height: 23em;
@@ -98,7 +98,7 @@ export default {
   justify-content: space-between;
   /* flex-direction: column; */
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
   padding: 1em;
 }
 .collectionContainer .collection .circleContainer {
@@ -110,7 +110,7 @@ export default {
   height: 3em;
   background-color: white;
   background: var(--lightgreen);
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
   border-radius: 3em;
 }
 .collectionContainer .collection .info {

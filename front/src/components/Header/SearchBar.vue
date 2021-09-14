@@ -47,7 +47,7 @@ input {
   filter: none;
   box-shadow: none;
   transition: all var(--landing) ease;
-  /* transition: border 0.2s ease; */
+  /* transition: border var(--fast) ease; */
   font-size: inherit;
   border: 2px solid #cbbef0;
   border-radius: 0;

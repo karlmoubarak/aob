@@ -30,13 +30,8 @@
           class="add"
         >+</span>   
       </div>
-      <ExpandedResource
-        v-if="renderedItem.Organisation"
-        :resource="renderedItem"
-      />
-      <ExpandedArtwork
-        v-else-if="renderedItem.Title"
-        :artwork="renderedItem"
+      <IndexCard
+        :item="renderedItem"
       />
     </div>
     <Table
@@ -52,16 +47,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Table from '../components/Table'
-import ExpandedArtwork from '../components/ExpandedArtwork.vue'
-import ExpandedResource from '../components/ExpandedResource.vue'
+import IndexCard                  from '../components/IndexCard'
+import Table                      from '../components/Table'
 
 export default {
   name: 'Page',
   components: {
     Table,
-    ExpandedResource,
-    ExpandedArtwork,
+    IndexCard
   },
   data() {
     return {
@@ -206,7 +199,7 @@ export default {
   /* max-height: calc(100% - 20em); */
   max-height: 100%;
   overflow: scroll;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
 }
 
 .table {

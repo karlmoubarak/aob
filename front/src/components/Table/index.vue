@@ -3,11 +3,18 @@
     :class="[
       'table', { 
         artworksOnly: artworksOnly,
-        myCollection: isMyCollection
+        myCollection: isMyCollection,
+        printing: printing
       }
     ]">
     <transition name="list" mode="out-in">
-      <TableHeaders v-if="!artworksOnly"/>
+      <TableHeaders 
+        v-if="
+          !artworksOnly && 
+          !printing ||
+          !printing 
+        "
+      />
     </transition>
     <transition name="list" mode="out-in">
       <p v-if="items.length == 0" class="empty">{{ emptyMessage }} </p>
@@ -19,8 +26,13 @@
           :key="item.slug"
           :class="['row', { artworkTR: item.Title }]"
         >
+          <IndexCard 
+            v-if="printing"
+            :item="item"
+            :printing="printing"
+          />
           <Resource
-            v-if="item.Organisation"
+            v-else-if="item.Organisation"
             :resource="item"
             @clicked="clickHandler(item)"    
           />
@@ -33,14 +45,23 @@
         </div>
       </transition-group>
     </draggable>
-    <transition-group v-else name="list" mode="out-in">
+    <transition-group v-else-if="items.length > 0" name="list" mode="out-in">
       <div
         v-for="item in items"
         :key="item.slug"
-        :class="['row', { artworkTR: item.Title }]"
+        :class="[
+          'row', { 
+            artworkTR: item.Title,
+          }
+        ]"
       >
+        <IndexCard 
+          v-if="printing"
+          :item="item"
+          :printing="printing"
+        />
         <Resource
-          v-if="item.Organisation"
+          v-else-if="item.Organisation"
           :resource="item"
           @clicked="clickHandler(item)"    
         />
@@ -59,6 +80,7 @@
 import Artwork              from './Artwork'
 import Resource             from './Resource'
 import TableHeaders         from './TableHeaders'
+import IndexCard            from  '../IndexCard'
 import { VueDraggableNext } from 'vue-draggable-next'
 
 export default {
@@ -67,12 +89,14 @@ export default {
     TableHeaders,
     Resource,
     Artwork,
-    draggable: VueDraggableNext
+    IndexCard,
+    draggable: VueDraggableNext,
   },
   props: [
     'collectionItems',
     'emptyMessage',
     'isMyCollection',
+    'printing'
   ],
   computed: {
     items: {
@@ -80,7 +104,7 @@ export default {
       set(val) { return this.isMyCollection && this.$store.commit('updateMyCollection', { items: val }) }
     },
     artworksOnly() {
-      return !this.items.find(i => i.Organisation)
+      return !this.items.find(i => i && i.Organisation)
     },
   },
   methods: {
@@ -103,7 +127,7 @@ export default {
   width: 100%;
   margin-top: 1em;
   padding: 0 0.5em;
-  transition: all 0.5s ease;
+  transition: all var(--slow) ease;
   height: 100%;
   /* max-height: 200vh; */
 }
@@ -117,6 +141,20 @@ export default {
   margin-bottom: 0.5em;
   /* overflow: hidden; */
 }
+
+.table.printing {
+  margin: 0;
+  padding: 0;
+}
+
+.printing .row {
+  display: block;
+  max-height: unset;
+  min-height: 100vh;
+  page-break-after: always;
+  margin: 0;
+}
+
 .myCollection  {
   height: auto;
 }
@@ -153,7 +191,7 @@ export default {
 .col {
   position: relative;
   box-sizing: border-box;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
   min-width: 100%;
   padding: 0.5em;
   margin: 0 0.25em;
@@ -211,12 +249,12 @@ export default {
 
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all var(--slow) ease;
 }
 
 .list-leave-to,
 .list-leave-from {
-  transition: all 0.5s ease;
+  transition: all var(--slow) ease;
   
 }
 

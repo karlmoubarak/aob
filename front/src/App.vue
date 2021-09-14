@@ -173,6 +173,7 @@ export default {
 }
 
 :root {
+
   --black: rgb(119, 119, 119);
   --orange: #FF740A;
   --lightorange: #FFF7DE;
@@ -184,6 +185,10 @@ export default {
   --lightgreen: #eaf0be;
   --brightgreen: #00b35f;
   --purple: #CBBEF0;
+  
+  --fast: 0.2s;
+  --slow: 0.5s;
+  --veryslow: 0.8s;
 }
 
 html,
@@ -265,12 +270,12 @@ color: var(--orange);
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
 }
 
 .fade-leave-to,
 .fade-leave-from {
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
   
 }
 
@@ -306,7 +311,7 @@ color: var(--orange);
 }
 
 @page {
-  size: A5;
+  size: A4 landscape;
   margin: 0;
 }
 
@@ -320,9 +325,15 @@ color: var(--orange);
     height: auto !important;
     max-height: unset !important;
     overflow: scroll;
+    /* transition: all 0s ease !important; */
+  }
+  html {
+    zoom:75%;
   }
   header,
-  nav {
+  nav,
+  input,
+  textarea {
     display: none !important;
   }
 }

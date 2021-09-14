@@ -132,7 +132,7 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: var(--position);
-  transition: all 0.8s ease;
+  transition: all var(--veryslow) ease;
   z-index: 1;
 }
 
@@ -187,7 +187,7 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: all var(--fast) ease;
   cursor: pointer;
   box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);
   border: 0.2em solid #e3edff;
@@ -201,7 +201,7 @@ export default {
   top: 0;
   background: var(--lightblue);
   width: 98.5%;
-  /* transition: all 0.2s ease; */
+  /* transition: all var(--fast) ease; */
   /* height: 100%; */
   border-radius: inherit;
 }
