@@ -99,7 +99,7 @@ export default createStore({
     
     sortedCollections: state => (
       sortByUpdate([...state.collections])
-      .filter(c => c.slug !== 'exhibition')
+      // .filter(c => c.slug !== 'exhibition')
     ),
     
     exhibition: state => (

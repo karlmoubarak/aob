@@ -26,7 +26,9 @@ export default {
     }
   },
   mounted() {
-    // this.$refs.input.focus()
+    if (this.$route.path == '/') {   
+      this.$refs.input.focus()
+    }
   },
 }
 </script>

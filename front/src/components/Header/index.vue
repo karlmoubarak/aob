@@ -120,6 +120,7 @@ header li {
 header li.aob {
   max-width: 4em;
   overflow: hidden;
+  transition: all var(--fast) ease;
 }
 header li.aob a {
   min-width: 10em;
