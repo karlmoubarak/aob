@@ -19,6 +19,22 @@
       v-html="$highlight( org, queries )"
     ></p>
   </div>
+  <div class="col source" v-if="files">
+    <FileList 
+      :list="files"
+    />   
+  </div>
+  <div class="col source" v-else>
+    <a
+      @click.stop
+      :href="link"
+      target="_blank"
+    >
+      <!-- v-html="$highlight( link, query )" -->
+    <!-- 🔗 -->
+    <img class="cover" :src="cover" />
+    </a>
+  </div>
   <div class="col tags">
     <List 
       :list="tags"
@@ -38,21 +54,6 @@
       :list="locations"
       :collection="'location'"
     /> 
-  </div>
-  <div class="col source" v-if="files">
-    <FileList 
-      :list="files"
-    />   
-  </div>
-  <div class="col source" v-else>
-    <a
-      @click.stop
-      :href="link"
-      target="_blank"
-    >
-      <!-- v-html="$highlight( link, query )" -->
-    🔗
-    </a>
   </div>
   <div class="col contact">
      <a
@@ -108,6 +109,13 @@ export default {
       'isInMyCollection',
       'queries'
     ]),
+    media()       { return this.resource.Media },
+    cover()       { return this.media && this.media[0] && this.media[0].formats && (
+      this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
+      this.media[0].formats.small ? this.$apiURL + this.media[0].formats.small.url :
+      this.$apiURL + this.media[0].url
+    )
+    },
 
     
   },
@@ -141,6 +149,15 @@ export default {
   text-overflow: ellipsis;
   max-height: 4em;
   transition: all var(--fast) ease;
+}
+.col img {
+  max-height: 3em;
+  max-width: 3em;
+  width: 100%;
+  /* border-radius: 50%; */
+  background: lightgray;
+  filter: grayscale(1);
+  opacity: 0.7;
 }
 
 /* .col.description p:hover {

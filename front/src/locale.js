@@ -74,6 +74,12 @@ module.exports = {
         ar: 'منظمة',
       },
     },
+    source: {
+      name: {
+        en: 'source',
+        ar: 'مصدر',
+      },
+    },
     tags: {
       name: {
         en: 'tags',
@@ -90,12 +96,6 @@ module.exports = {
       name: {
         en: 'locations',
         ar: 'مواقع',
-      },
-    },
-    source: {
-      name: {
-        en: 'source',
-        ar: 'مصدر',
       },
     },
     contact: {

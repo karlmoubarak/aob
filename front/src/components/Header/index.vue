@@ -199,6 +199,7 @@ li.my-collection {
   padding: 0;
   height: 100%;
   max-height: 2em;
+  z-index: 1;
 } 
 
 li.my-collection a {
@@ -240,6 +241,8 @@ li.my-collection:hover a:hover  {
 
 .ar header li.my-collection {
   margin-left: unset;
+  right: unset;
+  left: 0;
 }
 .ar header li.languageSwitcher {
   margin-left: 14.1em;

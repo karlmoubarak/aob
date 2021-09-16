@@ -107,15 +107,23 @@ export default {
     relatedItems() {
       return this.mainCollection
         .filter(i => 
+          i.slug != this.item.slug
+          && (
           this.tags &&
           i.tags
           .map(t => t.Name)
-          .some(
+          .every(
             n => this.tags.map(t => t.Name)
           .indexOf(n) > -1
-          &&
-          i.slug != this.item.slug
-        )
+          ||
+          this.locations &&
+          i.locations
+          .map(t => t.Name)
+          .every(
+            n => this.locations.map(t => t.Name)
+          .indexOf(n) > -1
+          )
+          ))
       )
     }  
   },
@@ -209,13 +217,14 @@ export default {
   width: calc(100% - 10em);
   /* margin-left: 10em; */
   background: var(--lightestorange);
-  /* height: 0; */
+  max-height: 55vh;
   overflow: scroll;
   /* z-index: 4; */
 }
 
 .table:hover {
-  top: calc(100% - 15em);
+  top: 45vh;
+  
 }
 
 .itemContainer .col {

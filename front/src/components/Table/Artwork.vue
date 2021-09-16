@@ -133,7 +133,7 @@ export default {
   align-items: flex-start;
   justify-content: var(--position);
   transition: all var(--veryslow) ease;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .artworkContainer.inTable {
@@ -151,9 +151,28 @@ export default {
 .artworkContainer.inTable .artwork {
   margin: 0 0.5em;
   box-shadow: none;
+  max-height: 21em;
+  opacity: 0.3;
 }
 .artworkContainer.inTable .artwork:hover {
   max-height: 21em;
+  z-index: 3;
+  opacity: 1;
+  border-color: var(--highlight);
+box-shadow: 0 0 1.5em 0 var(--highlight);
+  /* animation: fadein 1s ease forwards; */
+}
+@keyframes fadein {
+  0% { opacity: 0.3; }
+  75% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+@keyframes fadein {
+  0% { max-height: 21em; }
+  50% { max-height: 100%; }
+  100% { max-height: 21em;
+  z-index: 3;
+   }
 }
 .artworkContainer.inTable .artwork:hover .header {
   opacity: 0;
@@ -178,6 +197,7 @@ export default {
 }
 .artwork {
   /* max-width: 24%; */
+  box-sizing: border-box;
   position: relative;
   max-width: 42%;
   max-height: 100%;

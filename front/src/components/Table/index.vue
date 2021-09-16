@@ -167,7 +167,7 @@ export default {
   
 }
 .row.artworkTR:hover {
-  z-index: 3;
+  /* z-index: 3; */
 }
 .artworksOnly .row.artworkTR {
   max-height: 100em;
@@ -224,6 +224,7 @@ export default {
   flex-basis: 12%;
   min-width: 12%;
   max-width: 12%;
+  /* font-family: 'montserrat'; */
 }
 .col.description { 
   flex-basis: 35%;

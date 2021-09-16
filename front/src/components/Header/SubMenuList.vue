@@ -21,9 +21,6 @@
       </span>
       <span class="acronym">{{ acronym(item) }}</span>
       <span class="word other">
-        <Checkbox 
-          :checked="isInQuery(item.slug)"
-        />
         <a>
           <span
             v-html="$highlight(nameOther(item), queries )"
@@ -50,7 +47,7 @@ export default {
     ...mapGetters([ 'queries' ])
   },
   methods: {
-    top: () => Math.random() * 50 + '%',
+    top: () => Math.random() * 30 + '%',
     isInQuery(slug) {
       return (
         this.$route.query[this.type] && 
@@ -122,6 +119,12 @@ export default {
   align-content: flex-start;
   overflow: scroll; 
   transition: all var(--landing) ease;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.tags::-webkit-scrollbar,
+.locations::-webkit-scrollbar {
+  display: none;
 }
 .tags {
   background-color: var(--lightestorange);
@@ -131,14 +134,25 @@ export default {
   background-color: var(--lightorange);
   /* max-height: 8em; */
 }
+
 .tag,
 .location {
   margin: 0.5em;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
   /* max-width: 25%; */
+  /* height: 100%;
+  width: 100%; */
   transition: all var(--landing) ease;
   cursor: pointer;
+  text-align: center;
+}
+.tag .word.other,
+.location .word.other {
+  font-size: 0;
+  transition: all var(--landing) ease;
 }
 .landing .tags,
 .landing .locations {
@@ -149,9 +163,30 @@ export default {
 }
 .landing .tag,
 .landing .location {
+  position: relative;
   margin-top: var(--top);
-  display: flex;
-  flex-direction: column;
+  padding: 1em;
+  /* border-radius: 10em; */
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  max-height: 8em;
+  max-width: 8em;
+}
+.landing .tag .word.other,
+.landing .location .word.other {
+  font-size: inherit;
+  margin-top: -1em;
+}
+.landing .tag .word:not(.other),
+.landing .location .word:not(.other) {
+  margin-bottom: -1em;
+}
+.landing .tag {
+  background: var(--purple);
+}  
+.landing .location {
+  background: var(--highlight);
 }
 .acronym {
   font-size: 0;

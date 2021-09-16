@@ -29,6 +29,8 @@ input {
   font-size: 8pt;
   cursor: pointer;
   margin-right: 0.5em;
+  transition: all var(--landing) ease;
+  
 }
 input:checked {
   /* position: absolute; */
@@ -38,6 +40,11 @@ input:checked {
   border: 0.05em solid var(--orange);
   background: var(--orange);
   appearance:unset;
+}
+.landing input {
+  height: 0;
+  width: 0;
+  border: transparent;
 }
 
 

@@ -199,12 +199,11 @@ export default {
   --lighterorange: #f5eed4;
   --lightestorange: #FEFBF1;
   --lightblue: #EDF2F6;
+  --lightblue: #f1f6fa;
   --green: #e1ec90;
   --lightgreen: #eaf0be;
   --brightgreen: #00b35f;
   --purple: #CBBEF0;
-  --purple: #fadcc4;
-  --purple: #fff99f;
   --highlight: rgb(255, 255, 102);
    
   --fast: 0.2s;
@@ -253,17 +252,25 @@ main {
 .center {
   text-align: center;
 }
+main * {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+main::-webkit-scrollbar {
+  display: none;
+}
 
 
 a {
   color: var(--orange);
-  text-decoration: underline;
+  text-decoration: none;
   text-decoration-thickness: 0.001em;
   /* text-decoration-skip: edges; */
   /* text-decoration-skip:40em; */
 }
 
 a:hover {
+  text-decoration: underline;
   /* box-shadow: 0 0px 8px 2px rgb(255, 255, 102); */
 }
 a:active {
