@@ -16,7 +16,7 @@ module.exports = {
       }
     },
     beforeUpdate: async (params, data) => {
-      if (data.Name) {
+      if (data.Name && !data['slug']) {
         data.slug = await strapi
         .plugins['content-manager']
         .services

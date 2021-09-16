@@ -18,16 +18,11 @@
         {{ item.name[locale] }} 
       </router-link>
     </li>
-    <li 
-      class="languageSwitcher"
-      @click="toggleLocale"
-    > 
-      <a>{{ otherLocaleString }}</a>
-    </li>
     <li :class="myCollection.slug"> 
       <router-link :to="'/collections/' + myCollection.slug">
-        {{ $locale.collections.mine.Title[locale] }} 
-        <span>( {{ myCollectionCount }} )</span>
+        <span
+        >{{ $locale.collections.mine.Title[locale] }} </span>
+        <span> ( {{ myCollectionCount }} )</span>
       </router-link>
       <router-link 
         v-for="item in myCollection.items"
@@ -38,14 +33,32 @@
       }"
       >{{ item.Organisation || item.Title }}</router-link>
     </li>
+    <li class="languageSwitcher"> 
+      <a 
+        @click="selectLocale('en')"
+        :class="{ selected: locale == 'en' }"
+      >{{ $locale.lang['en'] }}</a>
+      <span> &nbsp; / &nbsp; </span>
+      <a 
+        @click="selectLocale('ar')"
+        :class="{ selected: locale == 'ar' }"
+      >{{ $locale.lang['ar'] }}</a>
+    </li>
+    <SearchBar
+    
+    />
   </header>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import SearchBar from './SearchBar.vue'
 
 export default {
   name: 'Header',
+  components: {
+    SearchBar,
+  },
   data() {
     return {
       hovered: false,
@@ -77,9 +90,15 @@ export default {
     },
   },
   methods: {
+    selectLocale(locale) {
+      this.$store.commit('setLocale', locale)
+    },
+    selected(locale) {
+      return locale == this.locale
+    },
     toggleLocale() {
-      this.$store.commit('setLocale', this.otherLocale)
-    }
+      this.selectLocale(this.otherLocale)
+    },
   }
 }
 </script>
@@ -97,13 +116,15 @@ header {
   display: flex;
   max-height: 2em;
   overflow: visible;
+  background: var(--lightblue)
 }
 header a {
   color: var(--lightblue);
   text-decoration: unset;
 }
 header li:not(.aob) a:hover {
-  color: #737a3b;
+  /* color: #737a3b; */
+  text-decoration: underline;
 }
 header li {
   box-sizing: border-box;
@@ -147,17 +168,28 @@ header li:nth-of-type(4) {
 header li:nth-of-type(5) {
   background-color: #ffb882;
 }
-header li:nth-of-type(6) {
-  margin-left: 1em;
+header li.languageSwitcher {
   min-width: 5em;
-  background-color: #C4C4C4;
+  margin-right: 14.1em;
+  /* background-color: #C4C4C4; */
   border-radius: 90%;
+  margin-left: auto;
 } 
-
+header li.languageSwitcher * {
+  color: #C4C4C4; 
+}
+header li.languageSwitcher a {
+  text-decoration: underline;
+}
+header li.languageSwitcher a.selected {
+  text-decoration: unset;
+}
   
 li.my-collection {
+  position: absolute;
+  top: 0em;
+  right: 0em;
   box-sizing: border-box;
-  margin-left: auto;
   background: var(--green);
   min-width: 13.1em;
   max-width: 13.1em;
@@ -189,7 +221,7 @@ li.my-collection a:first-of-type {
 li.my-collection:hover {
   background: var(--green);
   box-shadow: 0 0 1.5em 0 var(--lightgreen);
-  max-height: 10em;
+  max-height: 8em;
 }
 
 li.my-collection:hover a  {
@@ -206,12 +238,11 @@ li.my-collection:hover a:hover  {
 
 
 
-.ar header li:nth-of-type(6) {
+.ar header li.my-collection {
   margin-left: unset;
-  margin-right: 1em;
 }
-.ar header li:last-of-type {
-  margin-left: unset;
+.ar header li.languageSwitcher {
+  margin-left: 14.1em;
   margin-right: auto;
 }
 
@@ -234,10 +265,11 @@ li.my-collection:hover a:hover  {
 .mobile header li {
   padding: 0.3em 0.6em;
 }
-.mobile header li:nth-of-type(6),
-.mobile header li:last-of-type {
+.mobile header li.languageSwitcher,
+.mobile header li.my-collection {
   margin-left: unset;
   margin-right: unset;
+  max-width: 100%;
 }
 
 .mobile.landing header {

@@ -177,6 +177,12 @@ export default {
   width: 100%;
 }
 
+.row:not(.artworkTR):hover .col {
+  background-color: var(--highlight);
+  /* background: var(--highlight); */
+  /* box-shadow: 0 0px 8px 2px var(--highlight); */
+}
+
 .move {
   display: block;
   position: absolute;
@@ -191,13 +197,13 @@ export default {
 .col {
   position: relative;
   box-sizing: border-box;
-  transition: all var(--fast) ease;
   min-width: 100%;
   padding: 0.5em;
   margin: 0 0.25em;
   background: white;
   overflow: hidden;
   display: flex;
+  transition: all var(--fast) ease;
 }
 .col.id {
   flex-basis: 3%;

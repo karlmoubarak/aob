@@ -36,10 +36,10 @@ export default {
 <style scoped>
 input {
   margin-left: auto;
-  position: absolute;
+  position: fixed;
   width: 12em;
   right: 0;
-  top: 0;
+  top: 2em;
   border: unset;
   height: 2em;
   background: var(--lightestorange);
@@ -50,13 +50,19 @@ input {
   box-shadow: none;
   transition: all var(--landing) ease;
   /* transition: border var(--fast) ease; */
+  font-family: inherit;
   font-size: inherit;
   border: 2px solid #cbbef0;
   border-radius: 0;
+  min-width: 13.1em;
+  max-width: 13.1em;
 }
 .landing input {
   top: calc(50% - 1em);
   right: calc(50% - 6em);
+}
+input::placeholder {
+  /* text-align: center; */
 }
 input:active,
 input:focus {
@@ -76,6 +82,7 @@ input:focus {
 
 .mobile input {
   box-sizing: border-box;
+  min-width: 100%;
   flex-basis: 100%;
   position: relative;
   text-align: center;

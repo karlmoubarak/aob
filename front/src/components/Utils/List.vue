@@ -53,9 +53,12 @@ export default {
 }
 a,
 a:visited,
-a:active,
-a:hover {
+a:active {
   /* color: unset; */
   text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  
 }
 </style>

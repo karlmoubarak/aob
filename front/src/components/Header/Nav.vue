@@ -1,26 +1,23 @@
 .<template>
   <nav>
-    <SearchBar />
-    <SubMenuList
-      :list="tags"
-      :type="'tag'"
-    />
     <SubMenuList
       :list="locations"
       :type="'location'"
+    />
+    <SubMenuList
+      :list="tags"
+      :type="'tag'"
     />
   </nav>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import SearchBar    from './SearchBar'
 import SubMenuList  from './SubMenuList'
 
 export default {
   name: 'Nav',
   components: { 
-    SearchBar,
     SubMenuList,
   },
   computed: {
@@ -43,6 +40,8 @@ nav {
   align-items: flex-start;
   transition: all var(--landing) ease;
   z-index: 2;
+  background: var(--lightblue)
+  
 }
 
 .landing nav {

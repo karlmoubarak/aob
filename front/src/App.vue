@@ -9,7 +9,7 @@
   >
     
     <Header />
-    <Nav />
+    <Nav :landing="landing"/>
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
@@ -171,7 +171,7 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-
+/* 
 :root {
 
   --black: rgb(119, 119, 119);
@@ -180,7 +180,6 @@ export default {
   --lighterorange: #f5eed4;
   --lightestorange: #FEFBF1;
   --lightblue: #F2F5FB;
-  --landing: 2s;
   --green: #e1ec90;
   --lightgreen: #eaf0be;
   --brightgreen: #00b35f;
@@ -189,6 +188,29 @@ export default {
   --fast: 0.2s;
   --slow: 0.5s;
   --veryslow: 0.8s;
+  --landing: 2s;
+} */
+
+:root {
+
+  --black: rgb(119, 119, 119);
+  --orange: #FF740A;
+  --lightorange: #FFF7DE;
+  --lighterorange: #f5eed4;
+  --lightestorange: #FEFBF1;
+  --lightblue: #EDF2F6;
+  --green: #e1ec90;
+  --lightgreen: #eaf0be;
+  --brightgreen: #00b35f;
+  --purple: #CBBEF0;
+  --purple: #fadcc4;
+  --purple: #fff99f;
+  --highlight: rgb(255, 255, 102);
+   
+  --fast: 0.2s;
+  --slow: 0.5s;
+  --veryslow: 0.8s;
+  --landing: 2s;
 }
 
 html,
@@ -240,11 +262,8 @@ a {
   /* text-decoration-skip: edges; */
   /* text-decoration-skip:40em; */
 }
+
 a:hover {
-  color: #737a3b;
-  /* text-decoration: line-through;  
-  text-decoration-style: wavy;
-  text-decoration-thickness: 0.02em; */
   /* box-shadow: 0 0px 8px 2px rgb(255, 255, 102); */
 }
 a:active {
@@ -253,9 +272,9 @@ color: var(--orange);
 
 .highlight {
   border-radius: 0.2em;
-  background: rgba(247, 255, 102, 0.694);
-  box-shadow: 0 0px 8px 2px rgb(255, 255, 102);
-  text-decoration-color: rgb(153, 50, 255);
+  background:var(--highlight);
+  box-shadow: 0 0px 8px 2px var(--highlight);
+  text-decoration-color: var(--highlight);
   text-decoration-thickness: 0.08em;
 }
 

@@ -1,4 +1,8 @@
 module.exports = {
+  lang: {
+    en: 'english',
+    ar: 'العربية'
+  },
   num: {
     en: num => num,
     ar: num => num

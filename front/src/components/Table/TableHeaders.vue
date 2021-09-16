@@ -21,17 +21,21 @@ export default {
 .header {
   position: sticky;
   padding: 0.5em 0;
-  top: 1.5em;
+  top: .5em;
   z-index: 2;
   width: 100%;
   display: flex;
   font-weight: bold;
   /* text-shadow: 0 0 1em var(--lightblue);
   filter: drop-shadow(0 0 1em lime); */
+  background: var(--lightblue)
 }
-
+.row.header:hover .col {
+  background: var(--lightblue);
+  
+}
 .col {
-  background: unset;
+  background: var(--lightblue);
   display: flex;
   justify-content: flex-start;
   padding: 0;
