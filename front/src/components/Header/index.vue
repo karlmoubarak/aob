@@ -31,7 +31,7 @@
         name: item.Title ? 'Artwork' : 'Resource',
         params: { slug: item.slug }
       }"
-      >{{ item.Organisation || item.Title }}</router-link>
+      >{{ item.organisation || item.title }}</router-link>
     </li>
     <li class="languageSwitcher"> 
       <a 

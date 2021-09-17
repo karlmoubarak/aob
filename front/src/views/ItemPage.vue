@@ -104,6 +104,13 @@ export default {
       this.item.tags 
     )},
     
+    locations() { return (
+      this.item &&
+      this.item.locations && 
+      this.item.locations.length > 0 && 
+      this.item.locations 
+    )},
+    
     relatedItems() {
       return this.mainCollection
         .filter(i => 

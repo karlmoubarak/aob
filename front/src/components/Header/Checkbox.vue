@@ -44,6 +44,7 @@ input:checked {
 .landing input {
   height: 0;
   width: 0;
+  margin: 0;
   border: transparent;
 }
 

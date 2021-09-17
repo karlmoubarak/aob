@@ -7,17 +7,34 @@ const
     }, {})
   ),
 
-  sortAlphabetically = (arr, prop) => {
-    arr = Array.isArray(arr) ? arr : Object.values(arr)
+  objectKeysToLowercase = a => {
+    for (let key in a) {
+      if (key[0] === key[0].toUpperCase()) {
+        a[key[0].toLowerCase() + key.slice(1)] = a[key]
+        delete a[key]
+      }
+    }
+    return a
+  },
+
+  sortAlphabetically = (arr, prop, order) => {
+    prop = prop === 'organisation' ? 'slug' : prop
     return arr.sort((a, b) => {
       const
-        aText = prop === 'ArtistName'
-          ? a[prop].split(' ')[a[prop].split(' ').length - 1]
-          : a[prop],
-        bText = prop === 'ArtistName'
-          ? b[prop].split(' ')[b[prop].split(' ').length - 1]
-          : b[prop]
-      return aText.localeCompare(bText)
+        aText = 
+          typeof a[prop] === 'string' ?
+          a[prop] :
+          a[prop] && a[prop][0]['slug'] || '',
+        bText = 
+          typeof b[prop] === 'string' ?
+          b[prop] :
+          b[prop] && b[prop][0]['slug'] || ''
+        console.log(order)
+      return (
+        aText && bText && order > 0 ?
+        aText.localeCompare(bText) :
+        bText.localeCompare(aText)
+      )
     })
   },
 
@@ -27,29 +44,23 @@ const
       new Date(b.updated_at) - new Date(a.updated_at)
     ))
   },
-  
-  // sortBy = (arr, sort) => (
-  //   sort == 'updated_at' ? sortByUpdate(arr) :
-  //   sort == 'alphabetical' ? sortAlphabetically(arr) :
-    
-  // ),
-  
+
   highlight = (source, queries) => {
     if (queries.length > 0) {
       for (let query of queries) {
         if (query && source) {
           source = source.replace(
-            new RegExp(query, "gi"), 
+            new RegExp(query, "gi"),
             match => ('<span class="highlight">' + match + '</span>')
           )
         }
-      } 
+      }
     }
     return source
   },
-  
+
   apiURL = process.env.VUE_APP_API,
-  
+
   processImages = text => {
     if (text) {
       text = text.replace(/\]\(\/uploads\//g, `](${apiURL}/uploads/`)
@@ -57,11 +68,11 @@ const
     return text
   }
 
-export { 
+export {
   toObject,
-  sortAlphabetically, 
-  sortByUpdate, 
-  // sortBy,
+  objectKeysToLowercase,
+  sortAlphabetically,
+  sortByUpdate,
   highlight,
   processImages
 }

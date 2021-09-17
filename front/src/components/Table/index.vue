@@ -24,7 +24,7 @@
         <div
           v-for="item in items"
           :key="item.slug"
-          :class="['row', { artworkTR: item.Title }]"
+          :class="['row', { artworkTR: item.title }]"
         >
           <IndexCard 
             v-if="printing"
@@ -32,7 +32,7 @@
             :printing="printing"
           />
           <Resource
-            v-else-if="item.Organisation"
+            v-else-if="item.organisation"
             :resource="item"
             @clicked="clickHandler(item)"    
           />
@@ -51,7 +51,7 @@
         :key="item.slug"
         :class="[
           'row', { 
-            artworkTR: item.Title,
+            artworkTR: item.title,
           }
         ]"
       >
@@ -61,7 +61,7 @@
           :printing="printing"
         />
         <Resource
-          v-else-if="item.Organisation"
+          v-else-if="item.organisation"
           :resource="item"
           @clicked="clickHandler(item)"    
         />
@@ -104,13 +104,13 @@ export default {
       set(val) { return this.isMyCollection && this.$store.commit('updateMyCollection', { items: val }) }
     },
     artworksOnly() {
-      return !this.items.find(i => i && i.Organisation)
+      return !this.items.find(i => i && i.organisation)
     },
   },
   methods: {
     clickHandler(item) {
       this.$router.push({
-        name: item.Title ? "Artwork" : "Resource",
+        name: item.title ? "Artwork" : "Resource",
         params: { slug: item.slug }
       })
     }
@@ -206,9 +206,9 @@ export default {
   transition: all var(--fast) ease;
 }
 .col.id {
-  flex-basis: 3%;
-  min-width: 3%;
-  max-width: 3%;
+  flex-basis: 4%;
+  min-width: 4%;
+  max-width: 4%;
 }
 .col.tags {
   flex-basis: 8%;
@@ -231,21 +231,21 @@ export default {
   min-width: 35%;
   max-width: 35%;
 }
-.col.source {
+.col.link {
   flex-basis: 6%;
   min-width: 6%;
   max-width: 6%;
 }
 .col.contact {
-  flex-basis: 24.5%;
-  min-width: 24.5%;
+  flex-basis: 23.5%;
+  min-width: 23.5%;
   /* flex-grow: 1; */
   /* max-width: 23%; */
 }
 .col p {
   margin: 0;
 }
-.col.source a {
+.col.link a {
   text-decoration: none;
 }
 .col.id .add,
@@ -298,7 +298,7 @@ export default {
 }
 
 .mobile .col.id,
-.mobile .col.col.source {
+.mobile .col.col.link {
   flex-basis: 10%;
   min-width: 10%;
   max-width: 10%;

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { objectKeysToLowercase } from '../../utils'
 
 const
 
@@ -9,7 +10,9 @@ const
       .get(URL + 'resources')
       .then(response => 
         resolve(
-          response.data
+          response
+          .data
+          .map(r => objectKeysToLowercase(r))
         )
       )
       .catch(error => 

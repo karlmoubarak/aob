@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { objectKeysToLowercase } from '../../utils'
 
 const
 
@@ -9,7 +10,14 @@ const
       .get(URL + 'artworks')
       .then(response => 
         resolve(
-          response.data
+          response
+          .data
+          .map(a => {
+            a = objectKeysToLowercase(a)
+            a['locations'] = a['location']
+            delete a['location']
+            return a
+          })
         )
       )
       .catch(error => 

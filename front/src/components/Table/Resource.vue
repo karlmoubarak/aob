@@ -19,12 +19,12 @@
       v-html="$highlight( org, queries )"
     ></p>
   </div>
-  <div class="col source" v-if="files">
+  <div class="col link" v-if="files">
     <FileList 
       :list="files"
     />   
   </div>
-  <div class="col source" v-else>
+  <div class="col link" v-else>
     <a
       @click.stop
       :href="link"
@@ -88,19 +88,19 @@ export default {
     locale()      { return this.$store.state.locale },
     id()          { return this.resource.id },
     slug()        { return this.resource.slug },
-    org()         { return this.locale == 'ar' && this.resource.Organisation_AR
-      ? this.resource.Organisation_AR
-      : this.resource.Organisation
+    org()         { return this.locale == 'ar' && this.resource.organisation_AR
+      ? this.resource.organisation_AR
+      : this.resource.organisation
     },
-    description() { return this.locale == 'ar' && this.resource.Description_AR
-      ? this.resource.Description_AR
-      : this.resource.Description 
+    description() { return this.locale == 'ar' && this.resource.description_AR
+      ? this.resource.description_AR
+      : this.resource.description 
     },
     tags()        { return this.resource.tags && this.resource.tags.length > 0 && this.resource.tags },
     locations()   { return this.resource.locations && this.resource.locations.length > 0 && this.resource.locations },
-    files()       { return this.resource.Files.length > 0 && this.resource.Files },
-    link()        { return this.resource.Link },
-    contact()     { return this.resource.Contact || 'N/A'},
+    files()       { return this.resource.files.length > 0 && this.resource.files },
+    link()        { return this.resource.link },
+    contact()     { return this.resource.contact || 'N/A'},
     updated()     { return moment(this.resource.updated_at).fromNow() },
     ...mapState([
       'query'
@@ -109,7 +109,7 @@ export default {
       'isInMyCollection',
       'queries'
     ]),
-    media()       { return this.resource.Media },
+    media()       { return this.resource.media },
     cover()       { return this.media && this.media[0] && this.media[0].formats && (
       this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
       this.media[0].formats.small ? this.$apiURL + this.media[0].formats.small.url :

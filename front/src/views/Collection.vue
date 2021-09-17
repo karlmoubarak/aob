@@ -238,7 +238,7 @@ export default {
         Description: this.$refs.description.value,
         published_at: null,
         Item: this.items.map(i => (
-          i.Organisation ? {
+          i.organisation ? {
             __component: "item.resource",
             resource: i.id 
           } : {

@@ -45,7 +45,7 @@
         <p class="content">( {{ updated }} )</p>
       </div>
       <div class="source">
-        <p class="meta">{{ localizeMeta('source') }}:</p>
+        <p class="meta">{{ localizeMeta('link') }}:</p>
         <p class="content">
           <FileList 
             v-if="files"
@@ -125,13 +125,13 @@ export default {
     locale()      { return this.$store.state.locale },
     
     id()          { return this.$locale.num[this.locale](this.item.id) },
-    link()        { return this.item.Link },
-    contact()     { return this.item.Contact || 'N/A'},
-    media()       { return this.item.Media },
+    link()        { return this.item.link },
+    contact()     { return this.item.contact || 'N/A'},
+    media()       { return this.item.media },
     description() { return (
       this.locale == 'ar' && 
-      this.item.Description_AR ||
-      this.item.Description 
+      this.item.description_AR ||
+      this.item.description 
     )},
     cover()       { return this.media && 
       this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
@@ -155,26 +155,23 @@ export default {
     locations()   { return (
       this.item.locations && 
       this.item.locations.length > 0 && 
-      this.item.locations ||
-      this.item.location && 
-      this.item.location.length > 0 && 
-      this.item.location
+      this.item.locations 
     )},
     
     org()         { return (
       this.locale == 'ar' && 
-      this.item.Organisation_AR ||
-      this.item.Organisation 
+      this.item.organisation_AR ||
+      this.item.organisation 
     )},
     files()       { return (
-      this.item.Files && 
-      this.item.Files.length > 0 && 
-      this.item.Files 
+      this.item.files && 
+      this.item.files.length > 0 && 
+      this.item.files 
     )},
 
-    title()       { return this.item.Title },
-    artist()      { return this.item.ArtistName },
-    medium()      { return this.item.Medium },
+    title()       { return this.item.title },
+    artist()      { return this.item.artistName },
+    medium()      { return this.item.medium },
     
   },
   mounted() {

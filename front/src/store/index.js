@@ -21,6 +21,10 @@ export default createStore({
     selectedTags      : [],
     selectedLocations : [],
     query             : '',
+    sort              : {
+      prop: 'slug',
+      order: 1
+    },
     
     myCollection      : {
       slug: 'my-collection',
@@ -45,6 +49,7 @@ export default createStore({
     selectTags         : (state, tags)        => state.selectedTags                = tags,
     selectLocations    : (state, locations)   => state.selectedLocations           = locations,
     setQuery           : (state, query)       => state.query                       = query,
+    setSort            : (state, sort)        => state.sort                        = sort,
     
     addToCollection    : (state, item)        => state.myCollection.items.push     ( item ),
     rmFromCollection   : (state, key)         => state.myCollection.items.splice   ( key, 1 ),
@@ -146,12 +151,12 @@ export default createStore({
        &&
         getters.queries
         .every(q => [
-          r.Organisation,
-          r.Organisation_AR,
-          r.Description,
-          r.Description_AR,
-          r.Contact,
-          r.Link,
+          r.organisation,
+          r.organisation_AR,
+          r.description,
+          r.description_AR,
+          r.contact,
+          r.link,
           r.tags.map(t => t.Name.toLowerCase()),
           r.tags.map(t =>  t.Name_AR && t.Name_AR.toLowerCase()),
           r.locations.map(l => l.Name.toLowerCase()),
@@ -171,23 +176,23 @@ export default createStore({
        &&
         state.selectedLocations
         .every(l => (
-          [...a.location, ...a.hometown]
+          [...a.locations, ...a.hometown]
           .map(a => a.slug)
           .includes(l)
         ))
        &&
         getters.queries
         .every(q => [
-          a.Title,
-          a.Description,
-          a.Description_AR,
-          a.ArtistName,
-          a.ArtistWebsite,
-          a.Contact,
-          a.Link,
+          a.title,
+          a.description,
+          a.description_AR,
+          a.artistName,
+          a.artistWebsite,
+          a.contact,
+          a.link,
           a.tags.map(t => t.Name.toLowerCase()),
-          a.location.map(l => l.Name.toLowerCase()),
-          a.location.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
+          a.locations.map(l => l.Name.toLowerCase()),
+          a.locations.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
           a.hometown.map(l => l.Name.toLowerCase()),
           a.hometown.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
         ].flat().join(' ').includes(q))
@@ -195,10 +200,19 @@ export default createStore({
     ),
     
     mainCollection: (state, getters) => (
+      state.sort.prop == 'id' && [
+        ...getters.filteredResources, 
+        ...getters.filteredArtworks
+      ].sort((a, b) => (
+        state.sort.order * (
+          getters.isInMyCollection(b.slug) -
+          getters.isInMyCollection(a.slug)
+        )
+      )) ||
       sortAlphabetically([
         ...getters.filteredResources, 
         ...getters.filteredArtworks
-      ], 'slug')
+      ], state.sort.prop, state.sort.order)
     )
     
   }

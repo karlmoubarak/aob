@@ -45,7 +45,7 @@ export default {
     direction() { return this.locale == 'ar' ? 'rtl' : 'ltr'}
     
   },
-  created() {
+  async created() {
 
     this.$store.commit('setMobile', this.checkIfMobile())
     window.addEventListener('resize', () => {
@@ -55,13 +55,18 @@ export default {
     this.$store.commit('setLocale', 
       this.getLocale().includes('ar') ? 'ar' : 'en'
     )
+
+    this.$store.commit('setSort', {
+      prop: 'slug',
+      order: 1
+    })
     
-    this.getInfo()
-    this.getTags()
-    this.getLocations()
-    this.getResources()
-    this.getArtworks()
-    this.getCollections()
+    await this.getInfo()
+    await this.getTags()
+    await this.getLocations()
+    await this.getResources()
+    await this.getArtworks()
+    await this.getCollections()
 
     this.$router.beforeEach((to) => {
       let newQuery = {}
@@ -111,52 +116,28 @@ export default {
       navigator.language
     ),
     
-    getInfo() {
-      api
-      .info
-      .get()
-      .then(data => this.$store.commit('setInfo', data))
-      .catch(error => console.log(error))
+    async getInfo() { 
+      this.$store.commit('setInfo', await api.info.get())
     },
     
-    getTags() {
-      api
-      .tags
-      .getAll()
-      .then(data => this.$store.commit('setTags', data))
-      .catch(error => console.log(error))
+    async getTags() {
+      this.$store.commit('setTags', await api.tags.getAll())
     },
     
-    getLocations() {
-      api
-      .locations
-      .getAll()
-      .then(data => this.$store.commit('setLocations', data))
-      .catch(error => console.log(error))
+    async getLocations() {
+      this.$store.commit('setLocations', await api.locations.getAll())
     },
     
-    getResources() {
-      api
-      .resources
-      .getAll()
-      .then(data => this.$store.commit('setResources', data))
-      .catch(error => console.log(error))
+    async getResources() {
+      this.$store.commit('setResources', await api.resources.getAll())
     },
 
-    getArtworks() {
-      api
-      .artworks
-      .getAll()
-      .then(data => this.$store.commit('setArtworks', data))
-      .catch(error => console.log(error))
+    async getArtworks() {
+      this.$store.commit('setArtworks', await api.artworks.getAll())
     },
     
-    getCollections() {
-      api
-      .collections
-      .getAll()
-      .then(data => this.$store.commit('setCollections', data))
-      .catch(error => console.log(error))
+    async getCollections() {
+      this.$store.commit('setCollections', await api.collections.getAll())
     },
 
   }

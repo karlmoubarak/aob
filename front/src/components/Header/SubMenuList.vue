@@ -142,9 +142,10 @@ export default {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  /* max-width: 25%; */
-  /* height: 100%;
-  width: 100%; */
+  height: 100%;
+  max-height: 1em;
+  /* width: 100%; */
+  /* max-width: 8em; */
   transition: all var(--landing) ease;
   cursor: pointer;
   text-align: center;
@@ -169,18 +170,18 @@ export default {
   /* border-radius: 10em; */
   border-radius: 50%;
   height: 100%;
-  width: 100%;
-  max-height: 8em;
-  max-width: 8em;
+  /* width: 100%; */
+  min-width: 7em;
+  max-height: 7em;
 }
 .landing .tag .word.other,
 .landing .location .word.other {
   font-size: inherit;
-  margin-top: -1em;
+  margin-top: -0.7em;
 }
 .landing .tag .word:not(.other),
 .landing .location .word:not(.other) {
-  margin-bottom: -1em;
+  margin-bottom: -0.5em;
 }
 .landing .tag {
   background: var(--purple);
@@ -193,7 +194,7 @@ export default {
   transition: all var(--landing) ease;
 }
 .landing .acronym {
-  font-size: 5em;
+  font-size: 4em;
 }
 .word {
   display: flex;

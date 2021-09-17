@@ -74,7 +74,7 @@ module.exports = {
         ar: 'منظمة',
       },
     },
-    source: {
+    link: {
       name: {
         en: 'source',
         ar: 'مصدر',
