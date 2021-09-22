@@ -45,13 +45,15 @@
     class="col description"
     @click.stop="$emit('clicked')"    
   > 
-    <p
+    <!-- <p
       v-html="$highlight( description, queries )"
-    ></p>
-    <!-- <vue3-markdown-it
+    ></p> -->
+    <vue3-markdown-it
         class="description"
+          v-bind="$mdOpts"
+        
         :source="$highlight( description, queries )"
-    ></vue3-markdown-it> -->
+    ></vue3-markdown-it>
   </div>
   <div class="col locations"> 
     <List 
@@ -145,7 +147,7 @@ export default {
 .col.description {
   cursor: pointer;
 }
-.col.description p {
+.col.description * {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
