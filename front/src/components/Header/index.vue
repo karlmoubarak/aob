@@ -13,10 +13,14 @@
       v-for="item in $locale.menuItems"
       :key="item.slug"
       :class="item.slug"  
+      @click="$router.push(item.slug)"
     > 
-      <router-link :to="item.slug">
+      <a>
         {{ item.name[locale] }} 
-      </router-link>
+      </a>
+      <!-- <router-link :to="item.slug">
+        {{ item.name[locale] }} 
+      </router-link> -->
     </li>
     <li :class="myCollection.slug"> 
       <router-link :to="'/collections/' + myCollection.slug">
@@ -114,6 +118,7 @@ header {
   text-align: center;
   font-family: montserrat;
   display: flex;
+  height: 100%;
   max-height: 2em;
   overflow: visible;
   background: var(--lightblue)
@@ -151,7 +156,11 @@ header li.aob a {
 }
 
 header li.aob.expanded {
-  max-width: 60em;
+  max-width: 20em;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: horizontal;
+  text-overflow: ellipsis;
 }
 header li:nth-of-type(1) {
   background-color: #ff6f00;

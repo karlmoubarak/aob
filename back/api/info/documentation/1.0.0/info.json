@@ -314,13 +314,7 @@
         "required": [
           "id",
           "About",
-          "Contact",
-          "PrivacyPolicy",
-          "UsageInstructions",
-          "AboutAR",
-          "ContactAR",
-          "PrivacyPolicyAR",
-          "UsageInstructionsAR"
+          "AboutAR"
         ],
         "properties": {
           "id": {
@@ -330,21 +324,9 @@
             "type": "string",
             "default": "The About Text"
           },
-          "Contact": {
-            "type": "string",
-            "default": "The contact info"
-          },
-          "PrivacyPolicy": {
-            "type": "string",
-            "default": "The website's privacy policy"
-          },
           "slug": {
             "type": "uid",
             "default": "about"
-          },
-          "UsageInstructions": {
-            "type": "string",
-            "default": "Usage instructions for the website"
           },
           "LinkToPublicCodeRepository": {
             "type": "string"
@@ -352,52 +334,22 @@
           "AboutAR": {
             "type": "string",
             "default": "About in Arabic"
-          },
-          "ContactAR": {
-            "type": "string",
-            "default": "Contact info in Arabic"
-          },
-          "PrivacyPolicyAR": {
-            "type": "string",
-            "default": "Privacy Policy in Arabic"
-          },
-          "UsageInstructionsAR": {
-            "type": "string",
-            "default": "Usage instructions in arabic"
           }
         }
       },
       "NewInfo": {
         "required": [
           "About",
-          "Contact",
-          "PrivacyPolicy",
-          "UsageInstructions",
-          "AboutAR",
-          "ContactAR",
-          "PrivacyPolicyAR",
-          "UsageInstructionsAR"
+          "AboutAR"
         ],
         "properties": {
           "About": {
             "type": "string",
             "default": "The About Text"
           },
-          "Contact": {
-            "type": "string",
-            "default": "The contact info"
-          },
-          "PrivacyPolicy": {
-            "type": "string",
-            "default": "The website's privacy policy"
-          },
           "slug": {
             "type": "uid",
             "default": "about"
-          },
-          "UsageInstructions": {
-            "type": "string",
-            "default": "Usage instructions for the website"
           },
           "LinkToPublicCodeRepository": {
             "type": "string"
@@ -405,18 +357,6 @@
           "AboutAR": {
             "type": "string",
             "default": "About in Arabic"
-          },
-          "ContactAR": {
-            "type": "string",
-            "default": "Contact info in Arabic"
-          },
-          "PrivacyPolicyAR": {
-            "type": "string",
-            "default": "Privacy Policy in Arabic"
-          },
-          "UsageInstructionsAR": {
-            "type": "string",
-            "default": "Usage instructions in arabic"
           },
           "created_by": {
             "type": "string"

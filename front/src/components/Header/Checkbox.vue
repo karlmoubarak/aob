@@ -29,7 +29,7 @@ input {
   font-size: 8pt;
   cursor: pointer;
   margin-right: 0.5em;
-  transition: all var(--landing) ease;
+  transition: all var(--slow) ease;
   
 }
 input:checked {

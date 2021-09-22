@@ -17,24 +17,9 @@
       "default": "The About Text",
       "required": true
     },
-    "Contact": {
-      "type": "richtext",
-      "default": "The contact info",
-      "required": true
-    },
-    "PrivacyPolicy": {
-      "type": "richtext",
-      "default": "The website's privacy policy",
-      "required": true
-    },
     "slug": {
       "type": "uid",
       "default": "about"
-    },
-    "UsageInstructions": {
-      "type": "richtext",
-      "default": "Usage instructions for the website",
-      "required": true
     },
     "LinkToPublicCodeRepository": {
       "type": "string"
@@ -42,21 +27,6 @@
     "AboutAR": {
       "type": "richtext",
       "default": "About in Arabic",
-      "required": true
-    },
-    "ContactAR": {
-      "type": "richtext",
-      "default": "Contact info in Arabic",
-      "required": true
-    },
-    "PrivacyPolicyAR": {
-      "type": "richtext",
-      "default": "Privacy Policy in Arabic",
-      "required": true
-    },
-    "UsageInstructionsAR": {
-      "type": "richtext",
-      "default": "Usage instructions in arabic",
       "required": true
     }
   }
