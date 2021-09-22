@@ -33,8 +33,10 @@ export default {
 nav {
   position: relative;
   box-sizing: border-box;
-  height: 100%;
+  /* height: 100%; */
+  flex-shrink: 0;
   max-height: 10em;
+  min-height: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -45,7 +47,9 @@ nav {
 }
 
 .landing nav {
-  max-height: 100vh;
+  margin-top: -2em;
+  max-height: calc(100% - 0em);
+  min-height: calc(100% - 0em);
 }
 
 .mobile.landing nav {

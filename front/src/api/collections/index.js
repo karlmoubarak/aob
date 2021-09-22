@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { objectKeysToLowercase } from '../../utils'
 
 const
 
@@ -11,8 +12,9 @@ const
         const collections = response.data
         collections.forEach(collection => {
           collection.items = collection.Item.map(
-            i => i.artwork || i.resource
+            i => objectKeysToLowercase(i.resource || i.artwork )
           ) 
+          delete collection.Item
         })
         resolve(
           collections

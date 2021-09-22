@@ -10,6 +10,7 @@
   >
     <div 
       v-if="renderedItem" 
+      ref="item"
       class="item"
       @scroll="handleScroll"
     >
@@ -130,7 +131,7 @@ export default {
             n => this.locations.map(t => t.Name)
           .indexOf(n) > -1
           )
-          ))
+        ))
       )
     }  
   },
@@ -140,7 +141,7 @@ export default {
       if (!oldVal) {
         this.renderedItem = this.item
       } else {
-        this.$refs.itemContainer.scroll({
+        this.$refs.item.scroll({
           top: 0,
           behavior: 'smooth'
         })
@@ -148,7 +149,7 @@ export default {
         setTimeout(() => {
           this.renderedItem = this.item
           this.transitionClass = 'enter'
-        }, 200)
+        }, 400)
       }
     },
     
@@ -185,7 +186,7 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0em;
   background: #ffffffa4;
   overflow: hidden;

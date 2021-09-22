@@ -177,7 +177,7 @@ export default {
     collection() { return this.collectionBySlug(this.$route.params.slug)},
     
     items()      { 
-      return this.collection.items.map(i => i.Organisation ?
+      return this.collection.items.map(i => i.organisation ?
         this.resourceBySlug(i.slug) : this.artworkBySlug(i.slug)
       )
     },

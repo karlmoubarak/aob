@@ -65,6 +65,17 @@
         <p class="meta">{{ localizeMeta('medium') }}:</p>
         <p class="content">{{ medium }}</p>
       </div>
+      <div v-if="artistSite" class="medium">
+        <p class="meta">{{ localizeMeta('artistSite') }}:</p>
+        <p class="content">
+          <a
+            :href="artistSite"
+            target="_blank"
+          >
+            {{ artistSite }}
+          </a>
+        </p>
+      </div>
       <div class="contact">
         <p class="meta">{{ localizeMeta('contact') }}:</p>
         <p class="content">
@@ -173,6 +184,7 @@ export default {
     title()       { return this.item.title },
     artist()      { return this.item.artistName },
     medium()      { return this.item.medium },
+    artistSite()  { return this.item.artistWebsite }
     
   },
   mounted() {
@@ -199,7 +211,7 @@ export default {
   height: 100%;
   min-height: 120vh;
   width: calc(100% - 13em);
-  padding: 8em 5em;
+  padding: 8em 3em;
   background: var(--lightblue);
   background: #f2e4c4;
   display: flex;

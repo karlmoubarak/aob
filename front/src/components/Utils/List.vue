@@ -8,7 +8,7 @@
       <router-link  
         @click.stop
         :to="{
-          path: '/',
+          path: '/archive',
           query: { [collection]: [item.slug] }
         }"
       >

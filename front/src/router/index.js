@@ -9,7 +9,7 @@ import Info           from '../views/Info'
 import Exhibition     from '../views/Exhibition'
 import ItemPage       from '../views/ItemPage'
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory('/'),
   routes: [
     {
@@ -83,5 +83,22 @@ export default createRouter({
   ],
 })
 
+router.beforeEach(({ path, query }) => {
+  const newQuery = {
+    tag: query.tag 
+      && !Array.isArray(query.tag) 
+      && [query.tag],
+    location: query.location 
+      && !Array.isArray(query.location) 
+      && [query.location]
+  }
+  if (newQuery.tag || newQuery.location) {
+    return {
+      path: path,
+      query: newQuery
+    }
+  } 
+})
 
+export default router
 

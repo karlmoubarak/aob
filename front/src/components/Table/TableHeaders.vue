@@ -35,7 +35,7 @@ export default {
 .header {
   position: sticky;
   padding: 0.5em 0;
-  top: .5em;
+  top: 0em;
   z-index: 2;
   width: 100%;
   display: flex;
@@ -60,9 +60,14 @@ export default {
   background: var(--lightblue);
   /* width: auto; */
   padding: 0.5em;
+
 }
 
 .col p .arrow {
+  display: inline-block;
+  width: 0 !important; 
+  margin-left: 0.5em;
+  overflow: visible;
   font-size: 1.2em;
   opacity: 0;
 }
@@ -73,6 +78,7 @@ export default {
 .col.artist,
 .col.medium,
 .col.title,
+.col.artistSite,
 .col.updated {
   display: none;
 }

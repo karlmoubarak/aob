@@ -30,8 +30,6 @@
       :href="link"
       target="_blank"
     >
-      <!-- v-html="$highlight( link, query )" -->
-    <!-- 🔗 -->
     <img class="cover" :src="cover" />
     </a>
   </div>
@@ -45,14 +43,10 @@
     class="col description"
     @click.stop="$emit('clicked')"    
   > 
-    <!-- <p
-      v-html="$highlight( description, queries )"
-    ></p> -->
     <vue3-markdown-it
-        class="description"
-          v-bind="$mdOpts"
-        
-        :source="$highlight( description, queries )"
+      class="description"
+      v-bind="$mdOpts"
+      :source="$highlight( description, queries )"
     ></vue3-markdown-it>
   </div>
   <div class="col locations"> 
@@ -62,13 +56,12 @@
     /> 
   </div>
   <div class="col contact">
-     <a
-      :href="'mailto:' + contact"
-      target="_blank"
-      v-html="$highlight( contact, queries )"
-    ></a>
+    <vue3-markdown-it
+      class="description"
+      v-bind="$mdOpts"
+      :source="$highlight( contact, queries )"
+    ></vue3-markdown-it>
   </div>
-  <!-- <div class="updated"> {{ updated }} </div> -->
 </template>
 
 <script>
@@ -120,10 +113,7 @@ export default {
       this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
       this.media[0].formats.small ? this.$apiURL + this.media[0].formats.small.url :
       this.$apiURL + this.media[0].url
-    )
-    },
-
-    
+    )},
   },
   created() {
     // console.log(this.resource)

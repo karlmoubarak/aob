@@ -5,7 +5,8 @@
       :key="item.slug"
       :class="type"
       :style="{
-        '--top': top()
+        '--top': top(),
+        '--topNext': top()
       }"
       @click="toggle(item.slug)"
     >
@@ -71,6 +72,7 @@ export default {
     toggle(slug) {
       const currentSelected = this.$route.query[this.type]
       if (currentSelected) {
+        console.log(currentSelected)
         if (!this.isInQuery(slug)) {
           this.$router.push({
             path: '/archive',
@@ -128,10 +130,12 @@ export default {
 }
 .tags {
   background-color: var(--lightestorange);
+  min-height: 6em;
   /* max-height: 12em; */
 }
 .locations {
   background-color: var(--lightorange);
+  min-height: 8em;
   /* max-height: 8em; */
 }
 
@@ -151,20 +155,27 @@ export default {
   cursor: pointer;
   text-align: center;
 }
+ .tag .word:not(.other),
+ .location .word:not(.other) {
+  margin-bottom: 0em;
+  transition: all var(--landing) ease;
+}
 .tag .word.other,
 .location .word.other {
+  margin-top: -0.7em;
+  /* margin: 0; */
   font-size: 0;
   transition: all var(--landing) ease;
 }
-.landing .tags,
-.landing .locations {
+.landing:not(.mobile) .tags,
+.landing:not(.mobile) .locations {
   max-height: 100%;
-  height: 100%;
+  min-height: 100%;
   width: 50%; 
   max-width: 50%; 
 }
-.landing .tag,
-.landing .location {
+.landing:not(.mobile) .tag,
+.landing:not(.mobile) .location {
   position: relative;
   margin-top: var(--top);
   padding: 1em;
@@ -174,27 +185,39 @@ export default {
   /* width: 100%; */
   min-width: 7em;
   max-height: 7em;
+  /* animation: bounce 5s ease 5s infinite alternate; */
 }
-.landing .tag .word.other,
-.landing .location .word.other {
+@keyframes bounce {
+  0% { margin-top: var(--top); }
+  100% { margin-top: var(--topNext); }
+}
+.landing:not(.mobile) .tag .word.other,
+.landing:not(.mobile) .location .word.other {
   font-size: inherit;
   margin-top: -0.7em;
 }
-.landing .tag .word:not(.other),
-.landing .location .word:not(.other) {
+.landing:not(.mobile) .tag .word:not(.other),
+.landing:not(.mobile) .location .word:not(.other) {
   margin-bottom: -0.5em;
 }
-.landing .tag {
+.landing:not(.mobile) .tag {
   background: var(--purple);
+  /* background-color: var(--lightorange); */
 }  
-.landing .location {
+.landing:not(.mobile) .location {
   background: var(--highlight);
+  /* background-color: var(--lightestorange); */
 }
+.landing:not(.mobile) .tag:hover,
+.landing:not(.mobile) .location:hover {
+  transform: translateY(-0.5em);
+}
+
 .acronym {
   font-size: 0;
   transition: all var(--landing) ease;
 }
-.landing .acronym {
+.landing:not(.mobile) .acronym {
   font-size: 4em;
 }
 .word {
@@ -219,14 +242,17 @@ a:hover {
 
 .mobile .tags,
 .mobile .locations {
+  flex-direction: column;
   flex-wrap: nowrap;
-  /* flex-basis: 50%; */
+  flex-basis: 50%;
+  height: 100%;
 }
 
 .mobile.landing .tag,
 .mobile.landing .location {
   max-width: 100%;
   margin-top: 0.5em;
+  text-align: left;
 }
 </style>
 

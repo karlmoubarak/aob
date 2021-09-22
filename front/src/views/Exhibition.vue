@@ -4,8 +4,8 @@
       <p class="title">{{ title }}</p>
       <vue3-markdown-it
         class="desc"
+        v-bind="$mdOpts"
         :source="processImages(desc)"
-        
       ></vue3-markdown-it>
     </div>
     <Table
@@ -45,7 +45,7 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0em;
   background: #ffffffa4;
   overflow: scroll;

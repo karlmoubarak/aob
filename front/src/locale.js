@@ -128,6 +128,12 @@ module.exports = {
         ar: 'اسم',
       },
     },
+    artistSite: {
+      name: {
+        en: 'artist  site',
+        ar: 'موقع الفنان'
+      }
+    }
     
   },
   search: {

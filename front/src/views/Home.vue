@@ -24,11 +24,11 @@ export default {
       return this.$locale.search.empty[this.$store.state.locale]
     }
   },
-    // watch: {
-    //   mainCollection() {
-    //     console.log(this.mainCollection.map(i => i.slug))
-    //   }
-    // }
+    watch: {
+      mainCollection() {
+        console.log(this.mainCollection.map(i => i.slug))
+      }
+    }
 
 }
 </script>
@@ -39,10 +39,8 @@ export default {
   box-sizing: border-box;
   position: relative;
   width: 100%;
-  margin-top: 1em;
 }
 .mobile #home {
-  margin-top: 0;
   padding: 0.5em;
 }
 </style>

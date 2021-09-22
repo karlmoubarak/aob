@@ -27,7 +27,7 @@
             <li 
               v-for="item in items" 
               :key="item.slug"
-            >{{ item.organisation || item.itle }}</li>
+            >{{ item.organisation || item.title }}</li>
           </div>
         </div>
       </div>

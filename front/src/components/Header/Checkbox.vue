@@ -41,13 +41,16 @@ input:checked {
   background: var(--orange);
   appearance:unset;
 }
-.landing input {
+.landing:not(.mobile) input {
   height: 0;
   width: 0;
   margin: 0;
   border: transparent;
 }
 
+.mobile input {
+  margin-right: 0.7em;
+}
 
 
 </style>

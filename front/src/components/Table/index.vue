@@ -10,9 +10,7 @@
     <transition name="list" mode="out-in">
       <TableHeaders 
         v-if="
-          !artworksOnly && 
-          !printing ||
-          !printing 
+          printing ? false : !artworksOnly
         "
       />
     </transition>
@@ -125,7 +123,7 @@ export default {
   box-sizing: border-box;
   position: relative;
   width: 100%;
-  margin-top: 1em;
+  /* margin-top: 1em; */
   padding: 0 0.5em;
   transition: all var(--slow) ease;
   height: 100%;
@@ -303,12 +301,15 @@ export default {
   min-width: 10%;
   max-width: 10%;
 }
-
-.mobile .col.organisation,
+.mobile .col.organisation {
+  flex-basis: 80%;
+  min-width: 80%;
+  max-width: 80%;
+}
 .mobile .col.contact {
-  flex-basis: 90%;
-  min-width: 90%;
-  max-width: 90%;
+  flex-basis: 100%;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 </style>

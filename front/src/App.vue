@@ -39,7 +39,7 @@ export default {
       'isMobile',
       'locale',
     ]),
-    landing()   { return this.$route.fullPath == '/'},
+    landing()   { return this.$route.name == 'Home' || false },
     direction() { return this.locale == 'ar' ? 'rtl' : 'ltr'}
     
   },
@@ -60,29 +60,6 @@ export default {
         this.checkIfMobile()
       )
     })
-
-    for (let key in api) {
-      this.$store.commit(
-        'set' + key[0].toUpperCase() + key.slice(1),
-        await api[key].getAll()
-      )
-    }
-    
-    this.$router.beforeEach(to => {
-      let newQuery = {}
-      if (to.query.tag && !Array.isArray(to.query.tag)) {
-        newQuery.tag = [to.query.tag]
-      }
-      if (to.query.location && !Array.isArray(to.query.location)) {
-        newQuery.location = [to.query.location]
-      }
-      if (newQuery.tag || newQuery.location) {
-        return {
-          path: to.path,
-          query: newQuery
-        }
-      } 
-    })
   
     this.$router.afterEach(to => {
       this.$store.commit('addToHistory',    to.path                )
@@ -91,6 +68,12 @@ export default {
       this.$store.commit('setQuery',        to.query.search   || '')
     })
     
+    for (let key in api) {
+      this.$store.commit(
+        'set' + key[0].toUpperCase() + key.slice(1),
+        await api[key].getAll()
+      )
+    }
   },
 
   methods: {
@@ -133,10 +116,11 @@ export default {
   --purple: #CBBEF0;
   --highlight: rgb(255, 255, 102);
    
+  --veryfast: 0.1s;
   --fast: 0.2s;
   --slow: 0.5s;
   --veryslow: 0.8s;
-  --landing: 2s;
+  --landing: 1s;
 }
 
 html,
@@ -160,13 +144,13 @@ body,
 
 main {
   box-sizing: border-box;
-  position: absolute;
-  top: 0;
+  position: relative;
+  /* top: 0; */
   height: 100%;
   width: 100%;
   max-height: 100vh;
   overflow: scroll;
-  padding-top: 11em;
+  /* padding-top: 11em; */
   transition: all var(--landing) ease;
 }
 
@@ -229,7 +213,6 @@ color: var(--orange);
 .fade-leave-to,
 .fade-leave-from {
   transition: all var(--fast) ease;
-  
 }
 
 .fade-enter-from,

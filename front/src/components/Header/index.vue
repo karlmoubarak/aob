@@ -5,9 +5,17 @@
       @mouseover="hovered = true"
       @mouseleave="hovered = false"
     > 
-      <router-link to="/">
-        {{ title }} 
-      </router-link>
+      <transition 
+        name="fade"
+        mode="out-in"
+      >
+        <router-link v-if="expanded" to="/">
+          {{ $locale.aob.name[locale] }} 
+        </router-link>
+        <router-link v-else to="/">
+          {{ $locale.aob.name.shorthand }} 
+        </router-link>
+      </transition>
     </li>
     <li 
       v-for="item in $locale.menuItems"
@@ -121,7 +129,8 @@ header {
   height: 100%;
   max-height: 2em;
   overflow: visible;
-  background: var(--lightblue)
+  background: var(--lightblue);
+  transition: all var(--landing) ease;
 }
 header a {
   color: var(--lightblue);
@@ -141,12 +150,13 @@ header li {
   display: flex;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--fast) ease;
+  transition: all var(--veryfast) ease;
 }
 header li.aob {
+  min-width: 4em;
   max-width: 4em;
   overflow: hidden;
-  transition: all var(--fast) ease;
+  transition: all var(--veryfast) ease;
 }
 header li.aob a {
   min-width: 10em;
@@ -156,11 +166,24 @@ header li.aob a {
 }
 
 header li.aob.expanded {
-  max-width: 20em;
-  display: -webkit-box;
+  min-width: 12em;
+  max-width: 13em;
+  /* display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: horizontal;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
+}
+
+.fade-enter-active,
+.fade-leave-active,
+.fade-leave-to,
+.fade-leave-from {
+  transition: all var(--veryfast) ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  transform: unset;
+  opacity: 0;
 }
 header li:nth-of-type(1) {
   background-color: #ff6f00;
@@ -245,7 +268,9 @@ li.my-collection:hover a:hover  {
   background: var(--green);
 }
 
-
+.landing header {
+  background: transparent;
+}
 
 
 .ar header li.my-collection {
@@ -277,11 +302,23 @@ li.my-collection:hover a:hover  {
 .mobile header li {
   padding: 0.3em 0.6em;
 }
+.mobile header li.aob,
+.mobile header li.aob.expanded {
+  max-width: 100%;
+  /* text-align: center;
+  justify-content: center; */
+
+}
 .mobile header li.languageSwitcher,
 .mobile header li.my-collection {
   margin-left: unset;
   margin-right: unset;
   max-width: 100%;
+}
+
+.mobile header li.my-collection {
+  padding: unset;
+  position: relative;
 }
 
 .mobile.landing header {
