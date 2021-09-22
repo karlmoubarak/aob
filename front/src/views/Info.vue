@@ -3,10 +3,9 @@
     <div id="info">
       <div class="sections">
         <vue3-markdown-it
-          v-for="section in sections"
-          :key="section"
           class="content"
-          :source="source(section)"
+          v-bind="$mdOpts"
+          :source="source('About')"
         ></vue3-markdown-it>
         <div class="updatedAt">
           <p>{{ updatedAt }}.</p>
@@ -100,12 +99,6 @@ export default {
   },
   data() {
     return {
-      sections: [
-        'About',
-        'Contact',
-        'PrivacyPolicy',
-        'UsageInstructions'
-      ]
     }
   },
   computed: {
