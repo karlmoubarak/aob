@@ -3,7 +3,7 @@
 module.exports = {
   lifecycles: {
     beforeCreate: async (data) => {
-      if (data.Title) {
+      if (data.Title && !data['slug']) {
         data.slug = await strapi
         .plugins['content-manager']
         .services
@@ -16,7 +16,7 @@ module.exports = {
       }
     },
     beforeUpdate: async (params, data) => {
-      if (data.Title) {
+      if (data.Title && !data['slug']) {
         data.slug = await strapi
         .plugins['content-manager']
         .services
