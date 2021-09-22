@@ -145,7 +145,8 @@ export default {
   height: 100%;
   max-height: 1em;
   /* width: 100%; */
-  /* max-width: 8em; */
+  min-width: 3em;
+  max-width: 16em;
   transition: all var(--landing) ease;
   cursor: pointer;
   text-align: center;
