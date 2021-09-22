@@ -29,7 +29,6 @@ const
           typeof b[prop] === 'string' ?
           b[prop] :
           b[prop] && b[prop][0]['slug'] || ''
-        console.log(order)
       return (
         aText && bText && order > 0 ?
         aText.localeCompare(bText) :

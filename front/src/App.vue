@@ -38,8 +38,6 @@ export default {
     ...mapState([
       'isMobile',
       'locale',
-      'tags',
-      'locations'
     ]),
     landing()   { return this.$route.fullPath == '/'},
     direction() { return this.locale == 'ar' ? 'rtl' : 'ltr'}
@@ -47,28 +45,30 @@ export default {
   },
   async created() {
 
-    this.$store.commit('setMobile', this.checkIfMobile())
-    window.addEventListener('resize', () => {
-      this.$store.commit('setMobile', this.checkIfMobile())
-    })
-    
-    this.$store.commit('setLocale', 
+    this.$store.commit(
+      'setLocale', 
       this.getLocale().includes('ar') ? 'ar' : 'en'
     )
 
-    this.$store.commit('setSort', {
-      prop: 'slug',
-      order: 1
+    this.$store.commit(
+      'setMobile', 
+      this.checkIfMobile()
+    )
+    window.addEventListener('resize', () => {
+      this.$store.commit(
+        'setMobile', 
+        this.checkIfMobile()
+      )
     })
-    
-    await this.getInfo()
-    await this.getTags()
-    await this.getLocations()
-    await this.getResources()
-    await this.getArtworks()
-    await this.getCollections()
 
-    this.$router.beforeEach((to) => {
+    for (let key in api) {
+      this.$store.commit(
+        'set' + key[0].toUpperCase() + key.slice(1),
+        await api[key].getAll()
+      )
+    }
+    
+    this.$router.beforeEach(to => {
       let newQuery = {}
       if (to.query.tag && !Array.isArray(to.query.tag)) {
         newQuery.tag = [to.query.tag]
@@ -83,27 +83,15 @@ export default {
         }
       } 
     })
-
+  
     this.$router.afterEach(to => {
-      this.$store.commit('addToHistory', to.path)
-      if (to.query.tag) {
-        this.$store.commit('selectTags', to.query.tag)
-      } else {
-        this.$store.commit('selectTags', [])
-      } 
-      if (to.query.location) {
-        this.$store.commit('selectLocations', to.query.location)
-      } else {
-        this.$store.commit('selectLocations', [])
-      }
-      if (to.query.search) {
-        this.$store.commit('setQuery', to.query.search)
-      } else {
-        this.$store.commit('setQuery', '')
-      }
+      this.$store.commit('addToHistory',    to.path                )
+      this.$store.commit('selectTags',      to.query.tag      || [])
+      this.$store.commit('selectLocations', to.query.location || [])
+      this.$store.commit('setQuery',        to.query.search   || '')
     })
+    
   },
-
 
   methods: {
 
@@ -116,29 +104,6 @@ export default {
       navigator.language
     ),
     
-    async getInfo() { 
-      this.$store.commit('setInfo', await api.info.get())
-    },
-    
-    async getTags() {
-      this.$store.commit('setTags', await api.tags.getAll())
-    },
-    
-    async getLocations() {
-      this.$store.commit('setLocations', await api.locations.getAll())
-    },
-    
-    async getResources() {
-      this.$store.commit('setResources', await api.resources.getAll())
-    },
-
-    async getArtworks() {
-      this.$store.commit('setArtworks', await api.artworks.getAll())
-    },
-    
-    async getCollections() {
-      this.$store.commit('setCollections', await api.collections.getAll())
-    },
 
   }
 }
@@ -152,25 +117,6 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-/* 
-:root {
-
-  --black: rgb(119, 119, 119);
-  --orange: #FF740A;
-  --lightorange: #FFF7DE;
-  --lighterorange: #f5eed4;
-  --lightestorange: #FEFBF1;
-  --lightblue: #F2F5FB;
-  --green: #e1ec90;
-  --lightgreen: #eaf0be;
-  --brightgreen: #00b35f;
-  --purple: #CBBEF0;
-  
-  --fast: 0.2s;
-  --slow: 0.5s;
-  --veryslow: 0.8s;
-  --landing: 2s;
-} */
 
 :root {
 

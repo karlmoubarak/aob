@@ -48,6 +48,10 @@
     <p
       v-html="$highlight( description, queries )"
     ></p>
+    <!-- <vue3-markdown-it
+        class="description"
+        :source="$highlight( description, queries )"
+    ></vue3-markdown-it> -->
   </div>
   <div class="col locations"> 
     <List 

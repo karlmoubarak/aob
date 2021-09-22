@@ -9,10 +9,8 @@ import Info           from '../views/Info'
 import Exhibition     from '../views/Exhibition'
 import ItemPage       from '../views/ItemPage'
 
-const path = '/' 
-
 export default createRouter({
-  history: createWebHistory(path),
+  history: createWebHistory('/'),
   routes: [
     {
       path: '/',
@@ -84,5 +82,6 @@ export default createRouter({
     },
   ],
 })
+
 
 

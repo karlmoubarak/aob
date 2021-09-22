@@ -37,7 +37,7 @@ export default createStore({
   
     setMobile          : (state, mobile)      => state.isMobile                    = mobile,
     setLocale          : (state, locale)      => state.locale                      = locale,
-    setInfo            : (state, info)        => state.info                        = info,
+    setInfos           : (state, info)        => state.info                        = info,
     addToHistory       : (state, path)        => state.history.unshift             ( path ),
     
     setTags            : (state, tags)        => state.tags                        = tags,
@@ -130,8 +130,8 @@ export default createStore({
       .find(c => c.slug == slug)
     ),
     
-    // queries: state => [...state.query.split(' ')],
     queries: state => [state.query],
+    // queries: state => [...state.query.split(' ')],
   
     filteredResources: (state, getters) => (
       state.resources.filter(r => (

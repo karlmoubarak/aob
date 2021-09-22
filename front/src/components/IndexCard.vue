@@ -24,6 +24,7 @@
         <p class="meta">{{ localizeMeta('description') }}:</p>
         <vue3-markdown-it
           class="content"
+          v-bind="$mdOpts"
           :source="processImages(description)"
         ></vue3-markdown-it>
       </div>  
@@ -267,6 +268,13 @@ export default {
 
 .indexCard .body .description img {
   max-width: 100%;
+}
+
+.indexCard .body .description .content iframe,
+.indexCard .body .description .content iframe .player {
+  /* width: 100%;
+  min-width: 100%;
+  max-width: 100%; */
 }
 
 

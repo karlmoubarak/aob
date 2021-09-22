@@ -35,7 +35,7 @@
       />
     </div>
     <Table
-      v-if="relatedItems.length > 0"
+      v-if="relatedItems && relatedItems.length > 0"
       ref="table"
       :collectionItems="relatedItems"
       @mouseenter="hovered = true"
@@ -112,7 +112,7 @@ export default {
     )},
     
     relatedItems() {
-      return this.mainCollection
+      return this.item && this.mainCollection
         .filter(i => 
           i.slug != this.item.slug
           && (
