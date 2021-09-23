@@ -361,8 +361,11 @@ table {
 .mobile .indexCard .body .description .meta {
   display: none;
 }
+.mobile .indexCard .meta {
+  text-align: left;
+}
 .mobile .indexCard .body .title .content {
-  /* text-indent: 1.8em; */
+  text-indent: 1.8em;
 }
 .mobile .indexCard .body .artist .content {
   margin-top: 0.2em;

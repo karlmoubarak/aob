@@ -152,6 +152,7 @@ export default {
   transition: all var(--fast) ease;
 }
 .col img {
+  box-sizing: border-box;
   max-height: 3em;
   max-width: 3em;
   width: 100%;
@@ -159,6 +160,11 @@ export default {
   background: lightgray;
   filter: grayscale(1);
   opacity: 0.7;
+}
+
+.mobile .col img {
+  max-height: 10em;
+  max-width: 90%;
 }
 
 /* .col.description p:hover {

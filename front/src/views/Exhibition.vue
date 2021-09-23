@@ -72,4 +72,17 @@ export default {
   font-size: 20pt;
 }
 
+
+#exhibition .table {
+  background: transparent;
+}
+.mobile #exhibition {
+  padding: 1em;
+}
+.mobile #exhibition .header {
+  position: relative;
+  max-width: 100%;
+  max-height: unset;
+}
+
 </style>

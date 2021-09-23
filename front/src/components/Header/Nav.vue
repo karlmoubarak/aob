@@ -56,8 +56,9 @@ nav {
   justify-content: flex-start;
   align-items: flex-start;
   align-content: flex-start;
-  height: 100%;
+  /* height: 100%; */
   max-height: unset;
+  margin-top: unset;
 }
 .mobile nav {
   overflow: hidden;

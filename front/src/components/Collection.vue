@@ -182,6 +182,7 @@ export default {
   width: 100%;
   margin: 0;
   margin-bottom: 0.5em;
+  flex-basis: unset;
 }
 
 .mobile .collectionContainer .circleContainer {

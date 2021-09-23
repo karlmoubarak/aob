@@ -27,7 +27,7 @@ export default {
   },
   mounted() {
     if (this.$route.path == '/') {   
-      this.$refs.input.focus()
+      // this.$refs.input.focus()
     }
   },
 }

@@ -36,7 +36,10 @@
         <div class="updatedAt">
           <p>{{ $locale['info']['archive_updated_at'][locale] }} {{ archiveLastUpdated}}.</p>
         </div>
-        <div class="contribute">
+        <div 
+          v-if="!$store.state.isMobile"
+          class="contribute"
+        >
           <p>{{ $locale['info']['contribute'][locale] }} </p>
           <div class="buttons">
             <input 
@@ -147,7 +150,7 @@ export default {
   box-sizing: border-box;
   position: relative;
   width: 100%;
-  padding: 2em 1em;
+  padding: 1em;
   font-family: montserrat;
 }
 #info {
@@ -224,5 +227,16 @@ export default {
   margin-left: 0;
 }
 
+.mobile #infoContainer {
+  padding: 0em;
+}
+.mobile #info {
+  flex-direction: column;
+}
 
+.mobile .sections,
+.mobile .meta {
+  margin: 0;
+  padding: 1em;
+}
 </style>

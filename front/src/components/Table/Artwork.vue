@@ -258,7 +258,11 @@ box-shadow: 0 0 1.5em 0 var(--highlight);
 
 .mobile .artwork {
   max-width: 100%;
-  max-height: 10em;
+  width: 100%;
+  max-height: 100em;
+  margin-right: 0;
 }
+
+
 
 </style>

@@ -281,6 +281,7 @@ export default {
     
     print() {
       this.printing = true
+      this.$refs.qr.height = '320px'
       QRCode.toCanvas(
         this.$refs.qr, 
         window.location.href,
@@ -312,6 +313,10 @@ export default {
 .title  {
   margin: 0;
   font-size: 20pt;
+}
+canvas {
+  height: 0;
+  margin-bottom: 1em;
 }
 .collection .info {
   position: relative;

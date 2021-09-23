@@ -284,11 +284,14 @@ export default {
   max-height: 30em;
 }
 
+.mobile .row.artworkTR {
+  max-height: 200em;
+}
+
 .mobile .col {
   margin: 0;
 }
 
-.mobile .col.tags,
 .mobile .col.locations,
 .mobile .col.description {
   flex-basis: 100%;
@@ -296,16 +299,21 @@ export default {
   max-width: unset;
 }
 
-.mobile .col.id,
-.mobile .col.col.link {
+.mobile .col.id {
   flex-basis: 10%;
   min-width: 10%;
   max-width: 10%;
 }
+.mobile .col.tags,
+.mobile .col.col.link {
+  flex-basis: 50%;
+  min-width: 50%;
+  max-width: 50%;
+}
 .mobile .col.organisation {
-  flex-basis: 80%;
-  min-width: 80%;
-  max-width: 80%;
+  flex-basis: 90%;
+  min-width: 90%;
+  max-width: 90%;
 }
 .mobile .col.contact {
   flex-basis: 100%;
