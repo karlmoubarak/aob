@@ -35,7 +35,7 @@ nav {
   box-sizing: border-box;
   /* height: 100%; */
   flex-shrink: 0;
-  max-height: 10em;
+  max-height: 40em;
   min-height: 0;
   display: flex;
   flex-wrap: wrap;

@@ -36,9 +36,9 @@
       />
     </div>
     <Table
-      v-if="relatedItems && relatedItems.length > 0"
+      v-if="related && related.length > 0"
       ref="table"
-      :collectionItems="relatedItems"
+      :collectionItems="related"
       @mouseenter="hovered = true"
       @mouseleave="hovered = false"
       @click.stop="relatedItemsVisible = !relatedItemsVisible"
@@ -72,7 +72,8 @@ export default {
       'resourceBySlug',
       'artworkBySlug',
       'mainCollection',
-      'isInMyCollection'
+      'isInMyCollection',
+      'relatedItems'
     ]),
     
     parentRoute() {
@@ -112,28 +113,15 @@ export default {
       this.item.locations 
     )},
     
-    relatedItems() {
-      return this.item && this.mainCollection
-        .filter(i => 
-          i.slug != this.item.slug
-          && (
-          this.tags &&
-          i.tags
-          .map(t => t.Name)
-          .every(
-            n => this.tags.map(t => t.Name)
-          .indexOf(n) > -1
-          ||
-          this.locations &&
-          i.locations
-          .map(t => t.Name)
-          .every(
-            n => this.locations.map(t => t.Name)
-          .indexOf(n) > -1
-          )
-        ))
-      )
-    }  
+    related() {
+      return ( this.item && [...new Set([
+        ...this.relatedItems(this.item, 'accurate'),
+        ...this.relatedItems(this.item)
+      ])]
+     )
+  }  
+    
+    
   },
   watch: {
   
@@ -174,7 +162,8 @@ export default {
       } else {
         this.top = 10
       }
-    }
+    },
+    
     
   }
   

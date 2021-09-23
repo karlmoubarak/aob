@@ -233,8 +233,27 @@ export default createStore({
         ...getters.filteredResources, 
         ...getters.filteredArtworks
       ], state.sort.prop, state.sort.order)
-    )
-    
+    ),
+  
+    relatedItems: (state, getters) => (item, accurate) => {
+      const
+        hasInCommon = (type, i) => 
+          state[type] && i[type]
+          .map(t => t.slug)
+          .every(n => 
+            item[type]
+            .map(t => t.slug)
+            .indexOf(n) > -1
+          ),
+        operator = (a, b) => accurate ? a && b : a || b
+      return item && getters.mainCollection
+        .filter(i => 
+          i.slug != item.slug && operator(
+            hasInCommon('tags', i), 
+            hasInCommon('locations', i)
+          )
+        )
+    },
   }
 
 })

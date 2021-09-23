@@ -310,6 +310,14 @@ export default {
 .indexCard .footer .contact {
   display: flex;
 }
+.indexCard .info .source .content,
+.indexCard .info .contact .content {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .indexCard .footer .tags,
 .indexCard .footer .locations {
