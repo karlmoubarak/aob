@@ -42,7 +42,7 @@ input {
   top: 2em;
   border: unset;
   height: 2em;
-  background: var(--lightestorange);
+  /* background: var(--lightestorange); */
   /* padding: 0.5em; */
   border: none;
   outline: none;
@@ -52,7 +52,7 @@ input {
   /* transition: border var(--fast) ease; */
   font-family: inherit;
   font-size: inherit;
-  border: 2px solid #cbbef0;
+  border: 2px solid var(--green);
   border-radius: 0;
   min-width: 13.1em;
   max-width: 13.1em;
@@ -66,8 +66,8 @@ input::placeholder {
 }
 input:active,
 input:focus {
-  border: 2px solid #cbbef0;
-  filter: drop-shadow(0 0 1em #cbbef0);
+  border: 2px solid var(--green);
+  filter: drop-shadow(0 0 1em var(--green));
 }
 .ar input {
   margin-left: unset;

@@ -221,8 +221,8 @@ export default {
 .table {
   position: fixed;
   top: calc(100% - 10em);
-  left: 10em;
-  width: calc(100% - 10em);
+  left: 8em;
+  width: calc(100% - 8em);
   /* margin-left: 10em; */
   background: var(--lightestorange);
   max-height: 55vh;

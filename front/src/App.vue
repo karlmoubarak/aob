@@ -74,6 +74,9 @@ export default {
         await api[key].getAll()
       )
     }
+    
+    this.$store.dispatch('getCollectionFromStore')
+    
   },
 
   methods: {
@@ -152,6 +155,7 @@ main {
   overflow: scroll;
   /* padding-top: 11em; */
   transition: all var(--landing) ease;
+  background: inherit;
 }
 
 .landing main {

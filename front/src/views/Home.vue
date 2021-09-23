@@ -21,7 +21,11 @@ export default {
       'mainCollection'
     ]),
     emptyMessage() {
-      return this.$locale.search.empty[this.$store.state.locale]
+      return ( 
+        this.$store.state.resources.length == 0 ?
+        this.$locale.status.loading[this.$store.state.locale] :
+        this.$locale.search.empty[this.$store.state.locale]
+      )
     }
   },
     watch: {
@@ -39,6 +43,7 @@ export default {
   box-sizing: border-box;
   position: relative;
   width: 100%;
+  background: inherit;
 }
 .mobile #home {
   padding: 0.5em;

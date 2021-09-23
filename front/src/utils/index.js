@@ -45,6 +45,7 @@ const
   },
 
   highlight = (source, queries) => {
+    source = source.replace(/\n/g, ' ')
     if (queries.length > 0) {
       for (let query of queries) {
         if (query && source) {

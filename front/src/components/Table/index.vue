@@ -99,7 +99,7 @@ export default {
   computed: {
     items: {
       get() { return this.collectionItems },
-      set(val) { return this.isMyCollection && this.$store.commit('updateMyCollection', { items: val }) }
+      set(val) { return this.isMyCollection && this.$store.dispatch('updateMyCollection', { items: val }) }
     },
     artworksOnly() {
       return !this.items.find(i => i && i.organisation)
@@ -128,6 +128,7 @@ export default {
   transition: all var(--slow) ease;
   height: 100%;
   /* max-height: 200vh; */
+  background: inherit;
 }
 .row {
   position: relative;

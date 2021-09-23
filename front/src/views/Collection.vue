@@ -172,7 +172,13 @@ export default {
     printText()  { return this.$locale.buttons.print[this.locale] },
     clearText()  { return this.$locale.buttons.clear[this.locale] },
     returnText() { return this.$locale.buttons.return[this.locale] },
-    emptyText()  { return this.$locale.collections.defaults.empty[this.locale] },
+    emptyText()  { 
+      return ( 
+        this.$store.state.resources.length == 0 ?
+        this.$locale.status.loading[this.$store.state.locale] :
+        this.$locale.collections.defaults.empty[this.locale]
+      )
+    },
     
     collection() { return this.collectionBySlug(this.$route.params.slug)},
     
@@ -219,11 +225,15 @@ export default {
     clear() {
       this.items.map(i => this.removeFromCollection(i));
       ['title', 'author', 'description'].map(a => this.$refs[a].value = '')
-      this.$store.commit('updateMyCollection', {})
+      this.$store.dispatch('updateMyCollection', {
+        Title: '',
+        Author: '',
+        Description: ''
+      })
     },
     
     save() {
-      this.$store.commit('updateMyCollection', {
+      this.$store.dispatch('updateMyCollection', {
         Title: this.$refs.title.value,
         Author: this.$refs.author.value,
         Description: this.$refs.description.value,

@@ -27,9 +27,9 @@ export default createStore({
     },
     
     myCollection      : {
-      slug: 'my-collection',
-      items: [],
-    },
+        slug: 'my-collection',
+        items: [],
+      },
     
   },
 
@@ -51,9 +51,9 @@ export default createStore({
     setQuery           : (state, query)       => state.query                       = query,
     setSort            : (state, sort)        => state.sort                        = sort,
     
+    updateMyCollection : (state, data)        => state.myCollection                = { ...state.myCollection, ...data },
     addToCollection    : (state, item)        => state.myCollection.items.push     ( item ),
     rmFromCollection   : (state, key)         => state.myCollection.items.splice   ( key, 1 ),
-    updateMyCollection : (state, data)        => state.myCollection                = { ...state.myCollection, ...data }
     
   },
 
@@ -67,23 +67,43 @@ export default createStore({
       ) 
     },
     
-    addToCollection: ({ commit, getters }, item) => {
+    addToCollection: ({ commit, getters, dispatch }, item) => {
       if (!getters.isInMyCollection(item.slug)) {
         commit('addToCollection', item)
+        dispatch('storeCollection')
       }
     },
     
-    removeFromCollection: ({ state, commit, getters }, item) => {
+    removeFromCollection: ({ state, commit, getters, dispatch }, item) => {
       if (getters.isInMyCollection(item.slug)) {
-        commit(
-          'rmFromCollection', 
-          state
-          .myCollection
-          .items
-          .indexOf(item)
-        )
+        commit('rmFromCollection', state.myCollection.items.indexOf(item))
+        dispatch('storeCollection')
       }
     },
+    
+    updateMyCollection: ({ commit, dispatch }, data) => {
+      commit('updateMyCollection', data)
+      dispatch('storeCollection')
+    },
+    
+    getCollectionFromStore: ({ getters, commit }) => {
+      const found = localStorage.myCollection && JSON.parse(localStorage.myCollection)
+      if (found) {
+        found.items = found.items
+        .map(i => getters.resourceBySlug(i) || getters.artworkBySlug(i))
+        .filter(i => i)
+        commit('updateMyCollection', found)
+      }
+    },
+    
+    storeCollection: ({ state }) => {
+      localStorage.myCollection = JSON.stringify({
+        ...state.myCollection,
+        ...{ 
+          items: state.myCollection.items.map(i => i.slug)
+        }
+      })
+    }
   },
 
   getters: {

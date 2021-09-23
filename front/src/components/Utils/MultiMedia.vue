@@ -101,7 +101,7 @@
           @input="uploadedMedia[i].caption = $event.target.value"
         />
       <div 
-        v-else
+        v-else-if="showCredits"
         class="caption"
       >
         {{ caption(i) }}
@@ -151,7 +151,8 @@ export default {
     'droppedMedia',
     'border', 
     'editable',
-    'dragging'
+    'dragging',
+    'showCredits'
   ],
   data() {
     return {

@@ -1,14 +1,19 @@
 <template>
-  <div class="col id"> 
+  <div 
+    class="col id"
+    @click.stop="
+      isInMyCollection(slug) ? 
+      removeFromCollection(resource) :
+      addToCollection(resource)
+    "
+  > 
     <p 
       v-if="isInMyCollection(slug)"
       class="remove"
-      @click.stop="removeFromCollection(resource)"
     >-</p>
     <p 
       v-else
       class="add"
-      @click.stop="addToCollection(resource)"
     >+</p> 
   </div>
   <div 

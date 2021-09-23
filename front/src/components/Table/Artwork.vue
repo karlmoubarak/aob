@@ -9,16 +9,21 @@
     }"
     
   >
-    <div class="col id"> 
+    <div 
+      class="col id"
+      @click.stop="
+        isInMyCollection(slug) ? 
+        removeFromCollection(artwork) :
+        addToCollection(artwork)
+      "
+    > 
       <p 
         v-if="isInMyCollection(slug)"
         class="remove"
-        @click.stop="removeFromCollection(artwork)"
       >-</p>
       <p 
         v-else
         class="add"
-        @click.stop="addToCollection(artwork)"
       >+</p> 
     </div>
     <div 
@@ -47,6 +52,7 @@
         v-if="media"
         :media="[media[0]]"
         :border="false"
+        :showCredits="false"
       />
     </div>
   </div>

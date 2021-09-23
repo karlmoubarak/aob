@@ -288,6 +288,12 @@ module.exports = {
       en: 'return',
       ar: 'أرجع'
     }
+  },
+  status: {
+    loading: {
+      en: 'loading...',
+      ar: 'جار التحميل...'
+    }
   }
 
 }

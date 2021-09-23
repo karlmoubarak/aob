@@ -253,6 +253,13 @@ a:hover {
   max-width: 100%;
   margin-top: 0.5em;
   text-align: left;
+  align-items: flex-start;
+  /* display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+  /* justify-content: flex-start; */
 }
 </style>
 

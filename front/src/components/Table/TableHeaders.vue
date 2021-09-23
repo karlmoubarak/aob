@@ -42,22 +42,27 @@ export default {
   font-weight: bold;
   /* text-shadow: 0 0 1em var(--lightblue);
   filter: drop-shadow(0 0 1em lime); */
-  background: var(--lightblue)
+  background: var(--lightblue);
+  background: inherit;
+  margin: 0;
 }
 .row.header:hover .col {
-  background: var(--lightblue);
+  /* background: var(--lightblue); */
+  background: white;
   
 }
 .col {
-  background: var(--lightblue);
   display: flex;
   justify-content: flex-start;
   padding: 0;
   cursor: pointer;
   /* padding-left: 0.25em; */
+  background: var(--lightblue);
+  background: white;
 }
 .col p {
   background: var(--lightblue);
+  background: white;
   /* width: auto; */
   padding: 0.5em;
 
