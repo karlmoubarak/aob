@@ -16,12 +16,8 @@ export default {
   name: 'Collections',
   components: { Collection },
   computed: {
-    ...mapGetters([
-      'sortedCollections'
-    ])
+    ...mapGetters([ 'sortedCollections' ])
   },
-  created() {
-  }
 }
 </script>
 

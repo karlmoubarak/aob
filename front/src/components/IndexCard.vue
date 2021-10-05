@@ -212,8 +212,7 @@ export default {
   min-height: 120vh;
   width: calc(100% - 13em);
   padding: 8em 3em;
-  background: var(--lightblue);
-  background: #f2e4c4;
+  background: var(--beige);
   display: flex;
   align-items: flex-start;
 }

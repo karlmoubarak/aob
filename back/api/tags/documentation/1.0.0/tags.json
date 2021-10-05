@@ -772,6 +772,14 @@
                 "Description_AR": {
                   "type": "string"
                 },
+                "align": {
+                  "type": "string",
+                  "enum": [
+                    "left",
+                    "center",
+                    "right"
+                  ]
+                },
                 "localizations": {
                   "type": "array",
                   "items": {

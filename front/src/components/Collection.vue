@@ -37,19 +37,9 @@
 
 <script>
 
-import { mapGetters, mapState } from 'vuex'
-
 export default {
   name: 'Collection',
-  components: {
-  },
-  props: [
-    'collection',
-  ],
-  data() {
-    return {
-    }
-  },
+  props: [ 'collection' ],
   computed: {
     id()          { return this.collection.id },
     title()       { return this.collection.Title },
@@ -57,17 +47,7 @@ export default {
     author()      { return this.collection.Author || 'Anonymous' },
     items()       { return this.collection.items },
     description() { return this.collection.Description },
-    ...mapState([
-      'query'
-    ]),
-    ...mapGetters(['queries'])
-    
   },
-  mounted() {
-  },
-  methods: {
-  
-  }
   
 }
 </script>

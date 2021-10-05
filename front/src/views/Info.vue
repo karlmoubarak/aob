@@ -172,6 +172,8 @@ export default {
   font-family: 'Courier New', Courier, monospace;
   background: var(--green);
   max-width: 25em;
+  position: sticky;
+  top: 0;
 }
 .meta table {
   border-collapse: collapse;

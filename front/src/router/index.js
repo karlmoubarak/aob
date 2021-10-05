@@ -4,10 +4,14 @@ import Home           from '../views/Home'
 import Resources      from '../views/Resources'
 import Artworks       from '../views/Artworks'
 import Collections    from '../views/Collections'
-import Collection     from '../views/Collection'
-import Info           from '../views/Info'
 import Exhibition     from '../views/Exhibition'
+
+import Info           from '../views/Info'
+import Collection     from '../views/Collection'
 import ItemPage       from '../views/ItemPage'
+
+import NotFound       from '../views/NotFound'
+import Error          from '../views/Error'
 
 const router = createRouter({
   history: createWebHistory('/'),
@@ -79,6 +83,24 @@ const router = createRouter({
       path: '/upload/artwork',
       name: 'Upload Artwork',
       component: Info,
+    },
+    {
+      path: '/error',
+      name: 'Error',
+      component: Error,
+      props: true
+    },
+    {
+      path: '/404',
+      name: 'not-found',
+      component: NotFound,
+      props: true
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: {
+        name: 'not-found'
+      }
     },
   ],
 })

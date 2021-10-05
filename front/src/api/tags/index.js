@@ -12,15 +12,11 @@ const
       .get(URL + 'tags')
       .then(response => 
         resolve(
-          sortAlphabetically(
-            response.data, 'Name'
-          )
+          sortAlphabetically(response.data, 'Name')
         )
       )
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   }

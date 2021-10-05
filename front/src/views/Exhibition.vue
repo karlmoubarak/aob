@@ -47,7 +47,7 @@ export default {
   height: 100%;
   position: fixed;
   top: 0em;
-  background: #ffffffa4;
+  background: var(--white-glass);
   overflow: scroll;
   z-index: 2;
   padding: 10em;

@@ -8,36 +8,35 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import Table from '../components/Table'
 
 export default {
   name: 'Home',
-  components: {
-    Table
-  },
+  components: { Table },
   computed: {
-    ...mapGetters([
-      'mainCollection'
-    ]),
+    ...mapState([ 'loading' ]),
+    ...mapGetters([ 'mainCollection' ]),
     emptyMessage() {
       return ( 
-        this.$store.state.resources.length == 0 ?
+        this.loading ?
         this.$locale.status.loading[this.$store.state.locale] :
         this.$locale.search.empty[this.$store.state.locale]
       )
     }
   },
-    watch: {
-      mainCollection() {
+  watch: {
+    mainCollection() {
+      if (process.env.NODE_ENV !== 'production') {
         console.log(this.mainCollection.map(i => i.slug))
       }
     }
+  }
 
 }
 </script>
 
-<style>
+<style scoped>
 
 #home {
   box-sizing: border-box;
@@ -48,4 +47,5 @@ export default {
 .mobile #home {
   padding: 0.5em;
 }
+
 </style>

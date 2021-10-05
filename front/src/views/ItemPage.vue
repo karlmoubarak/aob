@@ -35,6 +35,12 @@
         :item="renderedItem"
       />
     </div>
+    <div
+      v-else
+      class="noItemMessage"
+    >
+      <p> {{ noItemMessage }} </p>
+    </div>
     <Table
       v-if="related && related.length > 0"
       ref="table"
@@ -75,6 +81,16 @@ export default {
       'isInMyCollection',
       'relatedItems'
     ]),
+    
+    loading() { return this.$store.state.loading },
+    
+    noItemMessage() {
+      return ( 
+        this.loading ?
+        this.$locale.status.loading[this.$store.state.locale] :
+        this.$locale.status.itemNotFound[this.$store.state.locale]
+      )
+    },
     
     parentRoute() {
       return this
@@ -177,7 +193,7 @@ export default {
   height: 100%;
   position: fixed;
   top: 0em;
-  background: #ffffffa4;
+  background: var(--white-glass);
   overflow: hidden;
   z-index: 2;
   transform: translateY(0) !important;
@@ -205,6 +221,10 @@ export default {
   max-height: 100%;
   overflow: scroll;
   transition: all var(--fast) ease;
+}
+
+.noItemMessage {
+  padding: 15% 5%;
 }
 
 .table {
@@ -248,7 +268,7 @@ export default {
   
 .relatedItemsVisible table {
   top: 10em;
-  box-shadow: 0 50em 200em 200em #ffffffa4;
+  box-shadow: 0 0em 2em 20em var(--white-glass);
 }
 
 .ar .item .circle {
@@ -287,5 +307,14 @@ export default {
   left: unset;
 }
 
+@media print {
+  .indexCard {
+    margin: 0;
+    max-width: 100%;
+  }
+  .table {
+    display: none;
+  }
+}
 
 </style>

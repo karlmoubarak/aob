@@ -9,60 +9,33 @@ const
     return new Promise ((resolve, reject) => axios
       .get(URL + 'collections')
       .then(response => {
-        const collections = response.data
-        collections.forEach(collection => {
-          collection.items = collection.Item.map(
-            i => objectKeysToLowercase(i.resource || i.artwork )
-          ) 
+        response.data.forEach(collection => {
+          collection.items = collection.Item
+          .map(i => objectKeysToLowercase(i.resource || i.artwork ))
+          .filter(i => i.published_at) 
           delete collection.Item
         })
-        resolve(
-          collections
-        )
-      }
-      )
+        resolve(response.data)
+      })
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   },
     
-  get = slug => {
-    return new Promise ((resolve, reject) => axios
-      .get(URL + 'collections?slug=' + slug)
-      .then(response => 
-        resolve(
-          response.data
-        )
-      )
-      .catch(error => 
-        reject(
-          error
-        )
-      )
-    )
-  },
-  
   post = collection => {
     return new Promise ((resolve, reject) => axios
       .post(URL + 'collections', collection)
       .then(response => 
-        resolve(
-          response.data
-        )
+        resolve(response.data)
       )
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   }
 
 export default {
   getAll,
-  get,
   post,
 }

@@ -8,6 +8,7 @@ export default createStore({
   state: {
   
     isMobile          : false,
+    loading           : true,
     locale            : '',  
     info              : {},
     history           : [],
@@ -21,21 +22,16 @@ export default createStore({
     selectedTags      : [],
     selectedLocations : [],
     query             : '',
-    sort              : {
-      prop: 'slug',
-      order: 1
-    },
+    sort              : { prop: 'slug', order: 1 },
     
-    myCollection      : {
-        slug: 'my-collection',
-        items: [],
-      },
+    myCollection      : { slug: 'my-collection', items: [] },
     
   },
 
   mutations: {
   
     setMobile          : (state, mobile)      => state.isMobile                    = mobile,
+    setLoading         : (state, loading)     => state.loading                     = loading,
     setLocale          : (state, locale)      => state.locale                      = locale,
     setInfos           : (state, info)        => state.info                        = info,
     addToHistory       : (state, path)        => state.history.unshift             ( path ),
@@ -53,19 +49,16 @@ export default createStore({
     
     updateMyCollection : (state, data)        => state.myCollection                = { ...state.myCollection, ...data },
     addToCollection    : (state, item)        => state.myCollection.items.push     ( item ),
-    rmFromCollection   : (state, key)         => state.myCollection.items.splice   ( key, 1 ),
+    rmFromCollection   : (state, index)       => state.myCollection.items.splice   ( index, 1 ),
     
   },
 
   actions: {
   
-    getCollection: async ({ state, getters }, slug)  => {
-      console.log(state, slug)
-      return (
-        getters
-        .collectionBySlug(slug)
-      ) 
-    },
+    getCollection: async ({ getters }, slug) => (
+      getters
+      .collectionBySlug(slug)
+    ),
     
     addToCollection: ({ commit, getters, dispatch }, item) => {
       if (!getters.isInMyCollection(item.slug)) {
@@ -109,8 +102,8 @@ export default createStore({
   getters: {
   
     collectionBySlug: state => slug => (
-      slug == state.myCollection.slug ? 
-      state.myCollection :
+      slug == state.myCollection.slug && 
+      state.myCollection ||
       state
       .collections
       .find(c => c.slug == slug)
@@ -124,7 +117,6 @@ export default createStore({
     
     sortedCollections: state => (
       sortByUpdate([...state.collections])
-      // .filter(c => c.slug !== 'exhibition')
     ),
     
     exhibition: state => (
@@ -151,7 +143,6 @@ export default createStore({
     ),
     
     queries: state => [state.query],
-    // queries: state => [...state.query.split(' ')],
   
     filteredResources: (state, getters) => (
       state.resources.filter(r => (
@@ -178,10 +169,13 @@ export default createStore({
           r.contact,
           r.link,
           r.tags.map(t => t.Name.toLowerCase()),
-          r.tags.map(t =>  t.Name_AR && t.Name_AR.toLowerCase()),
+          r.tags.map(t => t.Name_AR && t.Name_AR.toLowerCase()),
           r.locations.map(l => l.Name.toLowerCase()),
           r.locations.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
-        ].flat().join(' ').includes(q))
+        ].flat()
+         .join(' ')
+         .includes(q)
+        )
       )) 
     ),
     
@@ -215,7 +209,10 @@ export default createStore({
           a.locations.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
           a.hometown.map(l => l.Name.toLowerCase()),
           a.hometown.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
-        ].flat().join(' ').includes(q))
+        ].flat()
+         .join(' ')
+         .includes(q)
+        )
       )) 
     ),
     

@@ -32,6 +32,9 @@
         "item.item",
         "item.resource"
       ]
+    },
+    "isCurrentExhibition": {
+      "type": "boolean"
     }
   }
 }

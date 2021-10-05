@@ -4,17 +4,18 @@
       :class="['aob', { expanded: expanded }]"
       @mouseover="hovered = true"
       @mouseleave="hovered = false"
+      @click="$router.push('/')"
     > 
       <transition 
         name="fade"
         mode="out-in"
       >
-        <router-link v-if="expanded" to="/">
+        <a v-if="expanded">
           {{ $locale.aob.name[locale] }} 
-        </router-link>
-        <router-link v-else to="/">
+        </a>
+        <a v-else>
           {{ $locale.aob.name.shorthand }} 
-        </router-link>
+        </a>
       </transition>
     </li>
     <li 
@@ -137,7 +138,6 @@ header a {
   text-decoration: unset;
 }
 header li:not(.aob) a:hover {
-  /* color: #737a3b; */
   text-decoration: underline;
 }
 header li {
@@ -203,7 +203,6 @@ header li:nth-of-type(5) {
 header li.languageSwitcher {
   min-width: 5em;
   margin-right: 14.1em;
-  /* background-color: #C4C4C4; */
   border-radius: 90%;
   margin-left: auto;
 } 

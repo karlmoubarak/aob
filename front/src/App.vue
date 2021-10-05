@@ -24,16 +24,19 @@
 <script>
 
 import { mapState } from 'vuex'
-import api from './api'
-import Header from './components/Header'
-import Nav from './components/Header/Nav'
+import api          from './api'
+import Header       from './components/Header'
+import Nav          from './components/Header/Nav'
 
 export default {
+
   name: 'App',
+  
   components: { 
     Nav,
     Header
   },
+  
   computed: {
     ...mapState([
       'isMobile',
@@ -41,14 +44,20 @@ export default {
     ]),
     landing()   { return this.$route.name == 'Home' || false },
     direction() { return this.locale == 'ar' ? 'rtl' : 'ltr'}
-    
   },
+  
   async created() {
+  
+
+    // check if browser's default locale is arabic and default to english.
 
     this.$store.commit(
       'setLocale', 
       this.getLocale().includes('ar') ? 'ar' : 'en'
     )
+    
+    
+    // check if browser is mobile and add 'resize' listener.
 
     this.$store.commit(
       'setMobile', 
@@ -60,6 +69,9 @@ export default {
         this.checkIfMobile()
       )
     })
+    
+    
+    // after each route, add path to history and commit URL parameters to store.
   
     this.$router.afterEach(to => {
       this.$store.commit('addToHistory',    to.path                )
@@ -68,21 +80,45 @@ export default {
       this.$store.commit('setQuery',        to.query.search   || '')
     })
     
+    
+    
+    // fetch all contents from api:
+    //  {
+    //    infos,
+    //    tags,
+    //    locations,
+    //    resources,
+    //    artworks,
+    //    collections,
+    //  }
+    
     for (let key in api) {
+      let response
+      try {
+        response = await api[key].getAll()
+      } catch {
+        this.$router.push('/error')
+      }
       this.$store.commit(
         'set' + key[0].toUpperCase() + key.slice(1),
-        await api[key].getAll()
+        response
       )
     }
     
+    
+    // get my-collection from LocalStorage if it exists
+    
     this.$store.dispatch('getCollectionFromStore')
+  
+  
+    // app is ready:
+    
+    this.$store.commit('setLoading', false)
     
   },
 
   methods: {
 
-    checkIfMobile: () => window.innerWidth < 700,
-    
     getLocale: () => (
       navigator.languages && 
       navigator.languages.length ? 
@@ -90,7 +126,8 @@ export default {
       navigator.language
     ),
     
-
+    checkIfMobile: () => window.innerWidth < 700,
+    
   }
 }
 </script>
@@ -118,6 +155,9 @@ export default {
   --brightgreen: #00b35f;
   --purple: #CBBEF0;
   --highlight: rgb(255, 255, 102);
+  --highlight: #FFF7B1;
+  --beige: #f2e4c4;
+  --white-glass:#ffffffa4;
    
   --veryfast: 0.1s;
   --fast: 0.2s;
@@ -138,7 +178,7 @@ body,
   height: 100%; width: 100%;
   font-size: 10pt;
   font-family: 'Courier New', Courier, monospace;
-  color: rgb(119, 119, 119);
+  color: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -148,7 +188,6 @@ body,
 main {
   box-sizing: border-box;
   position: relative;
-  /* top: 0; */
   height: 100%;
   width: 100%;
   max-height: 100vh;
@@ -158,15 +197,8 @@ main {
   background: inherit;
 }
 
-.landing main {
-  flex-shrink: 1;
-  max-height: 0;
-  overflow: hidden;
-}
 
-.center {
-  text-align: center;
-}
+
 main * {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -180,16 +212,12 @@ a {
   color: var(--orange);
   text-decoration: none;
   text-decoration-thickness: 0.001em;
-  /* text-decoration-skip: edges; */
-  /* text-decoration-skip:40em; */
 }
-
 a:hover {
   text-decoration: underline;
-  /* box-shadow: 0 0px 8px 2px rgb(255, 255, 102); */
 }
 a:active {
-color: var(--orange);
+  color: var(--orange);
 }
 
 .highlight {
@@ -200,8 +228,9 @@ color: var(--orange);
   text-decoration-thickness: 0.08em;
 }
 
-
-
+.center {
+  text-align: center;
+}
 
 .description img {
   max-width: 100%;
@@ -210,19 +239,22 @@ color: var(--orange);
 
 
 .fade-enter-active,
-.fade-leave-active {
-  transition: all var(--fast) ease;
-}
-
+.fade-leave-active,
 .fade-leave-to,
 .fade-leave-from {
   transition: all var(--fast) ease;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   transform: translateY(5em);
   opacity: 0;
+}
+
+
+.landing main {
+  flex-shrink: 1;
+  max-height: 0;
+  overflow: hidden;
 }
 
 #app.mobile {
@@ -251,7 +283,7 @@ color: var(--orange);
 }
 
 @page {
-  size: A4 landscape;
+  size: A5 landscape;
   margin: 0;
 }
 

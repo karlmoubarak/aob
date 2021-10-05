@@ -21,9 +21,7 @@ const
         )
       )
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   },
@@ -32,14 +30,10 @@ const
     return new Promise ((resolve, reject) => axios
       .post(URL + 'artworks', artwork)
       .then(response => 
-        resolve(
-          response.data
-        )
+        resolve(response.data)
       )
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   }

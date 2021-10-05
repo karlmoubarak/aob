@@ -44,7 +44,6 @@ module.exports = {
         ar: 'المعرض',
       },
       slug: '/exhibition'
-      // slug: '/artworks'
     },
     {
       name: {
@@ -138,8 +137,8 @@ module.exports = {
   },
   search: {
     placeholder: {
-      en: 'search',
-      ar: 'ابحث'
+      en: 'search archive',
+      ar: 'ابحث الأرشيف'
     },
     empty: {
       en: 'Your query yields 0 results.',
@@ -293,6 +292,18 @@ module.exports = {
     loading: {
       en: 'loading...',
       ar: 'جار التحميل...'
+    },
+    itemNotFound: {
+      en: '(404) item not found.',
+      ar: '(404) عنصر غير موجود.'
+    },
+    pageNotFound: {
+      en: '(404) page not found.',
+      ar: '(404) الصفحة غير موجودة.'
+    },
+    error: {
+      en: 'Error connecting to server.',
+      ar: 'خطأ في الاتصال بالخادم.'
     }
   }
 

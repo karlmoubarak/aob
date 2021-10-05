@@ -300,7 +300,7 @@ export default {
   position: fixed;
   top: 0em;
   left: 0em;
-  background: #ffffffa4;
+  background: var(--white-glass);
   overflow: scroll;
   z-index: 3;
   display: flex;

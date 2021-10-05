@@ -16,9 +16,7 @@ const
         )
       )
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   },
@@ -27,14 +25,10 @@ const
     return new Promise ((resolve, reject) => axios
       .post(URL + 'resources', resource)
       .then(response => 
-        resolve(
-          response.data
-        )
+        resolve(response.data)
       )
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   }

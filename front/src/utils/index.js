@@ -1,12 +1,5 @@
 const
 
-  toObject = (arr, key) => (
-    arr.reduce((res, a) => {
-      res[a[key]] = a
-      return res
-    }, {})
-  ),
-
   objectKeysToLowercase = a => {
     for (let key in a) {
       if (key[0] === key[0].toUpperCase()) {
@@ -24,11 +17,11 @@ const
         aText = 
           typeof a[prop] === 'string' ?
           a[prop] :
-          a[prop] && a[prop][0]['slug'] || '',
+          a[prop] && a[prop][0] && a[prop][0]['slug'] || '',
         bText = 
           typeof b[prop] === 'string' ?
           b[prop] :
-          b[prop] && b[prop][0]['slug'] || ''
+          b[prop] && b[prop][0] && b[prop][0]['slug'] || ''
       return (
         aText && bText && order > 0 ?
         aText.localeCompare(bText) :
@@ -69,7 +62,6 @@ const
   }
 
 export {
-  toObject,
   objectKeysToLowercase,
   sortAlphabetically,
   sortByUpdate,

@@ -834,6 +834,14 @@
           "Description_AR": {
             "type": "string"
           },
+          "align": {
+            "type": "string",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          },
           "localizations": {
             "type": "array",
             "items": {
@@ -927,6 +935,14 @@
                 },
                 "Description_AR": {
                   "type": "string"
+                },
+                "align": {
+                  "type": "string",
+                  "enum": [
+                    "left",
+                    "center",
+                    "right"
+                  ]
                 },
                 "localizations": {
                   "type": "array",
@@ -1041,6 +1057,14 @@
           },
           "Description_AR": {
             "type": "string"
+          },
+          "align": {
+            "type": "string",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
           },
           "localizations": {
             "type": "array",

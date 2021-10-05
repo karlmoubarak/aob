@@ -118,6 +118,12 @@
       />
     </div>
   </div>
+  <div
+    v-else
+    class="noItemMessage"
+  >
+    <p> {{ noItemMessage }} </p>
+  </div>
 </template>
 
 <script>
@@ -152,7 +158,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'locale'
+      'locale',
+      'loading'
     ]),
     ...mapGetters([
       'collectionBySlug',
@@ -180,12 +187,22 @@ export default {
       )
     },
     
+    noItemMessage() {
+      return ( 
+        this.loading ?
+        this.$locale.status.loading[this.locale] :
+        this.$locale.status.itemNotFound[this.locale]
+      )
+    },
+    
     collection() { return this.collectionBySlug(this.$route.params.slug)},
     
     items()      { 
-      return this.collection.items.map(i => i.organisation ?
+      return this.collection.items
+      .map(i => i.organisation ?
         this.resourceBySlug(i.slug) : this.artworkBySlug(i.slug)
       )
+      .filter(i => i)
     },
     
     title()      { return (
@@ -281,19 +298,24 @@ export default {
     
     print() {
       this.printing = true
-      this.$refs.qr.height = '320px'
-      QRCode.toCanvas(
-        this.$refs.qr, 
-        window.location.href,
-        this.qrOptions,
-        error => {
-        if (error) console.error(error)
-          setTimeout(() => {
-            window.print()
-            this.printing = false
-          }, 500)
-        }
-      )  
+      if (!this.isMyCollection) {
+        this.$refs.qr.height = '320px'
+        QRCode.toCanvas(
+          this.$refs.qr, 
+          window.location.href,
+          this.qrOptions,
+          error => {
+          if (error) console.error(error)
+            setTimeout(() => {
+              window.print()
+              this.printing = false
+            }, 500)
+          }
+        )
+      } else {
+        window.print()
+        this.printing = false 
+      }
     }
 
   }
@@ -308,6 +330,12 @@ export default {
   /* display: flex; */
   /* flex-direction: column; */
   height: 100%;
+}
+
+
+
+.noItemMessage {
+  padding: 5% 5%;
 }
 
 .title  {

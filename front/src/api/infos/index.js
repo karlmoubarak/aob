@@ -18,14 +18,10 @@ const
             delete info[key+'AR']
           }
         }
-        resolve(
-          info
-        )
+        resolve(info)
       })
       .catch(error => 
-        reject(
-          error
-        )
+        reject(error)
       )
     )
   }
