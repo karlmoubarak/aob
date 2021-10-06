@@ -5,7 +5,7 @@
         <vue3-markdown-it
           class="content"
           v-bind="$mdOpts"
-          :source="source('About')"
+          :source="about"
         ></vue3-markdown-it>
         <div class="updatedAt">
           <p>{{ updatedAt }}.</p>
@@ -97,47 +97,32 @@ import Upload from '../components/Upload'
 
 export default {
   name: 'Info',
-  components: {
-    Upload
-  },
-  data() {
-    return {
-    }
-  },
+  components: { Upload },
   computed: {
     ...mapState([
       'locale',
       'info'
     ]),
-    updatedAt() {
-      return (
-        this.$locale['info']['updated_at'][this.locale] + ' ' +
-        moment(this.info['updated_at']).locale(this.locale).format('MMMM DD, YYYY, HH:mm')
+    about() { 
+      return processImages(
+        this.info.About && 
+        this.info.About[this.locale] 
       )
     },
+    updatedAt() { 
+      return this.$locale['info']['updated_at'][this.locale] + ' ' +
+      moment(this.info['updated_at']).locale(this.locale).format('MMMM DD, YYYY, HH:mm')
+    },
     archiveLastUpdated() { 
-      return (
-        moment(
-          this.sortByUpdate(
-            this.$store.getters.mainCollection
-            .map(i => i .updated_at)
-          )[0]
-        )
-        .locale(this.locale)
-        .format('MMMM DD, YYYY, HH:mm')
-      )
+      return moment( sortByUpdate(
+        this.$store.getters.mainCollection
+        .map(i => i .updated_at)
+      )[0])
+      .locale(this.locale)
+      .format('MMMM DD, YYYY, HH:mm')
     },
   },
   methods: {
-    processImages,
-    sortByUpdate,
-    source(title) { 
-      return (
-        this.processImages(
-          this.info[title] && this.info[title][this.locale] 
-        )
-      )
-    },
     count(arr) { 
       return this.$locale.num[this.locale](this.$store.getters[arr].length)
     },
@@ -146,11 +131,11 @@ export default {
 </script>
 
 <style scoped>
+
 #infoContainer {
   box-sizing: border-box;
   position: relative;
   width: 100%;
-  padding: 1em;
   font-family: montserrat;
 }
 #info {
@@ -161,19 +146,22 @@ export default {
 }
 .sections,
 .meta {
+  box-sizing: border-box;
   padding: 2em;
-  margin: 1em;
 }
 .sections {
-  max-width: 55em;
+  width: 52em;
+  max-width: 52em;
   background: var(--lightestorange);
+  margin: 2em;
+  
 }
 .meta {
   font-family: 'Courier New', Courier, monospace;
   background: var(--green);
-  max-width: 25em;
+  max-width: 28em;
   position: sticky;
-  top: 0;
+  top: 2em;
 }
 .meta table {
   border-collapse: collapse;
@@ -241,4 +229,9 @@ export default {
   margin: 0;
   padding: 1em;
 }
+.mobile .sections {
+  min-width: 0;
+  max-width: 100%;
+}
+
 </style>

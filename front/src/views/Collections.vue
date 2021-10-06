@@ -1,45 +1,18 @@
 <template>
-  <div class="collections">
-    <Collection
-      v-for="collection in sortedCollections"
-      :key="collection.id"
-      :collection="collection"
-    />
-  </div>
+  <CollectionGroup
+    :collections="sortedCollections"
+  />
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Collection from '../components/Collection'
+import { mapGetters }  from 'vuex'
+import CollectionGroup from '../components/CollectionGroup'
 
 export default {
   name: 'Collections',
-  components: { Collection },
+  components: { CollectionGroup },
   computed: {
     ...mapGetters([ 'sortedCollections' ])
   },
 }
 </script>
-
-<style scoped>
-.collections {
-  position: relative;
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  overflow: scroll;
-  padding: 0.5em;
-  margin-top: 2em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-  align-items: flex-start;
-}
-
-.mobile .collections {
-  flex-direction: column;
-  flex-wrap: nowrap;
-  margin-top: 0;
-}
-</style>

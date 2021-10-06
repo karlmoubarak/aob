@@ -145,6 +145,17 @@ module.exports = {
       ar: 'استفسارك يعطي 0 نتائج.'
     }
   },
+  related: {
+    collections: {
+      en: 'Appears in collections',
+      ar: 'يظهر في المجموعات'
+    },
+    items: {
+      en: 'Shares tags and locations with',
+      ar: 'يشارك العلامات والمواقع مع'
+    }
+  
+  },
   info: {
     updated_at:{
       en: 'This text was last updated on',

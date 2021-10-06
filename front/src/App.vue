@@ -74,23 +74,20 @@ export default {
     // after each route, add path to history and commit URL parameters to store.
   
     this.$router.afterEach(to => {
-      this.$store.commit('addToHistory',    to.path                )
+      this.$store.commit('addToHistory',    to.fullPath            )
       this.$store.commit('selectTags',      to.query.tag      || [])
       this.$store.commit('selectLocations', to.query.location || [])
       this.$store.commit('setQuery',        to.query.search   || '')
     })
     
     
-    
     // fetch all contents from api:
-    //  {
-    //    infos,
-    //    tags,
-    //    locations,
-    //    resources,
-    //    artworks,
-    //    collections,
-    //  }
+    //   infos,
+    //   locations,
+    //   tags,
+    //   resources,
+    //   artworks,
+    //   collections,
     
     for (let key in api) {
       let response
@@ -232,6 +229,15 @@ a:active {
   text-align: center;
 }
 
+.v-md-editor {
+  box-shadow: none;
+  min-height: 40em;
+}
+
+.v-md-editor__toolbar-left + .v-md-editor__toolbar-right {
+  margin-left: unset;
+}
+
 .description img {
   max-width: 100%;
 }
@@ -255,6 +261,10 @@ a:active {
   flex-shrink: 1;
   max-height: 0;
   overflow: hidden;
+}
+
+#app.ar {
+  /* font-size: 12pt; */
 }
 
 #app.mobile {

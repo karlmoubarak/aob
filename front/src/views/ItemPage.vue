@@ -2,8 +2,7 @@
   <div 
     :class="[
       'itemContainer',
-      { relatedItemsVisible: relatedItemsVisible },
-      transitionClass
+      { leave: transitioning }
     ]"
     ref="itemContainer"
     @click.stop="$router.push(parentRoute)"
@@ -12,7 +11,6 @@
       v-if="renderedItem" 
       ref="item"
       class="item"
-      @scroll="handleScroll"
     >
       <div 
         class="circle"
@@ -41,78 +39,85 @@
     >
       <p> {{ noItemMessage }} </p>
     </div>
+    <CollectionGroup
+      v-if="parentCollections(item).length > 0"
+      :collections="parentCollections(item)"
+      :headerText="parentCollectionsText"
+    />
     <Table
       v-if="related && related.length > 0"
       ref="table"
       :collectionItems="related"
-      @mouseenter="hovered = true"
-      @mouseleave="hovered = false"
-      @click.stop="relatedItemsVisible = !relatedItemsVisible"
+      :headerText="relatedItemsText"
+      @click.stop
     />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import IndexCard                  from '../components/IndexCard'
-import Table                      from '../components/Table'
+import { 
+  mapState, 
+  mapGetters, 
+  mapActions 
+}                      from 'vuex'
+import IndexCard       from '../components/IndexCard'
+import Table           from '../components/Table'
+import CollectionGroup from '../components/CollectionGroup'
 
 export default {
   name: 'Page',
   components: {
+    IndexCard,
     Table,
-    IndexCard
+    CollectionGroup
   },
   data() {
     return {
       renderedItem: null,
-      hovered: false,
-      top: 10,
-      relatedItemsVisible: false,
-      transitionClass: null,
+      transitioning: false,
     }
+  },
+  methods: {
+    ...mapActions([
+      'addToCollection',
+      'removeFromCollection'
+    ]),
   },
   computed: {
   
+    ...mapState([ 
+        'loading',
+        'locale',
+      ]),
+      
     ...mapGetters([
+      'parentRoute',
       'resourceBySlug',
       'artworkBySlug',
-      'mainCollection',
       'isInMyCollection',
-      'relatedItems'
+      'relatedItems',
+      'parentCollections'
     ]),
-    
-    loading() { return this.$store.state.loading },
     
     noItemMessage() {
       return ( 
         this.loading ?
-        this.$locale.status.loading[this.$store.state.locale] :
-        this.$locale.status.itemNotFound[this.$store.state.locale]
+        this.$locale.status.loading[this.locale] :
+        this.$locale.status.itemNotFound[this.locale]
       )
     },
     
-    parentRoute() {
-      return this
-      .$store
-      .state
-      .history
-      .filter(p => 
-        p.split('/').length == 2
-       ||
-        p.includes('collections')
-      )[0] 
-       || '/archive'
+    parentCollectionsText() {
+      return this.$locale.related.collections[this.locale]
+    },
+    
+    relatedItemsText() {
+      return this.$locale.related.items[this.locale]
     },
     
     item() { return (
-      this.resourceBySlug(
-        this.$route.params.slug
-      )
-        ||
-      this.artworkBySlug(
-        this.$route.params.slug
-      )
+      this.resourceBySlug(this.$route.params.slug) ||
+      this.artworkBySlug(this.$route.params.slug)
     )},
     
     tags() { return (
@@ -129,15 +134,12 @@ export default {
       this.item.locations 
     )},
     
-    related() {
-      return ( this.item && [...new Set([
+    related() { return ( 
+      this.item && [...new Set([
         ...this.relatedItems(this.item, 'accurate'),
         ...this.relatedItems(this.item)
       ])]
-     )
-  }  
-    
-    
+    )},  
   },
   watch: {
   
@@ -149,39 +151,31 @@ export default {
           top: 0,
           behavior: 'smooth'
         })
-        this.transitionClass = 'leave'
+        this.transitioning = true
+        this.renderedItem = {
+          ...this.item, 
+          ...{ media: [] }
+        }
         setTimeout(() => {
           this.renderedItem = this.item
-          this.transitionClass = 'enter'
+          this.transitioning = false
+          if (this.$refs.table) {
+            this.$refs.table.$el.scroll({
+              top: 0,
+              behavior: 'smooth'
+            })
+          }
         }, 400)
       }
     },
-    
   },
   mounted() {
   
     if (!this.renderedItem) {
-        this.renderedItem = this.item
+      this.renderedItem = this.item
     }
     
   },
-  methods: {
-  
-    ...mapActions([
-      'addToCollection',
-      'removeFromCollection'
-    ]),
-    
-    handleScroll(e) {
-      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
-        this.top = this.top + 50
-      } else {
-        this.top = 10
-      }
-    },
-    
-    
-  }
   
 }
 </script>
@@ -208,16 +202,13 @@ export default {
   transform: translateY(-100vh);
   opacity: 0;
 }
-.enter .item {
+.item {
   transform: translateY(0vh);
-}
-
-  
+} 
 .item {
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  /* max-height: calc(100% - 20em); */
   max-height: 100%;
   overflow: scroll;
   transition: all var(--fast) ease;
@@ -230,18 +221,26 @@ export default {
 .table {
   position: fixed;
   top: calc(100% - 10em);
-  left: 8em;
-  width: calc(100% - 8em);
-  /* margin-left: 10em; */
+  left: 6em;
+  width: calc(100% - 6em);
   background: var(--lightestorange);
   max-height: 55vh;
   overflow: scroll;
-  /* z-index: 4; */
 }
 
 .table:hover {
   top: 45vh;
-  
+}
+
+.collections {
+  background: var(--lightgreen);
+  position: fixed;
+  top: calc(100% - 18em);
+  left: 12em;
+  width: calc(100% - 12em);
+}
+.collections:hover {
+  top: 30em;
 }
 
 .itemContainer .col {
@@ -266,10 +265,6 @@ export default {
   font-size: 3em;
 }
   
-.relatedItemsVisible table {
-  top: 10em;
-  box-shadow: 0 0em 2em 20em var(--white-glass);
-}
 
 .ar .item .circle {
   left: unset;
@@ -277,7 +272,11 @@ export default {
 }
 
 .ar .table {
-  right: 10em;
+  right: 6em;
+  left: unset;
+}
+.ar .collections {
+  right: 12em;
   left: unset;
 }
 

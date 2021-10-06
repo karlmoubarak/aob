@@ -7,7 +7,7 @@
     ]"
   >
     <div 
-      v-if="isMyCollection"
+      v-if="isMyCollection && !printing"
       class="info"
       id="myCollection"
     >
@@ -95,6 +95,7 @@
       </div>
       <vue3-markdown-it
         class="description"
+        v-bind="$mdOpts"
         :source="description"
       ></vue3-markdown-it>
       <div class="options">
@@ -128,20 +129,18 @@
 
 <script>
 
-import { mapActions, mapGetters, mapState } from 'vuex'
-import api from '../api'
+import { 
+  mapActions, 
+  mapGetters, 
+  mapState 
+}             from 'vuex'
+import api    from '../api'
 import QRCode from 'qrcode'
-import print from 'vue3-print-nb'
-import Table from '../components/Table'
+import Table  from '../components/Table'
 
 export default {
   name: 'Collection',
-  components: {
-    Table
-  },
-  directives: {
-    print   
-  },
+  components: { Table },
   data() {
     return {
       titleEmpty: false,
@@ -150,7 +149,8 @@ export default {
         margin: 0,  
         scale: 4,
         color: {
-          light: '#ffffff00'
+          light: '#ffffff00',
+          dark: '#777777',
         }  
       },
       printing: false,
@@ -167,37 +167,9 @@ export default {
       'artworkBySlug'
     ]),
     
-    fbTitle()    { return this.$locale.collections.defaults.Title[this.locale] },
-    fbAuthor()   { return this.$locale.collections.defaults.Author[this.locale] },
-    fbDesc()     { return this.$locale.collections.defaults.Description[this.locale] },
+    collection()     { return this.collectionBySlug(this.$route.params.slug)},
     
-    phTitle()    { return this.$locale.collections.mine.Title[this.locale] },
-    phAuthor()   { return this.$locale.collections.mine.Author[this.locale] },
-    phDesc()     { return this.$locale.collections.mine.Description[this.locale] },
-    
-    submitText() { return this.$locale.buttons.submit[this.locale] },
-    printText()  { return this.$locale.buttons.print[this.locale] },
-    clearText()  { return this.$locale.buttons.clear[this.locale] },
-    returnText() { return this.$locale.buttons.return[this.locale] },
-    emptyText()  { 
-      return ( 
-        this.$store.state.resources.length == 0 ?
-        this.$locale.status.loading[this.$store.state.locale] :
-        this.$locale.collections.defaults.empty[this.locale]
-      )
-    },
-    
-    noItemMessage() {
-      return ( 
-        this.loading ?
-        this.$locale.status.loading[this.locale] :
-        this.$locale.status.itemNotFound[this.locale]
-      )
-    },
-    
-    collection() { return this.collectionBySlug(this.$route.params.slug)},
-    
-    items()      { 
+    items()          { 
       return this.collection.items
       .map(i => i.organisation ?
         this.resourceBySlug(i.slug) : this.artworkBySlug(i.slug)
@@ -205,32 +177,75 @@ export default {
       .filter(i => i)
     },
     
-    title()      { return (
+    title()          { return (
       this.isMyCollection ? 
       this.collection.Title : 
       this.collection.Title ||
       this.fbTitle
     )},
-    author()     { return (
+    author()         { return (
       this.isMyCollection ? 
       this.collection.Author : 
       this.collection.Author ||
       this.fbAuthor
     )},
-    description(){ return (
+    description()    { return (
       this.isMyCollection ? 
       this.collection.Description : 
       this.collection.Description ||
       this.fbDesc
     )},
     
-    empty()      { return this.items.length == 0 },
+    empty()          { return this.items.length == 0 },
     isMyCollection() { return this.collection.slug == this.$store.state.myCollection.slug },
+    
+    fbTitle()        { return this.$locale.collections.defaults.Title[this.locale] },
+    fbAuthor()       { return this.$locale.collections.defaults.Author[this.locale] },
+    fbDesc()         { return this.$locale.collections.defaults.Description[this.locale] },
+    
+    phTitle()        { return this.$locale.collections.mine.Title[this.locale] },
+    phAuthor()       { return this.$locale.collections.mine.Author[this.locale] },
+    phDesc()         { return this.$locale.collections.mine.Description[this.locale] },
+    
+    submitText()     { return this.$locale.buttons.submit[this.locale] },
+    printText()      { return this.$locale.buttons.print[this.locale] },
+    clearText()      { return this.$locale.buttons.clear[this.locale] },
+    returnText()     { return this.$locale.buttons.return[this.locale] },
+    emptyText()      { 
+      return ( 
+        this.$store.state.resources.length == 0 ?
+        this.$locale.status.loading[this.$store.state.locale] :
+        this.$locale.collections.defaults.empty[this.locale]
+      )
+    },
+    
+    noItemMessage()  {
+      return ( 
+        this.loading ?
+        this.$locale.status.loading[this.locale] :
+        this.$locale.status.itemNotFound[this.locale]
+      )
+    },
+    
   },
   
   mounted() {
+    
+    if (this.collection && !this.isMyCollection) {
+      this.makeQR()
+    }
   
-
+  },
+  
+  watch: {
+    
+    collection() {
+      if (this.collection && !this.isMyCollection) {
+        setTimeout(() => {
+          this.makeQR()
+        }, 100)
+      }
+    }
   
   },
   methods: {
@@ -238,6 +253,15 @@ export default {
     ...mapActions([
       'removeFromCollection'
     ]),
+    
+    makeQR() {
+      QRCode.toCanvas(
+        this.$refs.qr, 
+        window.location.href,
+        this.qrOptions,
+        error => { if (error) console.error(error) }
+      )
+    },
   
     clear() {
       this.items.map(i => this.removeFromCollection(i));
@@ -298,24 +322,8 @@ export default {
     
     print() {
       this.printing = true
-      if (!this.isMyCollection) {
-        this.$refs.qr.height = '320px'
-        QRCode.toCanvas(
-          this.$refs.qr, 
-          window.location.href,
-          this.qrOptions,
-          error => {
-          if (error) console.error(error)
-            setTimeout(() => {
-              window.print()
-              this.printing = false
-            }, 500)
-          }
-        )
-      } else {
-        window.print()
-        this.printing = false 
-      }
+      window.print()
+      this.printing = false 
     }
 
   }
@@ -327,12 +335,9 @@ export default {
 
 .collection {
   position: relative;
-  /* display: flex; */
-  /* flex-direction: column; */
+  box-sizing: border-box;
   height: 100%;
 }
-
-
 
 .noItemMessage {
   padding: 5% 5%;
@@ -343,15 +348,15 @@ export default {
   font-size: 20pt;
 }
 canvas {
-  height: 0;
+  height: 320px;
   margin-bottom: 1em;
 }
 .collection .info {
+  box-sizing: border-box;
   position: relative;
-  max-width: 40em;
+  max-width: 47em;
   padding: 2.5em;
   margin: 2.5em;
-  /* margin-top: 1em; */
   background: var(--green);
   font-family: Montserrat;
 }
@@ -383,7 +388,6 @@ canvas {
 }
 .collection .info .options {
   display: flex;
-  /* justify-content: flex-start; */
   align-items: flex-start;
   margin-top: 1em;
 }
@@ -395,6 +399,7 @@ canvas {
 }
 .collection .info .options input:disabled {
   opacity: 0.7;
+  pointer-events: none;
   cursor: not-allowed;
 }
 .collection .info .options input.return {
@@ -418,7 +423,6 @@ canvas {
   background: var(--lightgreen);
   padding:2.5em;
   padding-top: 0em;
-  /* min-height: 60vh; */
   width: 100%;
   padding-top: 2.5em;
 }

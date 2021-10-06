@@ -101,6 +101,15 @@ export default createStore({
 
   getters: {
   
+    parentRoute: state => ( 
+      state
+      .history
+      .find(p => 
+        p.split('/').length == 2 ||
+        p.includes('collections')
+      ) || '/archive'
+    ),
+  
     collectionBySlug: state => slug => (
       slug == state.myCollection.slug && 
       state.myCollection ||
@@ -115,6 +124,16 @@ export default createStore({
       .includes(slug)
     ),
     
+    parentCollections: (state, getters) => item => (
+      getters
+      .sortedCollections
+      .filter(c => (
+        c.items
+        .map(i => i.slug)
+        .includes(item.slug)
+      ))
+    ),
+    
     sortedCollections: state => (
       sortByUpdate([...state.collections])
     ),
@@ -122,7 +141,7 @@ export default createStore({
     exhibition: state => (
       state
       .collections
-      .find(c => c.slug == 'exhibition') 
+      .find(c => c.isCurrentExhibition) 
      || {
         Title: '',
         Description: '',
@@ -168,12 +187,13 @@ export default createStore({
           r.description_AR,
           r.contact,
           r.link,
-          r.tags.map(t => t.Name.toLowerCase()),
-          r.tags.map(t => t.Name_AR && t.Name_AR.toLowerCase()),
-          r.locations.map(l => l.Name.toLowerCase()),
-          r.locations.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
+          r.tags.map(t => t.Name),
+          r.locations.map(l => l.Name),
+          r.tags.map(t => t.Name_AR),
+          r.locations.map(l => l.Name_AR),
         ].flat()
          .join(' ')
+         .toLowerCase()
          .includes(q)
         )
       )) 
@@ -204,13 +224,15 @@ export default createStore({
           a.artistWebsite,
           a.contact,
           a.link,
-          a.tags.map(t => t.Name.toLowerCase()),
-          a.locations.map(l => l.Name.toLowerCase()),
-          a.locations.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
-          a.hometown.map(l => l.Name.toLowerCase()),
-          a.hometown.map(l => l.Name_AR && l.Name_AR.toLowerCase()),
+          a.tags.map(t => t.Name),
+          a.locations.map(l => l.Name),
+          a.hometown.map(l => l.Name),
+          a.tags.map(t => t.Name_AR),
+          a.locations.map(l => l.Name_AR),
+          a.hometown.map(l => l.Name_AR),
         ].flat()
          .join(' ')
+         .toLowerCase()
          .includes(q)
         )
       )) 

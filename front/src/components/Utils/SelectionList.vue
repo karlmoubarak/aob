@@ -8,7 +8,7 @@
         @click.stop="$emit('remove', item)"
       >
         <span>
-          {{ name(item) }}
+          {{ item.Name }}
         </span>
         <span 
           v-if="isNewItem(item)"
@@ -25,12 +25,12 @@
       autocomplete="off"
       :placeholder="'Select or create ' + collection"
       class="content"
-      @input="query = $event.target.value; $emit('showOptions')"
+      @input="query = $event.target.value; $emit('showOptions'); i = null"
       @keyup.enter="sendTerm"
       @click.stop="$emit('showOptions')"
       @keyup.esc="$emit('hideOptions')"
-      @keydown.down="userSelectedTerm = list[list.indexOf(selectedTerm)+1]"
-      @keydown.up="userSelectedTerm = list[list.indexOf(selectedTerm)-1]"
+      @keydown.down.prevent="i < list.length - 1 ? i++ : i = 0"
+      @keydown.up.prevent="i > 0 ? i-- : i = list.length - 1"
     />
     <ul 
       class="choices"
@@ -43,7 +43,7 @@
         @click.stop="$emit('add', item)"
       >
         <span>
-          {{ name(item) }}
+          {{ item.Name }}
         </span>
         <span 
           v-if="isNewItem(item)"
@@ -64,51 +64,63 @@ export default {
     'selected',
     'showOptions'
   ],
+  emits: [
+    'add',
+    'remove',
+    'showOptions',
+    'hideOptions'
+  ],
   data() {
     return {
       query: '',
-      userSelectedTerm: null,
+      i: null,
     }
   },
   computed: {
-    locale()  { return this.$store.state.locale },
-    createdItem() { return {
-      Name: this.query,
-      slug: this.query.toLowerCase().replace(' ', '-')
-    }},
+    locale()  { 
+      return this.$store.state.locale 
+    },
+    createdItem() { 
+      return {
+        Name: this.query,
+        slug: this.query.toLowerCase().replace(' ', '-')
+      }
+    },
     list() { 
       return ( 
         [
-          ...[ 
-            this.isNewItem(this.createdItem) && this.createdItem
+          ...[
+            this.isNewItem(this.createdItem) &&
+            this.createdItem 
           ],
           ...this
           .$store
           .state[this.collection]
           .filter(t => 
-            t.Name.toLowerCase().includes(this.query.toLowerCase())
-          ||
+            t.Name.toLowerCase().includes(this.query.toLowerCase()) ||
             t.slug.includes(this.query.toLowerCase())
           ),
-        ].filter(
-          i => i.slug
-         &&
+        ].filter(i => 
+          i.slug &&
           !this.selected.map(s => s.slug).includes(i.slug)
         )
       ) 
      },
-    autoSelectedTerm() { return (
-       this.query && this.list[1] || this.list[0]
-    )},
+    autoSelectedTerm() { 
+      return (
+        this.createdItem && 
+        this.list[this.list.indexOf(this.createdItem)+1] || 
+        this.list[0]
+      )
+    },
+    userSelectedTerm() {
+      return this.list[this.i]
+    },
     selectedTerm() { 
       return this.userSelectedTerm || this.autoSelectedTerm
     }
   },
   methods: {
-    name(item) { return this.locale == 'ar' && item.Name_AR 
-      ? item.Name_AR
-      : item.Name
-    },
     isNewItem(item) {
       return (
         !this
@@ -119,21 +131,12 @@ export default {
       )
     },
     sendTerm(e) {
-      if (this.selectedTerm) {
+      if (this.selectedTerm && this.showOptions) {
         this.$emit('add', this.selectedTerm)
         e.target.value = ''
         this.query = ''
       } 
     }
-  },
-  emits: [
-    'add',
-    'remove',
-    'showOptions',
-    'hideOptions'
-  ],
-  mounted() {
-  
   },
 }
 </script>

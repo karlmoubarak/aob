@@ -1,30 +1,30 @@
 <template>
-  <div 
-    id="artworks"
-    @click="$router.go(-1)"
-  >
+  <div id="artworks">
     <Table
-      :collectionItems="filteredArtworks"
+      :collectionItems="mainCollection.filter(i => !i.organisation)"
+      :emptyMessage="emptyMessage"
     />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Table from '../components/Table'
+import { mapGetters, mapState } from 'vuex'
+import Table                    from '../components/Table'
 
 export default {
   name: 'Artworks',
-  components: {
-    Table,
-  },
+  components: { Table },
   computed: {
-    ...mapGetters([
-      'filteredArtworks'
-    ]),
-  
+    ...mapState    ([ 'loading', 'locale' ]),
+    ...mapGetters  ([ 'mainCollection' ]),
+    emptyMessage() {
+      return ( 
+        this.loading ?
+        this.$locale.status.loading[this.locale] :
+        this.$locale.search.empty[this.locale]
+      )
+    }
   }
-  
 }
 </script>
 
@@ -39,24 +39,10 @@ export default {
   overflow: scroll;
   z-index: 2;
   padding: 10em;
-  padding-top: 10em;
-  display: flex;
-  justify-content: center;
-  transform: translateY(0) !important;
-}
-.fade-enter-from ,
-.fade-leave-to {
-  padding-top: 20em !important;
 }
 
-table {
-  margin-top: 1em;
+#artworks .table {
+  background: transparent;
 }
-table tr.header {
-  display: none;
-}
-
-
-
 
 </style>

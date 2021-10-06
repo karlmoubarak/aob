@@ -7,6 +7,7 @@
         printing: printing
       }
     ]">
+    <h2 v-if="headerText">{{ headerText }}</h2>
     <transition name="list" mode="out-in">
       <TableHeaders 
         v-if="
@@ -94,7 +95,8 @@ export default {
     'collectionItems',
     'emptyMessage',
     'isMyCollection',
-    'printing'
+    'printing',
+    'headerText'
   ],
   computed: {
     items: {
@@ -130,6 +132,14 @@ export default {
   /* max-height: 200vh; */
   background: inherit;
 }
+
+.table h2 {
+  font-family: Montserrat;
+  width: 100%;
+  margin: 0.5em;
+  font-weight: normal;
+}
+
 .row {
   position: relative;
   box-sizing: border-box;
@@ -171,6 +181,13 @@ export default {
 .artworksOnly .row.artworkTR {
   max-height: 100em;
 }
+
+.artworksOnly .row.artworkTR .col.id {
+
+  display: none;
+
+}
+
 .artworkTD {
   display:block;
   width: 100%;

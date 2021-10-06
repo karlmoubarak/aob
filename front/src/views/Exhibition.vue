@@ -1,6 +1,15 @@
 <template>
-  <div id="exhibition"  @click="$router.go(-1)">
-    <div class="header">
+  <div id="exhibition">
+    <div 
+      class="info"
+      v-if="loading"
+    >
+      <p>{{ emptyMessage }}</p>
+    </div>
+    <div 
+      v-else
+      class="info"
+    >
       <p class="title">{{ title }}</p>
       <vue3-markdown-it
         class="desc"
@@ -15,28 +24,31 @@
 </template>
 
 <script>
-import { processImages } from '../utils'
-import { mapGetters } from 'vuex'
-import Table from '../components/Table'
+
+import { mapGetters, mapState } from 'vuex'
+import { processImages }        from '../utils'
+import Table                    from '../components/Table'
 
 export default {
   name: 'Exhibitionn',
-  components: {
-    Table,
-  },
+  components: { Table },
+  methods: { processImages },
   computed: {
-    ...mapGetters([
-      'exhibition'
-    ]),
-    title() { return this.exhibition.Title },
-    desc()  { return this.exhibition.Description },
-    items() { return this.exhibition.items },
+    ...mapState    ([ 'loading', 'locale' ]),
+    ...mapGetters  ([ 'exhibition' ]),
+    title()        { return this.exhibition.Title },
+    desc()         { return this.exhibition.Description },
+    items()        { return this.exhibition.items },
+    emptyMessage() {
+      return ( 
+        this.loading ?
+        this.$locale.status.loading[this.locale] :
+        this.$locale.search.empty[this.locale]
+      )
+    }
   },
-  methods: {
-    processImages,
-  }
-
 }
+
 </script>
 
 <style scoped>
@@ -50,36 +62,45 @@ export default {
   background: var(--white-glass);
   overflow: scroll;
   z-index: 2;
-  padding: 10em;
-  /* display: flex; */
-  /* justify-content: center; */
-  transform: translateY(0) !important;
 }
 
-#exhibition .header {
-  /* display:none; */
+#exhibition .info {
   box-sizing: border-box;
   position: sticky;
   float: left;
   top: 0; left: 0;
-  /* top: 5em; left: 10em; */
+  padding: 10em 5em;
+  max-width: 50em;
+  max-height: 100%;
+  overflow: scroll;
   font-family: Montserrat;
-  max-width: 30%;
-  max-height: 90%;
+  filter: drop-shadow( 0 0 2em var(--white-glass));
 }
 
-#exhibition .header .title {
+#exhibition .info .title {
   font-size: 20pt;
 }
 
-
 #exhibition .table {
+  float: left;
+  max-width: 85%;
+  margin-top: -10%;
+  margin-left: 7.5%;
   background: transparent;
+  filter: drop-shadow( 0 0 20em var(--white-glass));
+  height: auto;
 }
+#exhibition .table:hover {
+  margin-top: -50em;
+}
+
+
+
+
 .mobile #exhibition {
   padding: 1em;
 }
-.mobile #exhibition .header {
+.mobile #exhibition .info {
   position: relative;
   max-width: 100%;
   max-height: unset;

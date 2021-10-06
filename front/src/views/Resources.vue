@@ -17,13 +17,13 @@ export default {
     Table
   },
   computed: {
-    ...mapState([ 'loading' ]),
+    ...mapState([ 'loading', 'locale' ]),
     ...mapGetters([ 'mainCollection' ]),
     emptyMessage() {
       return ( 
         this.loading ?
-        this.$locale.status.loading[this.$store.state.locale] :
-        this.$locale.search.empty[this.$store.state.locale]
+        this.$locale.status.loading[this.locale] :
+        this.$locale.search.empty[this.locale]
       )
     }
   }

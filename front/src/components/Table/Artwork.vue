@@ -77,7 +77,6 @@ export default {
     return {
       hovered: false,
       headerHovered: false,
-      position: this.randomPosition(),
     }
   },
   computed: {
@@ -92,18 +91,14 @@ export default {
     media()       { return this.artwork.media && this.artwork.media.length > 0 && this.artwork.media },
     cover()       { return this.media && this.$apiURL + this.media[0].formats.medium.url },
     link()        { return this.artwork.link },
+    position()    { return this.getPosition() },
     contact()     { return this.artwork.contact || 'N/A'},
-    ...mapState([
-      'query'
-    ]),
-    ...mapGetters([
+    ...mapState   ([ 'query' ]),
+    ...mapGetters ([
       'isInMyCollection',
       'queries'
     ]),
     
-  },
-  mounted() {
-    // console.log(this.artwork)
   },
   methods: {
   
@@ -112,6 +107,17 @@ export default {
       'removeFromCollection'
     ]),
     
+    getPosition() { return (
+      this.artwork.align 
+       && 
+        this.artwork.align == 'left'   ? 'flex-start' :
+        this.artwork.align == 'center' ? 'center'     :
+        this.artwork.align == 'right'  ? 'flex-end'   :
+        this.randomPosition() 
+       ||
+        this.randomPosition()
+    )},
+    
     randomPosition: () => [
       'flex-start',
       'center',
@@ -119,7 +125,7 @@ export default {
     ][Math.floor(Math.random()*3)],
     
     // randomMargin: () => Math.random() * -10 + 'em',
-    randomMargin: ()=> '1em',
+    randomMargin: () => '1em',
 
   }
   
@@ -218,6 +224,10 @@ box-shadow: 0 0 1.5em 0 var(--highlight);
   box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);
   border: 0.2em solid #e3edff;
   background: #e3edff;
+}
+
+#exhibition .table .artwork {
+  box-shadow: 0 0.5em 8em 0 var(--white-glass);
 }
 .header {
   margin: 0.3em;

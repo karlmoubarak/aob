@@ -106,19 +106,18 @@ const router = createRouter({
 })
 
 router.beforeEach(({ path, query }) => {
-  const newQuery = {
-    tag: query.tag 
-      && !Array.isArray(query.tag) 
-      && [query.tag],
-    location: query.location 
-      && !Array.isArray(query.location) 
-      && [query.location]
+  const newQuery = {}
+  if (query.tag && !Array.isArray(query.tag)) {
+    newQuery.tag = [query.tag]
+  }
+  if (query.location && !Array.isArray(query.location)) {
+    newQuery.location = [query.location]
   }
   if (newQuery.tag || newQuery.location) {
     return {
-      path: path,
-      query: newQuery
-    }
+      path, 
+      query: { ...query, ...newQuery }
+    } 
   } 
 })
 

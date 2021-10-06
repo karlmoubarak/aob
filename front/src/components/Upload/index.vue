@@ -1,5 +1,9 @@
 <template>
-  <div @click.stop="$router.push('/info')" class="upload">
+  <div 
+    dir="ltr"
+    @click.stop="$router.push('/info')" 
+    class="upload"
+  >
     <div         
       class="form"
       @click.stop="showTagOptions = showLocationOptions = false"
@@ -10,12 +14,22 @@
       <div class="header">
         <p>{{ status }}</p>
         <input
+          v-if="!status.includes('Thank you')"
+          :disabled="status.includes('Sending')"
           class="submit"
           name="submit"
           ref="submit"
           type="submit"
           value="submit"
           @click="submit"
+        />
+        <input
+          v-else
+          class="submit"
+          name="close"
+          type="button"
+          value="close"
+          @click="$router.push('/info')"
         />
       </div>
       <div class="body">
@@ -60,13 +74,14 @@
         </div>
         <div class="description">
           <p class="meta">description:</p>
-          <textarea
-            rows="10"
-            name="description"
-            ref="description"
-            placeholder="description"
+          <v-md-editor 
             class="content"
-          />
+            ref="description"
+            height="auto"
+            left-toolbar="h bold italic underline strikethrough ul ol code image link quote"
+            right-toolbar="preview fullscreen"
+            @change="description = $event"
+          ></v-md-editor>
         </div>  
       </div>
       
@@ -162,19 +177,23 @@
 </template>
 
 <script>
+import api from '../../api'
 import SelectionList from '../Utils/SelectionList'
 import MultiMedia from '../Utils/MultiMedia'
-import api from '../../api'
 
 export default {
+
   name: 'Upload',
+  
   components: {
     SelectionList,
-    MultiMedia
+    MultiMedia,
   },
+  
   props: [
     'selectedType'
   ],
+  
   data() {
     return {
       selectedTags: [],
@@ -184,21 +203,18 @@ export default {
       droppedMedia: [],
       dragging: false,
       status: `Creating ${this.selectedType}.`,
+      description: ''
     }
   },
+  
   computed: {
-    title()         { return this.$refs.title.value },
-    artist()        { return this.$refs.artist.value },
-    description()   { return this.$refs.description.value },
-    medium()        { return this.$refs.medium.value },
-    link()          { return this.$refs.source.value },
-    contact()       { return this.$refs.contact.value },
-    media()         { return this.$refs.media.computedMedia },
-    organisation()  { return this.$refs.organisation.value }
+    media() { 
+      return this.$refs.media.computedMedia 
+    },
   },
-  mounted() {
-  },
+  
   methods: {
+  
     addToSelection(item, list) {
       if (
         !this['selected'+list]
@@ -209,6 +225,7 @@ export default {
         this['show'+list.replace('s', '')+'Options'] = false
       }
     },
+    
     removeFromSelection(item, list) {
       if (
         this['selected'+list]
@@ -219,50 +236,36 @@ export default {
         this['show'+list.replace('s', '')+'Options'] = false
       }
     },
+    
     receiveDrop(e) {
       this.droppedMedia = e
       this.dragging = false
     },
     
-    async submit() {
+    submit() {
     
-      const 
-        newTags = this
-          .selectedTags
-          .filter(t => this
-            .$refs
-            .tags
-            .isNewItem(t)
-          ),
-          
-        newLocations = this
-          .selectedLocations
-          .filter(t => this
-            .$refs
-            .locations
-            .isNewItem(t)
-          ),
-  
-        data = {
+      const data = {
           ...this.selectedType == 'artwork' ? {
-            Title         : this.title,
-            ArtistName    : this.artist,
-            Medium        : this.medium,
+            Title         : this.$refs.title.value,
+            ArtistName    : this.$refs.artist.value,
+            Medium        : this.$refs.medium.value,
             location      : this.selectedLocations.map(l => l.id || l.Name),
           } : {
-            Organisation  : this.organisation,
+            Organisation  : this.$refs.organisation.value,
             locations     : this.selectedLocations.map(l => l.id || l.Name),
           },
           ...{
             Description   : this.description,
-            Link          : this.link,
-            Contact       : this.contact,
+            Link          : this.$refs.source.value,
+            Contact       : this.$refs.contact.value,
             tags          : this.selectedTags.map(t => t.id || t.Name),
             published_at  : null,
           },
         }
       
-      console.log(data, newTags, newLocations)
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(data)
+      }
              
       if (data.Title || data.Organisation) {
         
@@ -275,17 +278,25 @@ export default {
           }
         }
         
-        this.status = 'sending'
+        this.status = 'Sending...'
         
         api[`${this.selectedType}s`]
         .post(formData)
-        .then(() => this.status = 'sent')
+        .then(() => this.status = 'Sent. Your contribution is being processed. Thank you.')
         .catch(() => this.status = 'errored' )
         
+      } else {
+        
+        this.status = this.selectedType == 'resource' ? 
+          'Please include an organisation name' :
+          'Please include the artwork title'
+      
       }
+      
     },
     
   }
+  
   
 }
 </script>
@@ -318,7 +329,7 @@ export default {
   box-sizing: border-box;
   margin-top: 5em;
   /* height: 80%; */
-  width: 80%;
+  width: calc(100% - 10em);
   padding: 5em 5em;
   background: var(--lightorange);
   display: flex;
@@ -347,6 +358,11 @@ export default {
   color: white;
   padding: 0.3em 5em;
   cursor: pointer;
+}
+.form .header input.submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 
@@ -406,9 +422,13 @@ export default {
   margin-bottom: 1em;
   
 }
-
+.form .body .description,
+.form .body .description .content {
+  height: 100%;
+}
 .form input,
-.form textarea {
+.form textarea,
+.form .v-md-editor {
   /* width: 32em; */
   background: var(--lightestorange);
   border: none;
