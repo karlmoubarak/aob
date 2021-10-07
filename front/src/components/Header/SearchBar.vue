@@ -3,13 +3,19 @@
     type="search"
     ref="input" 
     :placeholder="$locale.search.placeholder[$store.state.locale]"
-    @input="search"
+    @keyup.enter="search"
+    @input="clearIfEmpty"
   />
 </template>
 
 <script>
+
+// SearchBar: searches on keyup.enter and routes to archive
+// on inout of query is null
+
 export default {
   name: 'SearchBar',
+  props: [ 'landing' ],
   methods: {
     search() {
       if (this.$refs.input.value != '') {
@@ -23,11 +29,18 @@ export default {
         this.$router.push('/archive')
         this.$refs.input.focus()
       }
+    },
+    clearIfEmpty() {
+      if (this.$refs.input.value == '') {
+       this.$router.push('/archive')
+      }
     }
   },
-  mounted() {
-    if (this.$route.path == '/') {   
-      // this.$refs.input.focus()
+  watch: {
+    landing() {
+      if (this.landing) {   
+        this.$refs.input.focus()
+      }
     }
   },
 }
@@ -35,39 +48,29 @@ export default {
 
 <style scoped>
 input {
-  margin-left: auto;
   position: fixed;
-  width: 12em;
+  margin-left: auto;
   right: 0;
   top: 2em;
-  border: unset;
+  min-width: 13em;
+  max-width: 13em;
   height: 2em;
-  /* background: var(--lightestorange); */
-  /* padding: 0.5em; */
-  border: none;
   outline: none;
-  filter: none;
-  box-shadow: none;
-  transition: all var(--landing) ease;
-  /* transition: border var(--fast) ease; */
-  font-family: inherit;
-  font-size: inherit;
   border: 2px solid var(--green);
-  border-radius: 0;
-  min-width: 13.1em;
-  max-width: 13.1em;
-}
-.landing input {
-  top: calc(50% - 1em);
-  right: calc(50% - 6em);
+  transition: all var(--landing) ease;
+  font-family: montserrat;
+  z-index: 2;
 }
 input::placeholder {
-  /* text-align: center; */
+  text-align: center;
 }
 input:active,
 input:focus {
-  border: 2px solid var(--green);
   filter: drop-shadow(0 0 1em var(--green));
+}
+.landing input {
+  top: calc(50% - 1em);
+  right: calc(50% - 6.5em);
 }
 .ar input {
   margin-left: unset;
@@ -77,15 +80,14 @@ input:focus {
 }
 .ar.landing input {
   right: unset;
-  left: calc(50% - 6em);
+  left: calc(50% - 6.5em);
 }
-
 .mobile input {
-  box-sizing: border-box;
+  position: relative;
   min-width: 100%;
   flex-basis: 100%;
-  position: relative;
-  text-align: center;
+  height: 2.5em;
+  display: none;
 }
 
 .mobile.landing input,
@@ -93,6 +95,7 @@ input:focus {
   top: unset;
   left: unset;
   right: unset;  
+  display: block;
 }
 
 </style>

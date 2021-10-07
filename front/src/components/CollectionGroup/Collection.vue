@@ -1,5 +1,6 @@
 <template>
   <div  
+    dir="ltr"
     class="collectionContainer"
     @click.stop="$router.push({
       name:'Collection',
@@ -7,28 +8,27 @@
     })"
   >
     <div class="collection">
-      <div class="circleContainer">
-        <div class="circle"></div>
-      </div>
-      <div class="info">
-        <div class="header">
-          <p class="title">{{ title }}</p>
-          <p 
-            class="author"
-          >{{ author }}</p>
+      <div class="header">
+        <div class="circleContainer">
+          <div class="circle"></div>
         </div>
-        <div class="body">
-          <p class="description">
-            <vue3-markdown-it
-              :source="description"
-            ></vue3-markdown-it>
-          </p>
-          <div class="overview">
-            <li 
-              v-for="item in items" 
-              :key="item.slug"
-            >{{ item.organisation || item.title }}</li>
-          </div>
+        <div class="info">
+          <p class="title">{{ title }}</p>
+          <p class="author">{{ author }}</p>
+        </div>
+      </div>
+      <div class="body">
+        <p class="description">
+          <vue3-markdown-it
+            v-bind="{ ...$mdOpts, ...{ html: false }}"
+            :source="$highlight( description )"
+          ></vue3-markdown-it>
+        </p>
+        <div class="overview">
+          <li 
+            v-for="item in items" 
+            :key="item.slug"
+          >{{ item.organisation || item.title }}</li>
         </div>
       </div>
     </div>
@@ -37,16 +37,17 @@
 
 <script>
 
+// Component to display a collection in a small card format.
+
 export default {
   name: 'Collection',
   props: [ 'collection' ],
   computed: {
-    id()          { return this.collection.id },
     title()       { return this.collection.Title },
     slug()        { return this.collection.slug },
     author()      { return this.collection.Author || 'Anonymous' },
-    items()       { return this.collection.items },
     description() { return this.collection.Description },
+    items()       { return this.collection.items },
   },
   
 }
@@ -60,7 +61,6 @@ export default {
   box-sizing: border-box;
   flex-basis: 32%;
   min-width: 32%;
-  /* max-width: 33%; */
   width: 32%;
   margin: 0.5%;
   background: var(--lightgreen);
@@ -74,50 +74,54 @@ export default {
   border-radius: inherit;
   background: var(--green);
   display: flex;
-  justify-content: space-between;
-  /* flex-direction: column; */
+  flex-direction: column;
   overflow: hidden;
   transition: all var(--fast) ease;
   padding: 1em;
 }
-.collectionContainer .collection .circleContainer {
+.collectionContainer .header {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  flex-wrap: wrap;
+}
+.collectionContainer .header .circleContainer {
   flex-basis: 10%;
 }
-.collectionContainer .collection .circleContainer .circle {
+.collectionContainer .header .circleContainer .circle {
   position: relative;
-  width: 3em;
-  height: 3em;
+  width: 2.8em;
+  height: 2.8em;
   background-color: white;
   background: var(--lightgreen);
   transition: all var(--fast) ease;
   border-radius: 3em;
 }
-.collectionContainer .collection .info {
-  flex-basis: 90%;
-  padding: 0 0.5em;
+
+.collectionContainer .header .info  {
+  flex-basis: 80%;
+  padding-left: 1em;
 }
-.collectionContainer .header {
-  cursor: pointer;
-}
-.collectionContainer .title  {
-  font-size: 12pt;
-  font-weight: bold;
+.collectionContainer .header .info * {
   margin: 0;
 }
-.collectionContainer .title a {
+.collectionContainer .header .info .title  {
+  font-size: 12pt;
+  font-weight: bold;
 }
-
 .collectionContainer .body {
-  flex-basis: 80%;
+  flex-basis: 100%;
+  padding-top: 1em;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 .collectionContainer .description {
-  flex-basis: 60%;
+  flex-basis: 50%;
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -128,9 +132,7 @@ export default {
   margin: 0;
 }
 .collectionContainer .overview {
-  flex-basis: 30%;
-  /* display: flex;
-  flex-direction: column; */
+  flex-basis: 45%;
 }
 .collectionContainer .overview li {
   list-style: none;
@@ -164,29 +166,15 @@ export default {
   flex-basis: unset;
 }
 
-.mobile .collectionContainer .circleContainer {
-  position: absolute;
-}
 .mobile .collectionContainer .info {
-  flex-basis: 100%;
-  padding: 0;
+  flex-basis: 70%;
 }
 
-.mobile .collectionContainer .info .header {
-  margin-left: 4em;
-  margin-top: 0.3em;
-}
-.mobile .collectionContainer .info .body {
-  margin-top: 1em;
-}
-.mobile .collectionContainer .info .body .description {
+.mobile .collectionContainer .body .description {
   flex-basis: 100%;
 }
-.mobile .collectionContainer .info .body .overview {
+.mobile .collectionContainer .body .overview {
   display: none;
-}
-.mobile .collectionContainer .author  {
-  margin: 0;
 }
 
 </style>

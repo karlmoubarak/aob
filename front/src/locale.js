@@ -1,8 +1,15 @@
 module.exports = {
+
+  // define locale definitions for most of UI
+  // accessible in app as $locale
+
   lang: {
     en: 'english',
     ar: 'العربية'
   },
+  
+  // Covert numbers to Arabic ;]
+  
   num: {
     en: num => num,
     ar: num => num
@@ -63,8 +70,8 @@ module.exports = {
   tableHeaders: {
     id: {
       name: {
-        en: ':)',
-        ar: 'رمز',
+        en: 'add',
+        ar: 'ضف',
       },
     },
     organisation: {
@@ -137,7 +144,7 @@ module.exports = {
   },
   search: {
     placeholder: {
-      en: 'search archive',
+      en: 'search the archive',
       ar: 'ابحث الأرشيف'
     },
     empty: {
@@ -154,7 +161,6 @@ module.exports = {
       en: 'Shares tags and locations with',
       ar: 'يشارك العلامات والمواقع مع'
     }
-  
   },
   info: {
     updated_at:{
@@ -193,8 +199,6 @@ module.exports = {
       en: 'The code running the archive is published under the CC-by-SA-4.0 license and can be found here:',
       ar: 'يتم نشر الكود الذي يقوم بتشغيل الأرشيف بموجب ترخيص CC-by-SA-4.0 ويمكن العثور عليه هنا:'
     }
-    
-    
   },
   media: {
     unknownRights: {
@@ -287,7 +291,7 @@ module.exports = {
       ar: 'أرسل'
     },
     print: {
-      en: 'print',
+      en: 'save as pdf',
       ar: 'اطبع'
     },
     clear: {

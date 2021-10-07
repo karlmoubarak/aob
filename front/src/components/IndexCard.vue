@@ -1,10 +1,7 @@
 <template>
   <div 
     @click.stop 
-    :class="[
-      'indexCard', {
-        printing: printing
-      }]"
+    class="indexCard"
   >
   
     <div class="body">
@@ -113,6 +110,7 @@
 <script>
 import moment             from 'moment'
 import { processImages }  from '../utils'
+import { mapState }       from 'vuex'
 import List               from './Utils/List'
 import FileList           from './Utils/FileList'
 import MultiMedia         from './Utils/MultiMedia'
@@ -126,7 +124,6 @@ export default {
   },
   props: [
     'item',
-    'printing'
   ],
   data() {
     return {
@@ -134,8 +131,11 @@ export default {
   },
   computed: {
   
-    locale()      { return this.$store.state.locale },
-    
+    ...mapState([
+      'locale',
+      'printing'
+    ]),
+      
     id()          { return this.$locale.num[this.locale](this.item.id) },
     link()        { return this.item.link },
     contact()     { return this.item.contact || 'N/A'},
@@ -217,13 +217,6 @@ export default {
   align-items: flex-start;
 }
 
-.indexCard.printing {
-  min-height: 100%;
-  height: auto;
-  margin: 0;
-  width: 100%;
-  
-}
 
 .indexCard p {
   margin-top: 0;
@@ -379,5 +372,26 @@ table {
   text-indent: 2.4em;
 }
 
+
+.printing .indexCard {
+  margin: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+  
+}
+
+@media print {
+  .indexCard {
+    margin: 0;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    height: auto;
+    width: 100%;
+  }
+}
   
 </style>

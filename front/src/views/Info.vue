@@ -94,6 +94,9 @@ import { processImages, sortByUpdate } from '../utils'
 import moment from 'moment'
 import Upload from '../components/Upload'
 
+// This is the info view, with an About text, it's last update,
+// some of the archive's metadata, the link to the repo, and
+// links to upload forms for resources and artworks.
 
 export default {
   name: 'Info',

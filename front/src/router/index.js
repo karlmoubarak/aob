@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home           from '../views/Home'
+import Archive        from '../views/Archive'
 import Resources      from '../views/Resources'
 import Artworks       from '../views/Artworks'
 import Collections    from '../views/Collections'
@@ -16,15 +16,15 @@ import Error          from '../views/Error'
 const router = createRouter({
   history: createWebHistory('/'),
   routes: [
-    {
+    {  
       path: '/',
       name: 'Home',
-      component: Home,
+      component: Archive,
     },
     {
       path: '/archive',
       name: 'Archive',
-      component: Home,
+      component: Archive,
     },
     {
       path: '/resources',
@@ -88,13 +88,11 @@ const router = createRouter({
       path: '/error',
       name: 'Error',
       component: Error,
-      props: true
     },
     {
       path: '/404',
       name: 'not-found',
       component: NotFound,
-      props: true
     },
     {
       path: '/:pathMatch(.*)*',
@@ -104,6 +102,9 @@ const router = createRouter({
     },
   ],
 })
+
+// This function produces arrays of paramters passed into 
+// the URL in case they are not and returns the new query
 
 router.beforeEach(({ path, query }) => {
   const newQuery = {}

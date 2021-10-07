@@ -1,7 +1,7 @@
 <template>
   <header>
     <li 
-      :class="['aob', { expanded: expanded }]"
+      class="aob"
       @mouseover="hovered = true"
       @mouseleave="hovered = false"
       @click="$router.push('/')"
@@ -10,12 +10,8 @@
         name="fade"
         mode="out-in"
       >
-        <a v-if="expanded">
-          {{ $locale.aob.name[locale] }} 
-        </a>
-        <a v-else>
-          {{ $locale.aob.name.shorthand }} 
-        </a>
+        <a v-if="expanded">{{ $locale.aob.name[locale] }}</a>
+        <a v-else>{{ $locale.aob.name.shorthand }}</a>
       </transition>
     </li>
     <li 
@@ -27,9 +23,6 @@
       <a>
         {{ item.name[locale] }} 
       </a>
-      <!-- <router-link :to="item.slug">
-        {{ item.name[locale] }} 
-      </router-link> -->
     </li>
     <li :class="myCollection.slug"> 
       <router-link :to="'/collections/' + myCollection.slug">
@@ -41,7 +34,7 @@
         v-for="item in myCollection.items"
         :key="item.slug"
         :to="{
-        name: item.Title ? 'Artwork' : 'Resource',
+        name: item.title ? 'Artwork' : 'Resource',
         params: { slug: item.slug }
       }"
       >{{ item.organisation || item.title }}</router-link>
@@ -57,20 +50,20 @@
         :class="{ selected: locale == 'ar' }"
       >{{ $locale.lang['ar'] }}</a>
     </li>
-    <SearchBar
-    
-    />
   </header>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import SearchBar from './SearchBar.vue'
+import { mapActions, mapState } from 'vuex'
+
+// Menu bar for main routing and language switching
+// Menu items are defined in $locale
 
 export default {
   name: 'Header',
-  components: {
-    SearchBar,
+  props: [ 'landing' ],
+  methods: {
+    ...mapActions([ 'selectLocale' ])
   },
   data() {
     return {
@@ -79,8 +72,9 @@ export default {
   },
   computed: {
     ...mapState([
+      'isMobile',
+      'locale',
       'myCollection',
-      'locale'
     ]),
     otherLocale() {
       return this.locale == 'ar' ? 'en' : 'ar'
@@ -91,28 +85,14 @@ export default {
     expanded() {
       return ( 
         this.hovered || 
-        this.$route.fullPath == '/' || 
-        this.$store.state.isMobile
+        this.landing || 
+        this.isMobile
       )
-    },
-    title() {
-      return this.expanded ? this.$locale.aob.name[this.locale] : this.$locale.aob.name.shorthand
     },
     myCollectionCount() {
       return this.$locale.num[this.locale](this.myCollection.items.length)
     },
   },
-  methods: {
-    selectLocale(locale) {
-      this.$store.commit('setLocale', locale)
-    },
-    selected(locale) {
-      return locale == this.locale
-    },
-    toggleLocale() {
-      this.selectLocale(this.otherLocale)
-    },
-  }
 }
 </script>
 
@@ -122,23 +102,19 @@ header {
   box-sizing: border-box;
   position: relative;
   width: 100%;
+  height: 100%;
+  max-height: 2em;
+  overflow: visible;
   z-index: 3;
   text-transform: lowercase;
   text-align: center;
   font-family: montserrat;
-  display: flex;
-  height: 100%;
-  max-height: 2em;
-  overflow: visible;
-  background: var(--lightblue);
+  /* background: var(--lightblue); */
   transition: all var(--landing) ease;
+  display: flex;
 }
 header a {
   color: var(--lightblue);
-  text-decoration: unset;
-}
-header li:not(.aob) a:hover {
-  text-decoration: underline;
 }
 header li {
   box-sizing: border-box;
@@ -156,7 +132,6 @@ header li.aob {
   min-width: 4em;
   max-width: 4em;
   overflow: hidden;
-  transition: all var(--veryfast) ease;
 }
 header li.aob a {
   min-width: 10em;
@@ -165,20 +140,11 @@ header li.aob a {
   overflow: hidden;
 }
 
-header li.aob.expanded {
+.mobile header li.aob,
+.landing header li.aob,
+header li.aob:hover {
   min-width: 12em;
   max-width: 13em;
-  /* display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: horizontal;
-  text-overflow: ellipsis; */
-}
-
-.fade-enter-active,
-.fade-leave-active,
-.fade-leave-to,
-.fade-leave-from {
-  transition: all var(--veryfast) ease;
 }
 .fade-enter-from,
 .fade-leave-to {
@@ -202,8 +168,7 @@ header li:nth-of-type(5) {
 }
 header li.languageSwitcher {
   min-width: 5em;
-  margin-right: 14.1em;
-  border-radius: 90%;
+  margin-right: 14em;
   margin-left: auto;
 } 
 header li.languageSwitcher * {
@@ -215,27 +180,24 @@ header li.languageSwitcher a {
 header li.languageSwitcher a.selected {
   text-decoration: unset;
 }
-  
 li.my-collection {
   position: absolute;
   top: 0em;
   right: 0em;
   box-sizing: border-box;
   background: var(--green);
-  min-width: 13.1em;
-  max-width: 13.1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  min-width: 13em;
+  max-width: 13em;
   padding: 0;
   height: 100%;
   max-height: 2em;
-  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 } 
 
 li.my-collection a {
   box-sizing: border-box;
-  color: var(--brightgreen);
   color: unset;
   transition: all var(--fast) ease;
   height: 0;
@@ -256,10 +218,9 @@ li.my-collection:hover {
   max-height: 8em;
 }
 
-li.my-collection:hover a  {
+li.my-collection:hover a:not(:first-of-type)  {
   padding: 0.3em 1em;
-  border-radius: inherit;
-  height: 2em;
+  height: 1.8em;
   background: var(--lightgreen);
 }
 
@@ -268,7 +229,7 @@ li.my-collection:hover a:hover  {
 }
 
 .landing header {
-  background: transparent;
+  /* background: transparent; */
 }
 
 
@@ -278,7 +239,7 @@ li.my-collection:hover a:hover  {
   left: 0;
 }
 .ar header li.languageSwitcher {
-  margin-left: 14.1em;
+  margin-left: 14em;
   margin-right: auto;
 }
 

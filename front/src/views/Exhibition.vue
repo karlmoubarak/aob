@@ -1,5 +1,8 @@
 <template>
-  <div id="exhibition">
+  <div 
+    id="exhibition"
+    :class="{ peak: peak }"
+  >
     <div 
       class="info"
       v-if="loading"
@@ -17,7 +20,7 @@
         :source="processImages(desc)"
       ></vue3-markdown-it>
     </div>
-    <Table
+    <Table  
       :collectionItems="items"
     />
   </div>
@@ -28,6 +31,9 @@
 import { mapGetters, mapState } from 'vuex'
 import { processImages }        from '../utils'
 import Table                    from '../components/Table'
+
+// View for the current exhbition, which is a Collection
+// in Strapi that has key 'isCurrentExhibition'.
 
 export default {
   name: 'Exhibitionn',
@@ -47,6 +53,20 @@ export default {
       )
     }
   },
+  data() {
+    return {
+      peak: false
+    }
+  
+  },
+  mounted() {
+    setTimeout(() => {
+      this.peak = true
+      setTimeout(() => {
+        this.peak = false
+      }, 1500)
+    }, 1500)
+  }
 }
 
 </script>
@@ -89,6 +109,9 @@ export default {
   background: transparent;
   filter: drop-shadow( 0 0 20em var(--white-glass));
   height: auto;
+}
+#exhibition.peak .table {
+  margin-top: -30%;
 }
 #exhibition .table:hover {
   margin-top: -50em;

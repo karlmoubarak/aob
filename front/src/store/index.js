@@ -7,22 +7,32 @@ export default createStore({
 
   state: {
   
+    // App interface state: mobile, language, loading
+    // status, and a custom history array.
+  
     isMobile          : false,
     loading           : true,
+    printing          : false,
     locale            : '',  
-    info              : {},
     history           : [],
     
+    // API responses
+    
+    info              : {},
     tags              : [],
     locations         : [],
     resources         : [],
     artworks          : [],
     collections       : [],
     
+    // Parameters and queries from routing are set here.
+    
     selectedTags      : [],
     selectedLocations : [],
     query             : '',
     sort              : { prop: 'slug', order: 1 },
+    
+    // default my collection object in case of first visit.
     
     myCollection      : { slug: 'my-collection', items: [] },
     
@@ -32,10 +42,11 @@ export default createStore({
   
     setMobile          : (state, mobile)      => state.isMobile                    = mobile,
     setLoading         : (state, loading)     => state.loading                     = loading,
+    setPrinting        : (state, printing)    => state.printing                    = printing,
     setLocale          : (state, locale)      => state.locale                      = locale,
-    setInfos           : (state, info)        => state.info                        = info,
     addToHistory       : (state, path)        => state.history.unshift             ( path ),
     
+    setInfos           : (state, info)        => state.info                        = info,
     setTags            : (state, tags)        => state.tags                        = tags,
     setLocations       : (state, locations)   => state.locations                   = locations,
     setResources       : (state, resources)   => state.resources                   = resources,
@@ -55,10 +66,28 @@ export default createStore({
 
   actions: {
   
-    getCollection: async ({ getters }, slug) => (
-      getters
-      .collectionBySlug(slug)
-    ),
+    selectLocale: ({ commit }, locale) => {
+      commit('setLocale', locale)
+    },
+    
+    getCollectionFromStore: ({ getters, commit }) => {
+      const found = localStorage.myCollection && JSON.parse(localStorage.myCollection)
+      if (found) {
+        found.items = found.items
+        .map(i => getters.resourceBySlug(i) || getters.artworkBySlug(i))
+        .filter(i => i)
+        commit('updateMyCollection', found)
+      }
+    },
+    
+    storeCollection: ({ state }) => {
+      localStorage.myCollection = JSON.stringify({
+        ...state.myCollection,
+        ...{ 
+          items: state.myCollection.items.map(i => i.slug)
+        }
+      })
+    },
     
     addToCollection: ({ commit, getters, dispatch }, item) => {
       if (!getters.isInMyCollection(item.slug)) {
@@ -79,28 +108,13 @@ export default createStore({
       dispatch('storeCollection')
     },
     
-    getCollectionFromStore: ({ getters, commit }) => {
-      const found = localStorage.myCollection && JSON.parse(localStorage.myCollection)
-      if (found) {
-        found.items = found.items
-        .map(i => getters.resourceBySlug(i) || getters.artworkBySlug(i))
-        .filter(i => i)
-        commit('updateMyCollection', found)
-      }
-    },
-    
-    storeCollection: ({ state }) => {
-      localStorage.myCollection = JSON.stringify({
-        ...state.myCollection,
-        ...{ 
-          items: state.myCollection.items.map(i => i.slug)
-        }
-      })
-    }
   },
 
   getters: {
-  
+    
+    // Get's the last route in 'history' that is
+    // not a sub-page
+    
     parentRoute: state => ( 
       state
       .history
@@ -109,46 +123,7 @@ export default createStore({
         p.includes('collections')
       ) || '/archive'
     ),
-  
-    collectionBySlug: state => slug => (
-      slug == state.myCollection.slug && 
-      state.myCollection ||
-      state
-      .collections
-      .find(c => c.slug == slug)
-    ),
     
-    isInMyCollection: state => slug => (
-      state.myCollection.items
-      .map(i => i.slug)
-      .includes(slug)
-    ),
-    
-    parentCollections: (state, getters) => item => (
-      getters
-      .sortedCollections
-      .filter(c => (
-        c.items
-        .map(i => i.slug)
-        .includes(item.slug)
-      ))
-    ),
-    
-    sortedCollections: state => (
-      sortByUpdate([...state.collections])
-    ),
-    
-    exhibition: state => (
-      state
-      .collections
-      .find(c => c.isCurrentExhibition) 
-     || {
-        Title: '',
-        Description: '',
-        items: [], 
-      }
-    ),
-      
     resourceBySlug: state => slug => (
       state
       .resources
@@ -160,8 +135,6 @@ export default createStore({
       .artworks
       .find(c => c.slug == slug)
     ),
-    
-    queries: state => [state.query],
   
     filteredResources: (state, getters) => (
       state.resources.filter(r => (
@@ -273,6 +246,48 @@ export default createStore({
           )
         )
     },
+    
+    collectionBySlug: state => slug => (
+      slug == state.myCollection.slug && 
+      state.myCollection ||
+      state
+      .collections
+      .find(c => c.slug == slug)
+    ),
+    
+    isInMyCollection: state => slug => (
+      state.myCollection.items
+      .map(i => i.slug)
+      .includes(slug)
+    ),
+    
+    parentCollections: (state, getters) => item => (
+      getters
+      .sortedCollections
+      .filter(c => (
+        c.items
+        .map(i => i.slug)
+        .includes(item.slug)
+      ))
+    ),
+    
+    sortedCollections: state => (
+      sortByUpdate([...state.collections])
+    ),
+    
+    exhibition: state => (
+      state
+      .collections
+      .find(c => c.isCurrentExhibition) 
+     || {
+        Title: '',
+        Description: '',
+        items: [], 
+      }
+    ),  
+    
+    queries: state => [state.query],
+  
   }
 
 })

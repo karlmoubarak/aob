@@ -4,15 +4,12 @@
       'table', { 
         artworksOnly: artworksOnly,
         myCollection: isMyCollection,
-        printing: printing
       }
     ]">
     <h2 v-if="headerText">{{ headerText }}</h2>
     <transition name="list" mode="out-in">
       <TableHeaders 
-        v-if="
-          printing ? false : !artworksOnly
-        "
+        v-if="printing ? false : !artworksOnly"
       />
     </transition>
     <transition name="list" mode="out-in">
@@ -28,18 +25,17 @@
           <IndexCard 
             v-if="printing"
             :item="item"
-            :printing="printing"
           />
           <Resource
             v-else-if="item.organisation"
             :resource="item"
-            @clicked="clickHandler(item)"    
+            @clicked="goToItem(item)"    
           />
           <Artwork 
             v-else
             :artwork="item"
             :inTable="!artworksOnly"
-            @clicked="clickHandler(item)"    
+            @clicked="goToItem(item)"    
           />
         </div>
       </transition-group>
@@ -57,18 +53,17 @@
         <IndexCard 
           v-if="printing"
           :item="item"
-          :printing="printing"
         />
         <Resource
           v-else-if="item.organisation"
           :resource="item"
-          @clicked="clickHandler(item)"    
+          @clicked="goToItem(item)"    
         />
         <Artwork 
           v-else
           :artwork="item"
           :inTable="!artworksOnly"
-          @clicked="clickHandler(item)"    
+          @clicked="goToItem(item)"    
         />
       </div>
     </transition-group>
@@ -95,7 +90,6 @@ export default {
     'collectionItems',
     'emptyMessage',
     'isMyCollection',
-    'printing',
     'headerText'
   ],
   computed: {
@@ -106,9 +100,12 @@ export default {
     artworksOnly() {
       return !this.items.find(i => i && i.organisation)
     },
+    printing() {
+      return this.$store.state.printing
+    },
   },
   methods: {
-    clickHandler(item) {
+    goToItem(item) {
       this.$router.push({
         name: item.title ? "Artwork" : "Resource",
         params: { slug: item.slug }
@@ -132,14 +129,14 @@ export default {
   /* max-height: 200vh; */
   background: inherit;
 }
-
 .table h2 {
+  position: sticky;
+  top: 0.5em;
   font-family: Montserrat;
   width: 100%;
   margin: 0.5em;
   font-weight: normal;
 }
-
 .row {
   position: relative;
   box-sizing: border-box;
@@ -149,19 +146,6 @@ export default {
   width: 100%;
   margin-bottom: 0.5em;
   /* overflow: hidden; */
-}
-
-.table.printing {
-  margin: 0;
-  padding: 0;
-}
-
-.printing .row {
-  display: block;
-  max-height: unset;
-  min-height: 100vh;
-  page-break-after: always;
-  margin: 0;
 }
 
 .myCollection  {
@@ -243,9 +227,9 @@ export default {
   /* font-family: 'montserrat'; */
 }
 .col.description { 
-  flex-basis: 35%;
-  min-width: 35%;
-  max-width: 35%;
+  flex-basis: 33%;
+  min-width: 33%;
+  max-width: 33%;
 }
 .col.link {
   flex-basis: 6%;
@@ -268,6 +252,12 @@ export default {
 .col.id .remove {
   font-size: 2em;
 }
+
+.col.id .add {
+  color: var(--orange);
+}
+
+
 
 
 .list-enter-active,
@@ -336,6 +326,34 @@ export default {
   flex-basis: 100%;
   min-width: 100%;
   max-width: 100%;
+}
+
+.printing .table {
+  margin: 0;
+  padding: 0;
+}
+
+.printing .row {
+  display: block;
+  max-height: unset;
+  min-height: 100vh;
+  page-break-after: always;
+  margin: 0;
+}
+
+@media print {
+  .table {
+    margin: 0;
+    padding: 0;
+  }
+  .row {
+    display: block;
+    max-height: unset;
+    min-height: 100vh;
+    page-break-after: always;
+    margin: 0;
+  }
+  
 }
 
 </style>

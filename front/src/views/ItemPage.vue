@@ -39,18 +39,22 @@
     >
       <p> {{ noItemMessage }} </p>
     </div>
-    <CollectionGroup
-      v-if="parentCollections(item).length > 0"
-      :collections="parentCollections(item)"
-      :headerText="parentCollectionsText"
-    />
-    <Table
-      v-if="related && related.length > 0"
-      ref="table"
-      :collectionItems="related"
-      :headerText="relatedItemsText"
-      @click.stop
-    />
+    <transition name="down" mode="out-in">
+      <CollectionGroup
+        v-if="parentCollections(item).length > 0"
+        :collections="parentCollections(item)"
+        :headerText="parentCollectionsText"
+      />
+    </transition>
+    <transition name="down" mode="out-in">
+      <Table
+        v-if="related && related.length > 0"
+        ref="table"
+        :collectionItems="related"
+        :headerText="relatedItemsText"
+        @click.stop
+      />
+    </transition>
   </div>
 </template>
 
@@ -61,28 +65,38 @@ import {
   mapActions 
 }                      from 'vuex'
 import IndexCard       from '../components/IndexCard'
-import Table           from '../components/Table'
 import CollectionGroup from '../components/CollectionGroup'
+import Table           from '../components/Table'
+
+// View to display an artwork or resource combined
+// with a collectionGroup of it's parent collections
+// if they exist and a Table of items that share tags
+// and/or locationns with the given artwork or resource
 
 export default {
+
   name: 'Page',
+  
   components: {
     IndexCard,
+    CollectionGroup,
     Table,
-    CollectionGroup
   },
+  
   data() {
     return {
       renderedItem: null,
       transitioning: false,
     }
   },
+  
   methods: {
     ...mapActions([
       'addToCollection',
       'removeFromCollection'
     ]),
   },
+  
   computed: {
   
     ...mapState([ 
@@ -137,11 +151,15 @@ export default {
     related() { return ( 
       this.item && [...new Set([
         ...this.relatedItems(this.item, 'accurate'),
-        ...this.relatedItems(this.item)
+        // ...this.relatedItems(this.item)
       ])]
     )},  
   },
   watch: {
+  
+  
+    // Custom animation for a change in item since
+    // component does not remount.
   
     item(newVal, oldVal) {
       if (!oldVal) {
@@ -165,7 +183,7 @@ export default {
               behavior: 'smooth'
             })
           }
-        }, 400)
+        },400)
       }
     },
   },
@@ -221,8 +239,8 @@ export default {
 .table {
   position: fixed;
   top: calc(100% - 10em);
-  left: 6em;
-  width: calc(100% - 6em);
+  left: 6.5em;
+  width: calc(100% - 13em);
   background: var(--lightestorange);
   max-height: 55vh;
   overflow: scroll;
@@ -236,8 +254,9 @@ export default {
   background: var(--lightgreen);
   position: fixed;
   top: calc(100% - 18em);
-  left: 12em;
-  width: calc(100% - 12em);
+  left: 13em;
+  width: calc(100% - 13em);
+  transition: all var(--slow) ease;
 }
 .collections:hover {
   top: 30em;
@@ -265,6 +284,17 @@ export default {
   font-size: 3em;
 }
   
+.fade-enter-from .table,
+.fade-enter-from .collections,
+.fade-leave-to .table,
+.fade-leave-to .collections,
+.leave .table,
+.leave .collections,
+.down-enter-from,
+.down-leave-to {
+  /* transform: translateY(5em); */
+  top: 110%;
+}
 
 .ar .item .circle {
   left: unset;
@@ -272,11 +302,11 @@ export default {
 }
 
 .ar .table {
-  right: 6em;
+  right: 6.5em;
   left: unset;
 }
 .ar .collections {
-  right: 12em;
+  right: 13em;
   left: unset;
 }
 
@@ -306,11 +336,19 @@ export default {
   left: unset;
 }
 
+.printing .circle {
+  display: none !important;
+}
+.printing .collections,
+.printing .table {
+  display: none; 
+}
+
 @media print {
-  .indexCard {
-    margin: 0;
-    max-width: 100%;
+  .circle {
+    display: none !important;
   }
+  .collections,
   .table {
     display: none;
   }

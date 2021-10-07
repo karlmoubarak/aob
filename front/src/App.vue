@@ -5,11 +5,14 @@
     :class="[ locale, { 
       mobile: isMobile,
       landing: landing,
+      printing: printing
     }]" 
   >
     
-    <Header />
-    <Nav :landing="landing"/>
+    <Header    :landing="landing" />
+    <SearchBar :landing="landing" />
+    <Nav       :landing="landing" />
+    
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
@@ -26,6 +29,7 @@
 import { mapState } from 'vuex'
 import api          from './api'
 import Header       from './components/Header'
+import SearchBar    from './components/Header/SearchBar'
 import Nav          from './components/Header/Nav'
 
 export default {
@@ -33,16 +37,18 @@ export default {
   name: 'App',
   
   components: { 
+    Header,
+    SearchBar,
     Nav,
-    Header
   },
   
   computed: {
     ...mapState([
       'isMobile',
+      'printing',
       'locale',
     ]),
-    landing()   { return this.$route.name == 'Home' || false },
+    landing()   { return this.$route.name == 'Home' },
     direction() { return this.locale == 'ar' ? 'rtl' : 'ltr'}
   },
   
@@ -71,6 +77,23 @@ export default {
     })
     
     
+    // Handle printing
+
+    if (window.matchMedia) {
+        var mediaQueryList = window.matchMedia('print')
+        mediaQueryList.addListener(mql => {
+            if (mql.matches) {
+              this.beforePrint()
+            } else {
+              this.afterPrint()
+            }
+        })
+    }
+
+    window.onbeforeprint = this.beforePrint
+    window.onafterprint = this.afterPrint
+    
+    
     // after each route, add path to history and commit URL parameters to store.
   
     this.$router.afterEach(to => {
@@ -88,6 +111,8 @@ export default {
     //   resources,
     //   artworks,
     //   collections,
+    
+    // Connections Errors redirect to Error component
     
     for (let key in api) {
       let response
@@ -112,8 +137,14 @@ export default {
     
     this.$store.commit('setLoading', false)
     
+    
   },
-
+  
+  watch: {
+    printing() {
+      console.log(this.printing)
+    }
+  },
   methods: {
 
     getLocale: () => (
@@ -124,6 +155,16 @@ export default {
     ),
     
     checkIfMobile: () => window.innerWidth < 700,
+    
+    beforePrint() {
+      this.$store.commit('setPrinting', true)
+    },
+    afterPrint()  { 
+      // setTimeout(() => {
+        this.$store.commit('setPrinting', false)   
+      // }, 500) 
+      // this.$store.commit('setPrinting', false) 
+    }
     
   }
 }
@@ -297,6 +338,26 @@ a:active {
   margin: 0;
 }
 
+.printing *,
+.printing * * {
+    transition: all 0s ease !important;
+}
+.printing,
+.printing main,
+.printing #home,
+.printing .table {
+  height: auto !important;
+  max-height: unset !important;
+  overflow: scroll;
+}
+
+.printing header,
+.printing nav,
+.printing input,
+.printing textarea {
+  display: none !important;
+}
+
 @media print {
   html,
   body,
@@ -307,7 +368,6 @@ a:active {
     height: auto !important;
     max-height: unset !important;
     overflow: scroll;
-    /* transition: all 0s ease !important; */
   }
   html {
     zoom:75%;

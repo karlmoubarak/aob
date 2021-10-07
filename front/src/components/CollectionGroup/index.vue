@@ -11,6 +11,10 @@
 <script>
 import Collection from './Collection'
 
+// Main component to display an array of 
+// Collections, receives a collection array
+// and an optional header text.
+
 export default {
   name: 'CollectionGroup',
   components: { Collection },
@@ -31,7 +35,6 @@ export default {
   justify-content: flex-start;
   align-content: flex-start;
   align-items: flex-start;
-  transition: all var(--slow) ease;
   font-family: Montserrat;
 }
 

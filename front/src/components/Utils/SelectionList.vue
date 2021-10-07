@@ -57,6 +57,10 @@
 </template>
 <script>
 
+// Drop-down list to pick items from,
+// View selected items
+// Create items if they don't exist
+
 export default {
   name: 'SelectionList',
   props: [

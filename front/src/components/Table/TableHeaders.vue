@@ -33,42 +33,44 @@ export default {
 <style scoped>
 
 .header {
+  box-sizing: border-box;
   position: sticky;
   padding: 0.5em 0;
-  top: 0em;
+  top: 0;
   z-index: 2;
   width: 100%;
   display: flex;
   font-weight: bold;
-  /* text-shadow: 0 0 1em var(--lightblue);
-  filter: drop-shadow(0 0 1em lime); */
   background: var(--lightblue);
   background: inherit;
   margin: 0;
+  flex-wrap: wrap;
 }
 .row.header:hover .col {
-  /* background: var(--lightblue); */
   background: white;
   
 }
-.col {
+.header .col {
+  box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
   padding: 0;
   cursor: pointer;
-  /* padding-left: 0.25em; */
   background: var(--lightblue);
   background: white;
 }
-.col p {
+.header .col p {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   background: var(--lightblue);
   background: white;
-  /* width: auto; */
   padding: 0.5em;
 
 }
 
-.col p .arrow {
+.header .col p .arrow {
   display: inline-block;
   width: 0 !important; 
   margin-left: 0.5em;
@@ -76,19 +78,29 @@ export default {
   font-size: 1.2em;
   opacity: 0;
 }
-.col:hover p .arrow {
+.header .col:hover p .arrow {
   opacity: 1;
 }
 
-.col.artist,
-.col.medium,
-.col.title,
-.col.artistSite,
-.col.updated {
+.header .col.artist,
+.header .col.medium,
+.header .col.title,
+.header .col.artistSite,
+.header .col.updated {
   display: none;
 }
 
 .mobile .header {
   display: none;
 }
+.printing .header {
+  display: none;
+}
+
+@media print {
+  .header {
+    display: none;
+  }
+}
+
 </style>

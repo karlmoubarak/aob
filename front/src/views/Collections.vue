@@ -8,6 +8,10 @@
 import { mapGetters }  from 'vuex'
 import CollectionGroup from '../components/CollectionGroup'
 
+// Main view for collections
+// Sends the full sorted collections array to
+// the CollectionGroup component.
+
 export default {
   name: 'Collections',
   components: { CollectionGroup },

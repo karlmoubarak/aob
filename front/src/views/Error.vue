@@ -5,6 +5,10 @@
 </template>
 
 <script>
+
+// Main error view. Errors in API fetching will
+// be sent here.
+
 export default {
   name: 'Error',
   computed: {

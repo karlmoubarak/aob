@@ -115,7 +115,6 @@
         :collectionItems="items"
         :isMyCollection="isMyCollection"
         :emptyMessage="emptyText"
-        :printing="printing"
       />
     </div>
   </div>
@@ -138,6 +137,11 @@ import api    from '../api'
 import QRCode from 'qrcode'
 import Table  from '../components/Table'
 
+// Main view for any collection. If the collection is
+// the one being edited in the browser, some changes apply.
+// The working collection is set/get from LocalStorage
+// Collections can be printed with a QR code.
+
 export default {
   name: 'Collection',
   components: { Table },
@@ -153,13 +157,13 @@ export default {
           dark: '#777777',
         }  
       },
-      printing: false,
     }
   },
   computed: {
     ...mapState([
       'locale',
-      'loading'
+      'loading',
+      'printing'
     ]),
     ...mapGetters([
       'collectionBySlug',
@@ -321,9 +325,11 @@ export default {
     },
     
     print() {
-      this.printing = true
-      window.print()
-      this.printing = false 
+      this.$store.commit('setPrinting', true)
+      setTimeout(() => {
+        window.print()
+        this.$store.commit('setPrinting', false)
+      }, 300)
     }
 
   }
@@ -441,15 +447,20 @@ canvas {
   margin-left: 1em;
 }
 
-.collection.printing .body {
+.printing .collection .body {
   background: #f2e4c4;
+  padding: 0;
+  position: relative;
+  page-break-before: always;
   padding: 0;
 }
 @media print {
   .collection .body {
-    position: relative;
-    page-break-before: always;
-    padding: 0;
+      background: #f2e4c4;
+      padding: 0;
+      position: relative;
+      page-break-before: always;
+      padding: 0;
   }
 }
 </style>

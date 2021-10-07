@@ -15,6 +15,8 @@
 import { mapState } from 'vuex'
 import SubMenuList  from './SubMenuList'
 
+// Navigation bar with tags and locations
+
 export default {
   name: 'Nav',
   components: { 
@@ -33,36 +35,30 @@ export default {
 nav {
   position: relative;
   box-sizing: border-box;
-  /* height: 100%; */
   flex-shrink: 0;
-  max-height: 40em;
-  min-height: 0;
+  max-height: 50em;
   display: flex;
-  flex-wrap: wrap;
   align-items: flex-start;
   transition: all var(--landing) ease;
-  z-index: 2;
-  background: var(--lightblue)
-  
 }
 
 .landing nav {
   margin-top: -2em;
-  max-height: calc(100% - 0em);
-  min-height: calc(100% - 0em);
+  max-height: 100%;
+  min-height: 100%;
+}
+
+.mobile nav {
+  overflow: hidden;
+  max-height: 0;
 }
 
 .mobile.landing nav {
   justify-content: flex-start;
   align-items: flex-start;
   align-content: flex-start;
-  /* height: 100%; */
   max-height: unset;
   margin-top: unset;
-}
-.mobile nav {
-  overflow: hidden;
-  max-height: 0;
 }
 
 

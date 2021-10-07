@@ -177,9 +177,14 @@
 </template>
 
 <script>
-import api from '../../api'
-import SelectionList from '../Utils/SelectionList'
-import MultiMedia from '../Utils/MultiMedia'
+import api from '../api'
+import SelectionList from './Utils/SelectionList'
+import MultiMedia from './Utils/MultiMedia'
+
+// Component to upload resources or artworks to Strapi.
+// Tags and locations and be created (Strapi handles them).
+// All uploads have a 'published_at' field set to none
+// so that they are reviewed before publishing.
 
 export default {
 
@@ -216,25 +221,23 @@ export default {
   methods: {
   
     addToSelection(item, list) {
-      if (
-        !this['selected'+list]
-        .map(i => i.slug)
-        .includes(item.slug)
-      ) {
+      if (!this.isInList(item, list)) {
         this['selected'+list].push(item)
         this['show'+list.replace('s', '')+'Options'] = false
       }
     },
     
     removeFromSelection(item, list) {
-      if (
-        this['selected'+list]
-        .map(i => i.slug)
-        .includes(item.slug)
-      ) {
+      if (this.isInList(item, list)) {
         this['selected'+list].splice(this['selected'+list].indexOf(item), 1)
         this['show'+list.replace('s', '')+'Options'] = false
       }
+    },
+    
+    isInList(item, list) {
+      return this['selected'+list]
+        .map(i => i.slug)
+        .includes(item.slug)
     },
     
     receiveDrop(e) {

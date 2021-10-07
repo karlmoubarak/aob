@@ -11,8 +11,13 @@
 import { mapGetters, mapState } from 'vuex'
 import Table from '../components/Table'
 
+// this is the view for the full archive.
+// the 'mainCollection', sorted and filtered with queries by the store,
+// is presented here. The user's locale and loading status decide on
+// the message presented if the list is empty.
+
 export default {
-  name: 'Home',
+  name: 'Archive',
   components: { Table },
   computed: {
     ...mapState([ 'loading', 'locale' ]),

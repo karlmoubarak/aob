@@ -8,6 +8,10 @@
 </template>
 
 <script>
+
+// View to display all artworks together.
+// Not linked in UI but can be accessed with URL
+
 import { mapGetters, mapState } from 'vuex'
 import Table                    from '../components/Table'
 

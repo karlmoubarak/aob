@@ -11,6 +11,9 @@
 import { mapGetters, mapState } from 'vuex'
 import Table from '../components/Table'
 
+// View to display all resources together.
+// Not linked in UI but can be accessed with URL
+
 export default {
   name: 'Resources',
   components: {

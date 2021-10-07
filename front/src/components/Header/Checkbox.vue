@@ -17,9 +17,8 @@ export default {
 
 
 input {
-  flex-shrink: 0;
-  /* position: relative; */
   box-sizing: border-box;
+  flex-shrink: 0;
   height: 0.8em;
   width: 0.8em;
   border-radius: 0.3em;
@@ -28,12 +27,9 @@ input {
   font-size: 8pt;
   cursor: pointer;
   margin-right: 0.5em;
-  transition: all var(--slow) ease;
-  
+  transition: all var(--slow) ease; 
 }
 input:checked {
-  /* position: absolute; */
-  /* top: 0; */
   content: '·';
   border-radius: 0.3em;
   border: 0.05em solid var(--orange);
@@ -46,7 +42,6 @@ input:checked {
   margin: 0;
   border: transparent;
 }
-
 .mobile input {
   margin-right: 0.7em;
 }

@@ -1,5 +1,8 @@
 const
 
+
+  // to clea up object repsonses from the API
+
   objectKeysToLowercase = a => {
     for (let key in a) {
       if (key[0] === key[0].toUpperCase()) {
@@ -9,6 +12,10 @@ const
     }
     return a
   },
+  
+  
+  // Alphebtical sorting of arrays based on an object
+  // key and order passed in as a function parameter
 
   sortAlphabetically = (arr, prop, order) => {
     prop = prop === 'organisation' ? 'slug' : prop
@@ -30,16 +37,24 @@ const
     })
   },
 
+
+  // Reverse-chronological ordering of arrays based
+  // on the object 'updated_at' key (from Strapi) 
+
   sortByUpdate = (arr) => {
     arr = Array.isArray(arr) ? arr : Object.values(arr)
     return arr.sort((a, b) => (
       new Date(b.updated_at) - new Date(a.updated_at)
     ))
   },
+  
+  
+  // Removes new lines from texts and adds a 'highlight' 
+  // class in case queries are passed in and matched
 
   highlight = (source, queries) => {
     source = source.replace(/\n/g, ' ')
-    if (queries.length > 0) {
+    if (queries && queries.length > 0) {
       for (let query of queries) {
         if (query && source) {
           source = source.replace(
@@ -53,6 +68,9 @@ const
   },
 
   apiURL = process.env.VUE_APP_API,
+
+  // Replaces relative image paths with absolute URLs
+  // to Strapi
 
   processImages = text => {
     if (text) {
