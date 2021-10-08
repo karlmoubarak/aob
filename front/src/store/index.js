@@ -7,14 +7,16 @@ export default createStore({
 
   state: {
   
-    // App interface state: mobile, language, loading
-    // status, and a custom history array.
+    // App interface state and language
   
     isMobile          : false,
+    locale            : '',  
     loading           : true,
     printing          : false,
     langSwitch        : false,
-    locale            : '',  
+    
+    // ustom history array, notifications
+    
     history           : [],
     notifications     : [],
     
@@ -43,10 +45,10 @@ export default createStore({
   mutations: {
   
     setMobile          : (state, mobile)      => state.isMobile                    = mobile,
+    setLocale          : (state, locale)      => state.locale                      = locale,
     setLoading         : (state, loading)     => state.loading                     = loading,
     setPrinting        : (state, printing)    => state.printing                    = printing,
     setLangSwitch      : (state, langSwitch)  => state.langSwitch                  = langSwitch,
-    setLocale          : (state, locale)      => state.locale                      = locale,
     addToHistory       : (state, path)        => state.history.unshift             ( path ),
     addNotification    : (state, noti)        => state.notifications.push          ( noti ),
     rmNotification     : (state, index)       => state.notifications.splice        ( index, 1 ),
