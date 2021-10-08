@@ -36,6 +36,7 @@ nav {
   position: relative;
   box-sizing: border-box;
   flex-shrink: 0;
+  min-height: 5em;
   max-height: 50em;
   display: flex;
   align-items: flex-start;
@@ -44,6 +45,7 @@ nav {
 
 .landing nav {
   margin-top: -2em;
+  min-height: 100%;
   max-height: 100%;
 }
 
