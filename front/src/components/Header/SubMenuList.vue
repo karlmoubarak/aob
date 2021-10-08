@@ -20,7 +20,7 @@
       <span class="acronym">{{ acronym(item) }}</span>
       <span class="word other">
         <a
-          @click="toggle(item.slug, true)"
+          @click.stop="toggle(item.slug, true)"
         >
           <span
             v-html="$highlight(nameOther(item), queries )"
@@ -74,39 +74,43 @@ export default {
       .join('')
     )},
     toggle(slug, switchLang) {
-      const currentSelected = this.$route.query[this.type]
+      const 
+        currentSelected = this.$route.query[this.type],
+        timeout = switchLang && 2000 || 0
       if (switchLang) {
         this.selectLocale(
           this.locale == 'en' ? 'ar' : 'en'
         )
       }
-      if (currentSelected) {
-        if (!this.isInQuery(slug)) {
-          this.$router.push({
-            path: '/archive',
-            query: { 
-              ...this.$route.query,
-              ...{ [this.type]: [...currentSelected, ...[slug]] }
-            }
-          })
-        } else {
+      setTimeout(() => {
+        if (currentSelected) {
+          if (!this.isInQuery(slug)) {
+            this.$router.push({
+              path: '/archive',
+              query: { 
+                ...this.$route.query,
+                ...{ [this.type]: [...currentSelected, ...[slug]] }
+              }
+            })
+          } else {
+            this.$router.push({
+              path: '/archive',
+              query: {
+                ...this.$route.query,
+                ...{ [this.type]: currentSelected.filter(t => t !== slug) }
+              }
+            })
+          }
+        } else { 
           this.$router.push({
             path: '/archive',
             query: {
               ...this.$route.query,
-              ...{ [this.type]: currentSelected.filter(t => t !== slug) }
+              ...{ [this.type]: [slug] }
             }
           })
         }
-      } else { 
-        this.$router.push({
-          path: '/archive',
-          query: {
-            ...this.$route.query,
-            ...{ [this.type]: [slug] }
-          }
-        })
-      }
+      }, timeout)
     },
   }
 }

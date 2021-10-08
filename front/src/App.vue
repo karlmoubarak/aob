@@ -34,7 +34,7 @@ import api           from './api'
 import Header        from './components/Header'
 import SearchBar     from './components/Header/SearchBar'
 import Nav           from './components/Header/Nav'
-import Notifications from './components/Utils/Notifications'
+import Notifications from './components/Notifications'
 
 export default {
 

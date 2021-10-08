@@ -71,7 +71,7 @@ input:focus {
 .landing input {
   top: calc(50% - 1em);
   right: calc(50% - 6.5em);
-  transform: scale(2);
+  transform: scale(1.5);
 }
 .ar input {
   margin-left: unset;
@@ -93,6 +93,7 @@ input:focus {
 
 .mobile.landing input,
 .mobile.landing.ar input {
+  transform: unset;
   top: unset;
   left: unset;
   right: unset;  
