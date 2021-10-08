@@ -51,6 +51,7 @@ nav {
 
 .mobile nav {
   overflow: hidden;
+  min-height: unset;
   max-height: 0;
 }
 
