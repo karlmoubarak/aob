@@ -334,6 +334,12 @@
           "AboutAR": {
             "type": "string",
             "default": "About in Arabic"
+          },
+          "aboutCollections": {
+            "type": "string"
+          },
+          "aboutCollectionsAR": {
+            "type": "string"
           }
         }
       },
@@ -357,6 +363,12 @@
           "AboutAR": {
             "type": "string",
             "default": "About in Arabic"
+          },
+          "aboutCollections": {
+            "type": "string"
+          },
+          "aboutCollectionsAR": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

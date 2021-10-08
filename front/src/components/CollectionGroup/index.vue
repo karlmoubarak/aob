@@ -29,7 +29,6 @@ export default {
   height: 100%;
   width: 100%;
   overflow: scroll;
-  padding: 0.5em;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

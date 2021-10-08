@@ -388,7 +388,7 @@ table {
     margin: 0;
     min-width: 100%;
     max-width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     height: auto;
     width: 100%;
   }

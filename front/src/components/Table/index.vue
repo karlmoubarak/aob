@@ -9,7 +9,7 @@
     <h2 v-if="headerText">{{ headerText }}</h2>
     <transition name="list" mode="out-in">
       <TableHeaders 
-        v-if="printing ? false : !artworksOnly"
+        v-if="!printing && !artworksOnly"
       />
     </transition>
     <transition name="list" mode="out-in">

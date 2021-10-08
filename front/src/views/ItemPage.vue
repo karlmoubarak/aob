@@ -1,8 +1,10 @@
 <template>
   <div 
     :class="[
-      'itemContainer',
-      { leave: transitioning }
+      'itemContainer', { 
+        leave: transitioning,
+        lowCollections:related && related.length == 0
+      }
     ]"
     ref="itemContainer"
     @click.stop="$router.push(parentRoute)"
@@ -257,6 +259,9 @@ export default {
   left: 13em;
   width: calc(100% - 13em);
   transition: all var(--slow) ease;
+}
+.lowCollections .collections {
+  top: calc(100% - 10em);
 }
 .collections:hover {
   top: 30em;

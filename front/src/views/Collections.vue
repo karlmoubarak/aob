@@ -20,3 +20,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.collections {  
+  padding: 0.5em;
+}
+</style>

@@ -28,6 +28,12 @@
       "type": "richtext",
       "default": "About in Arabic",
       "required": true
+    },
+    "aboutCollections": {
+      "type": "richtext"
+    },
+    "aboutCollectionsAR": {
+      "type": "richtext"
     }
   }
 }
