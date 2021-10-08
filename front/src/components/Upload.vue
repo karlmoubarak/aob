@@ -2,7 +2,9 @@
   <div 
     dir="ltr"
     @click.stop="$router.push('/info')" 
-    class="upload"
+    :class="['upload', {
+      post: status.includes('Sent')
+    }]"
   >
     <div         
       class="form"
@@ -285,15 +287,31 @@ export default {
         
         api[`${this.selectedType}s`]
         .post(formData)
-        .then(() => this.status = 'Sent. Your contribution is being processed. Thank you.')
-        .catch(() => this.status = 'errored' )
+        .then(() => { 
+          this.status = 'Sent. Your contribution is being processed. Thank you.'
+          setTimeout(() => {
+            this.$store.dispatch('notify', {
+              message: this.status,
+              positive: true,
+              time: new Date().getTime()
+            })
+              this.$router.push('/info')
+            }, 700)
+        })
+        .catch(() => {
+          this.status = 'errored' 
+          this.$store.dispatch('notify', {
+            message: this.status,
+            time: new Date().getTime()
+          })
+        })
         
       } else {
         
         this.status = this.selectedType == 'resource' ? 
           'Please include an organisation name' :
           'Please include the artwork title'
-      
+          
       }
       
     },
@@ -319,12 +337,16 @@ export default {
   z-index: 3;
   display: flex;
   justify-content: center;
-  transform: translateY(0) !important;
 }
 
 .fade-enter-from ,
 .fade-leave-to {
   padding-top: 10%;
+}
+
+.upload.post {
+  margin-top: -100%;
+  transition: all var(--landing) ease;
 }
 
 .form {

@@ -45,7 +45,6 @@ nav {
 .landing nav {
   margin-top: -2em;
   max-height: 100%;
-  min-height: 100%;
 }
 
 .mobile nav {

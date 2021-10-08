@@ -50,7 +50,7 @@
   > 
     <vue3-markdown-it
       class="description"
-      v-bind="{ ...$mdOpts, ...{ html: false }}"
+      v-bind="$mdOpts"
       :source="$highlight( description, queries )"
     ></vue3-markdown-it>
   </div>

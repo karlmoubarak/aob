@@ -31,6 +31,8 @@ app.config.globalProperties = {
   $locale                   : locale,
 }
 
+store.$locale               = locale
+
 VMdEditor
   .use(githubTheme)
   

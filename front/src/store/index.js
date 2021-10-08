@@ -13,8 +13,10 @@ export default createStore({
     isMobile          : false,
     loading           : true,
     printing          : false,
+    langSwitch        : false,
     locale            : '',  
     history           : [],
+    notifications     : [],
     
     // API responses
     
@@ -43,8 +45,11 @@ export default createStore({
     setMobile          : (state, mobile)      => state.isMobile                    = mobile,
     setLoading         : (state, loading)     => state.loading                     = loading,
     setPrinting        : (state, printing)    => state.printing                    = printing,
+    setLangSwitch      : (state, langSwitch)  => state.langSwitch                  = langSwitch,
     setLocale          : (state, locale)      => state.locale                      = locale,
     addToHistory       : (state, path)        => state.history.unshift             ( path ),
+    addNotification    : (state, noti)        => state.notifications.push          ( noti ),
+    rmNotification     : (state, index)       => state.notifications.splice        ( index, 1 ),
     
     setInfos           : (state, info)        => state.info                        = info,
     setTags            : (state, tags)        => state.tags                        = tags,
@@ -67,7 +72,11 @@ export default createStore({
   actions: {
   
     selectLocale: ({ commit }, locale) => {
-      commit('setLocale', locale)
+      commit('setLangSwitch', true)
+      setTimeout(() => {
+        commit('setLocale', locale)      
+        commit('setLangSwitch', false)
+      }, 1000)
     },
     
     getCollectionFromStore: ({ getters, commit }) => {
@@ -89,17 +98,27 @@ export default createStore({
       })
     },
     
-    addToCollection: ({ commit, getters, dispatch }, item) => {
+    addToCollection ({ state, commit, getters, dispatch }, item) {
       if (!getters.isInMyCollection(item.slug)) {
         commit('addToCollection', item)
         dispatch('storeCollection')
+        dispatch('notify', {
+          message: this.$locale.notifications.added[state.locale](item.title || item.organisation ),
+          positive: true,
+          time: new Date().getTime()
+        })
       }
     },
     
-    removeFromCollection: ({ state, commit, getters, dispatch }, item) => {
+    removeFromCollection ({ state, commit, getters, dispatch }, item) {
       if (getters.isInMyCollection(item.slug)) {
         commit('rmFromCollection', state.myCollection.items.indexOf(item))
         dispatch('storeCollection')
+        dispatch('notify', {
+          message: this.$locale.notifications.removed[state.locale](item.title || item.organisation ),
+          positive: false,
+          time: new Date().getTime()
+        })
       }
     },
     
@@ -107,6 +126,15 @@ export default createStore({
       commit('updateMyCollection', data)
       dispatch('storeCollection')
     },
+    
+    notify: ({ state, commit }, notification ) => {
+      commit('addNotification', notification)
+      setTimeout(() => {
+        if (state.notifications.includes(notification)) {
+          commit('rmNotification', state.notifications.indexOf(notification))      
+        }
+      }, 4000)
+    }
     
   },
 
@@ -273,6 +301,10 @@ export default createStore({
     
     sortedCollections: state => (
       sortByUpdate([...state.collections])
+      .sort((a,b) => 
+        b.isCurrentExhibition -
+        a.isCurrentExhibition
+      )
     ),
     
     exhibition: state => (

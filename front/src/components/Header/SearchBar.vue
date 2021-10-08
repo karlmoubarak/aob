@@ -31,7 +31,7 @@ export default {
       }
     },
     clearIfEmpty() {
-      if (this.$refs.input.value == '') {
+      if (!this.landing && this.$refs.input.value == '') {
        this.$router.push('/archive')
       }
     }
@@ -71,6 +71,7 @@ input:focus {
 .landing input {
   top: calc(50% - 1em);
   right: calc(50% - 6.5em);
+  transform: scale(2);
 }
 .ar input {
   margin-left: unset;

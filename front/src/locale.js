@@ -320,6 +320,16 @@ module.exports = {
       en: 'Error connecting to server.',
       ar: 'خطأ في الاتصال بالخادم.'
     }
+  },
+  notifications: {
+    added: {
+      en: title => `${ title } has been added to your collection.`,
+      ar: title => `تمت إضافة ${title} إلى مجموعتك.`
+    },
+    removed: {
+      en: title => `${ title } has been removed from your collection.`,
+      ar: title => `تمت إزالة ${title} من مجموعتك.`
+    },
   }
 
 }

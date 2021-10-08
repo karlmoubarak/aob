@@ -41,7 +41,6 @@ export default {
   width: 100%;
   display: flex;
   font-weight: bold;
-  background: var(--lightblue);
   background: inherit;
   margin: 0;
   flex-wrap: wrap;

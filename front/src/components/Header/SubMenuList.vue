@@ -149,6 +149,7 @@ export default {
   min-width: 3em;
   max-width: 16em;
   margin: 0.5em;
+  /* max-height: 100em; */
   display: flex;
   align-items: center;
   flex-direction: column;

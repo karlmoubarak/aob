@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="archive">
     <Table
       :collectionItems="mainCollection"
       :emptyMessage="emptyMessage"
@@ -43,13 +43,15 @@ export default {
 
 <style scoped>
 
-#home {
+#archive {
   box-sizing: border-box;
   position: relative;
   width: 100%;
+  max-height: 100%;
   background: inherit;
 }
-.mobile #home {
+
+.mobile #archive {
   padding: 0.5em;
 }
 

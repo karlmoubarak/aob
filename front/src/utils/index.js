@@ -23,11 +23,11 @@ const
       const
         aText = 
           typeof a[prop] === 'string' ?
-          a[prop] :
+          a[prop].replaceAll(/(\[|!|(|)|\]|\n|\*)+/g,'') :
           a[prop] && a[prop][0] && a[prop][0]['slug'] || '',
         bText = 
           typeof b[prop] === 'string' ?
-          b[prop] :
+          b[prop].replaceAll(/(\[|!|(|)|\]|\n|\*)+/g,''):
           b[prop] && b[prop][0] && b[prop][0]['slug'] || ''
       return (
         aText && bText && order > 0 ?

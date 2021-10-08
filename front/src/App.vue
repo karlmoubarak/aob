@@ -5,13 +5,16 @@
     :class="[ locale, { 
       mobile: isMobile,
       landing: landing,
-      printing: printing
+      printing: printing,
+      langSwitch: langSwitch
     }]" 
   >
     
     <Header    :landing="landing" />
     <SearchBar :landing="landing" />
     <Nav       :landing="landing" />
+    
+    <Notifications />
     
     <main>
       <router-view v-slot="{ Component }">
@@ -26,11 +29,12 @@
 
 <script>
 
-import { mapState } from 'vuex'
-import api          from './api'
-import Header       from './components/Header'
-import SearchBar    from './components/Header/SearchBar'
-import Nav          from './components/Header/Nav'
+import { mapState }  from 'vuex'
+import api           from './api'
+import Header        from './components/Header'
+import SearchBar     from './components/Header/SearchBar'
+import Nav           from './components/Header/Nav'
+import Notifications from './components/Utils/Notifications'
 
 export default {
 
@@ -40,12 +44,14 @@ export default {
     Header,
     SearchBar,
     Nav,
+    Notifications,
   },
   
   computed: {
     ...mapState([
       'isMobile',
       'printing',
+      'langSwitch',
       'locale',
     ]),
     landing()   { return this.$route.name == 'Home' },
@@ -143,7 +149,7 @@ export default {
   watch: {
     printing() {
       console.log(this.printing)
-    }
+    },
   },
   methods: {
 
@@ -221,7 +227,6 @@ body,
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  overflow: hidden;
 }
 
 main {
@@ -231,7 +236,6 @@ main {
   width: 100%;
   max-height: 100vh;
   overflow: scroll;
-  /* padding-top: 11em; */
   transition: all var(--landing) ease;
   background: inherit;
 }
@@ -298,6 +302,10 @@ a:active {
   opacity: 0;
 }
 
+.langSwitch {
+  transform: rotateY(90deg);
+  perspective: 1000px; 
+}
 
 .landing main {
   flex-shrink: 1;
@@ -305,7 +313,7 @@ a:active {
   overflow: hidden;
 }
 
-#app.ar {
+.ar {
   /* font-size: 12pt; */
 }
 

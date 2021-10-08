@@ -122,12 +122,11 @@ export default {
   box-sizing: border-box;
   position: relative;
   width: 100%;
-  /* margin-top: 1em; */
   padding: 0 0.5em;
-  transition: all var(--slow) ease;
   height: 100%;
-  /* max-height: 200vh; */
+  /* max-height: 100%; */
   background: inherit;
+  transition: all var(--slow) ease;
 }
 .table h2 {
   position: sticky;
@@ -278,6 +277,7 @@ export default {
   transform: translateY(-5em);
   opacity: 0;
 }
+
 
 .mobile .table {
   margin-top: 0.5em;
