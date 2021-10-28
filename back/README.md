@@ -65,22 +65,6 @@ Although filtering using tags and locations is important, a more important way o
   - — **IsCurrentExhibition**: An on/off switch. The first collection with this field marked "on" will be used as the exhibition on the website. There should only be one collection with this field marked "on".
 
 
-
-
-#### URL Dictionary
-
-Some entries in the regions have their URLs mapped to collections based on their slugs:
-  - — the **Reception** region maps to the **Statics** collection (e.g. **/reception/about**).
-  - — the **Readme** region maps to the **Readmes** collection (e.g. **/readme/tour**).
-  - — the **Exhibition Space** region maps to the **Artworks** collection (e.g. **/exhibition/hearbeat-to-print**).
-  - — the **Schedule** region maps to the **Sessions** collection (e.g. **/timetable/obfuscating-software**).
-  - — the **Study-Room** region maps to the **StudySessions** collection (e.g. **/study-room/session-1-introduction-study-group-participants**).
-  - — the **Contributors** region maps to the **People** collection (e.g. **/contributors/karl**).
-  - — the **Resource Library** region maps to the **Resources** collection (e.g. **/library/getting-real**).
-  - — the **Glossary** region maps to the **Glossaries** collection (e.g. **/glossary/1-1-scale**).
-
-The importance of this will be addressed in the following section.
-
 ### ✏️ Editing 
 
 All entries have different fields. Most of them are self-explanatory.
