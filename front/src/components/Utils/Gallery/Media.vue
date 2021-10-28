@@ -34,6 +34,7 @@
     <div 
       v-else-if="showCredits"
       class="caption"
+      dir="ltr"
     >
       {{ caption }}
     </div>

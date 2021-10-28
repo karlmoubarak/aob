@@ -130,4 +130,10 @@ export default {
   padding: 1em;
 }
 
+.ar #exhibition .info {
+  left: unset;
+  float: right;
+  right:0;  
+}
+
 </style>

@@ -252,7 +252,7 @@ export default {
   top: 0; left: 0;
   height: 100%; width: 100%;
   z-index: 500;
-  background: var(--white-glass);
+  background: #ffffffa9;
   filter: drop-shadow( 0 0 40em var(--white-glass));
   align-items: stretch;
 }
