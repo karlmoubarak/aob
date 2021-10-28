@@ -115,6 +115,7 @@ header {
 }
 header a {
   color: var(--lightblue);
+  color: white;
 }
 header li {
   box-sizing: border-box;
@@ -246,6 +247,7 @@ li.my-collection:hover a:hover  {
 
 .mobile header {
   position: sticky;
+  /* position: relative; */
   top: 0;
   display: block;
   flex-direction: column;
@@ -274,6 +276,9 @@ li.my-collection:hover a:hover  {
   margin-left: unset;
   margin-right: unset;
   max-width: 100%;
+}
+.mobile header li.languageSwitcher {
+  min-height: 2.1em;
 }
 
 .mobile header li.my-collection {

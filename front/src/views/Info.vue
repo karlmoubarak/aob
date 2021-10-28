@@ -92,7 +92,7 @@
 import { mapState } from 'vuex'
 import { processImages, sortByUpdate } from '../utils'
 import moment from 'moment'
-import Upload from '../components/Upload'
+import Upload from './Upload'
 
 // This is the info view, with an About text, it's last update,
 // some of the archive's metadata, the link to the repo, and

@@ -137,6 +137,7 @@ import api    from '../api'
 import QRCode from 'qrcode'
 import Table  from '../components/Table'
 
+
 // Main view for any collection. If the collection is
 // the one being edited in the browser, some changes apply.
 // The working collection is set/get from LocalStorage
@@ -430,6 +431,7 @@ canvas {
   padding:2.5em;
   padding-top: 0em;
   width: 100%;
+  min-height: 100%;
   padding-top: 2.5em;
 }
 

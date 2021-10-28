@@ -2,6 +2,7 @@
   <div 
     :class="[
       'itemContainer', { 
+        fullscreen,
         leave: transitioning,
         lowCollections:related && related.length == 0
       }
@@ -33,6 +34,7 @@
       </div>
       <IndexCard
         :item="renderedItem"
+        @mediaClick="!isMobile && (fullscreen = !fullscreen)"
       />
     </div>
     <div
@@ -89,6 +91,7 @@ export default {
     return {
       renderedItem: null,
       transitioning: false,
+      fullscreen: false,
     }
   },
   
@@ -104,6 +107,7 @@ export default {
     ...mapState([ 
         'loading',
         'locale',
+        'isMobile'
       ]),
       
     ...mapGetters([
@@ -243,9 +247,9 @@ export default {
   top: calc(100% - 10em);
   left: 6.5em;
   width: calc(100% - 13em);
-  background: var(--lightestorange);
   max-height: 55vh;
   overflow: scroll;
+  background: var(--lightestorange);
 }
 
 .table:hover {
@@ -258,6 +262,7 @@ export default {
   top: calc(100% - 18em);
   left: 13em;
   width: calc(100% - 13em);
+  max-height: 70vh;
   transition: all var(--slow) ease;
 }
 .lowCollections .collections {
@@ -288,6 +293,15 @@ export default {
 .itemContainer .item .circle * {
   font-size: 3em;
 }
+
+.itemContainer.fullscreen {
+  z-index: 3;
+  overflow: hidden;
+}
+.itemContainer.fullscreen .table,
+.itemContainer.fullscreen .collections {
+  display: none;
+}
   
 .fade-enter-from .table,
 .fade-enter-from .collections,
@@ -297,7 +311,6 @@ export default {
 .leave .collections,
 .down-enter-from,
 .down-leave-to {
-  /* transform: translateY(5em); */
   top: 110%;
 }
 
@@ -319,6 +332,7 @@ export default {
   position: relative;
   height: unset;
   overflow: unset;
+  background: unset;
 }
 .mobile .item {
   height: unset;
@@ -335,10 +349,15 @@ export default {
   font-size: 2em;
 }
 
-.mobile .table {
+.mobile .table,
+.mobile .collections {
   position: relative;
   width: unset;
   left: unset;
+  top: unset;
+  max-height: unset;
+  background: unset;
+  padding-top: 3.5em;
 }
 
 .printing .circle {

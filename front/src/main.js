@@ -5,15 +5,11 @@ import VMdEditor      from '@kangc/v-md-editor'
 import githubTheme    from '@kangc/v-md-editor/lib/theme/github.js'
 import enUS           from '@kangc/v-md-editor/lib/lang/en-US'
 
-import '@kangc/v-md-editor/lib/style/base-editor.css'
-import '@kangc/v-md-editor/lib/theme/style/github.css'
-
 import App            from './App'
 import router         from './router'
 import store          from './store'
 import { highlight }  from './utils'
 import locale         from './locale'
-
 
 const app                   = createApp(App)
 

@@ -11,10 +11,8 @@
           target="_blank"
           class="name"
         >
-          <!-- {{ item.name }} -->
           📄
         </a>
-        <span v-if="!isLast(item, list)">, </span>
       </span>
     </span>
   </div>
@@ -27,17 +25,6 @@ export default {
     'list',
     'name',
   ],
-  methods: {
-    isLast: (item, array) => (
-      array.indexOf(item) === array.length - 1
-    ),
-    isBeforeLast: (item, array) => (
-      array.indexOf(item) === array.length - 2
-    ),
-    alphabetical: array => (
-      array.sort((a, b) => a.Name.length - b.Name.length)
-    ),
-  }
 }
 </script>
 

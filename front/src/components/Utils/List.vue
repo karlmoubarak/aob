@@ -17,7 +17,6 @@
         ></span>
         <br>
       </router-link>
-      <!-- <span v-if="!isLast(item, list)">, </span> -->
     </span>
   </div>
 </template>
@@ -34,9 +33,6 @@ export default {
     locale()  { return this.$store.state.locale },
   },
   methods: {
-    isLast: (item, array) => (
-      array.indexOf(item) === array.length - 1
-    ),
     name(item) { return this.locale == 'ar' && item.Name_AR 
       ? item.Name_AR
       : item.Name

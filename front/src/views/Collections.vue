@@ -38,15 +38,22 @@ export default {
 .info {
   box-sizing: border-box;
   position: relative;
-  max-width: 45em;
+  max-width: 31.5%;
   padding: 1em 2em;
   margin: 1em;
   margin-bottom: 0;
   background: var(--green);
   font-family: Montserrat;
+  border-radius: 0.5em;
 }
 
 .collections {  
   padding: 0.5em;
+  padding-top: 0;
+}
+.mobile .info {
+  max-width: 100%;
+  margin: 0.5em;
+  margin-bottom: 0;
 }
 </style>

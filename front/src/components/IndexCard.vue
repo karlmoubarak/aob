@@ -3,7 +3,6 @@
     @click.stop 
     class="indexCard"
   >
-  
     <div class="body">
       <div v-if="artist" class="artist">
         <p class="meta">{{ localizeMeta('artist') }}:</p>
@@ -28,21 +27,21 @@
     </div>
     
     <div class="info">
-      <div class="media">
-        <MultiMedia 
-          :media="media"
-          :border="true"
-        />
-      </div>
-      <div class="id">
+      <Gallery 
+        :media="media"
+        :border="true"
+        :showCredits="true"
+        @mediaClick="$emit('mediaClick')"
+      />
+      <div v-if="id" class="id">
         <p class="meta">{{ localizeMeta('id') }}:</p>
         <p class="content">( {{ id }} )</p>
       </div>
-      <div class="updated">
+      <div v-if="updated" class="updated">
         <p class="meta">{{ localizeMeta('updated') }}:</p>
         <p class="content">( {{ updated }} )</p>
       </div>
-      <div class="source">
+      <div v-if="files && files.length > 0 || link" class="source">
         <p class="meta">{{ localizeMeta('link') }}:</p>
         <p class="content">
           <FileList 
@@ -84,7 +83,7 @@
           </a>
         </p>
       </div> 
-      <div class="tags">
+      <div v-if="tags && tags.length > 0" class="tags">
         <p class="meta">{{ localizeMeta('tags') }}:</p>
         <p class="content">
           <List 
@@ -93,7 +92,7 @@
           /> 
         </p>
       </div>
-      <div class="locations">
+      <div v-if="locations && locations.length" class="locations">
         <p class="meta">{{ localizeMeta('locations') }}:</p>
         <p class="content">
           <List 
@@ -113,54 +112,46 @@ import { processImages }  from '../utils'
 import { mapState }       from 'vuex'
 import List               from './Utils/List'
 import FileList           from './Utils/FileList'
-import MultiMedia         from './Utils/MultiMedia'
+import Gallery            from './Utils/Gallery'
+
+// Main component for resource or artwork contents
 
 export default {
   name: 'IndexCard',
   components: {
     List,
     FileList,
-    MultiMedia
+    Gallery
   },
-  props: [
-    'item',
-  ],
-  data() {
-    return {
-    }
-  },
+  props: [ 'item' ],
+  emits: [ 'mediaClick' ],
   computed: {
-  
-    ...mapState([
-      'locale',
-      'printing'
-    ]),
-      
+    ...mapState   ( [ 'locale' ] ),
     id()          { return this.$locale.num[this.locale](this.item.id) },
-    link()        { return this.item.link },
-    contact()     { return this.item.contact || 'N/A'},
+    link()        { return this.item.link || 'N/A' },
+    contact()     { return this.item.contact || 'N/A' },
     media()       { return this.item.media },
-    description() { return (
-      this.locale == 'ar' && 
-      this.item.description_AR ||
-      this.item.description 
-    )},
-    cover()       { return this.media && 
-      this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
-      this.media[0].formats.small ? this.$apiURL + this.media[0].formats.small.url :
-      this.$apiURL + this.media[0].url
-    },
-    caption()     { return (
-      this.cover && 
-      this.media[0].caption || 
-      this.$locale.media.unknownRights[this.locale] 
-    )},
+    title()       { return this.item.title },
+    artist()      { return this.item.artistName },
+    medium()      { return this.item.medium },
+    artistSite()  { return this.item.artistWebsite },
     updated()     { return (
       moment(this.item.updated_at)
       .locale(this.locale)
       .format('DD/MM/yyyy')
     )},
+    description() { return (
+      this.locale == 'ar' && 
+      this.item.description_AR ||
+      this.item.description 
+    )},
+    org()         { return (
+      this.locale == 'ar' && 
+      this.item.organisation_AR ||
+      this.item.organisation 
+    )},
     tags()        { return (
+      this.item.tags &&
       this.item.tags.length > 0 && 
       this.item.tags 
     )},
@@ -169,36 +160,19 @@ export default {
       this.item.locations.length > 0 && 
       this.item.locations 
     )},
-    
-    org()         { return (
-      this.locale == 'ar' && 
-      this.item.organisation_AR ||
-      this.item.organisation 
-    )},
     files()       { return (
       this.item.files && 
       this.item.files.length > 0 && 
       this.item.files 
     )},
-
-    title()       { return this.item.title },
-    artist()      { return this.item.artistName },
-    medium()      { return this.item.medium },
-    artistSite()  { return this.item.artistWebsite }
-    
-  },
-  mounted() {
   },
   methods: {
-  
     processImages,
-    
-    localizeMeta(meta) { 
-      return this.$locale.tableHeaders[meta]['name'][this.locale] 
-    }
-    
+    localizeMeta(meta) { return (
+      this.$locale
+      .tableHeaders[meta]['name'][this.locale] 
+    )}
   }
-  
 }
 </script>
 
@@ -212,11 +186,11 @@ export default {
   min-height: 120vh;
   width: calc(100% - 13em);
   padding: 8em 3em;
+  padding-bottom: 20em;
   background: var(--beige);
   display: flex;
   align-items: flex-start;
 }
-
 
 .indexCard p {
   margin-top: 0;
@@ -241,6 +215,7 @@ export default {
 }
 
 .indexCard .info {
+  box-sizing: border-box;
   max-width: 30%;
   flex-shrink: 0;
   margin-left: auto;
@@ -267,40 +242,20 @@ export default {
 .indexCard .body .description .content {
   font-family: montserrat;
   font-size: 1.5em;
-  /* width: 32em; */
 }
-
-.indexCard .body .description img {
-  max-width: 100%;
-}
-
-.indexCard .body .description .content iframe,
-.indexCard .body .description .content iframe .player {
-  /* width: 100%;
-  min-width: 100%;
-  max-width: 100%; */
-}
-
-
 .indexCard .body .title .content {
   text-decoration: underline;
   text-decoration-style: dotted;
   text-underline-offset: 0.3em;
   font-size: 2em;
 }
-
-
-.indexCard .info .media {
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1em;
+.indexCard .body .description img {
+  max-width: 100%;
 }
 
 
-
-.indexCard .footer .source,
-.indexCard .footer .contact {
-  display: flex;
+.indexCard .info .id {
+  margin-top: 1em;
 }
 .indexCard .info .source .content,
 .indexCard .info .contact .content {
@@ -310,29 +265,6 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.indexCard .footer .tags,
-.indexCard .footer .locations {
-  display: flex;
-}
-
-
-.indexCard .tags .content .list {
-  display: flex;
-  flex-direction: column;
-}
-
-table {
-  margin-left: 10em;
-  margin-top: 20em !important;
-  /* max-width: 90%; */
-  background: var(--lightestorange);
-}
-
-.resourceContainer td {
-  background: unset !important;
-}
-
 
 .ar .indexCard .info {
   margin-left: unset;
@@ -350,6 +282,7 @@ table {
   width: 100%;
   padding: 0.8em 0.8em;
   display: block;
+  min-height: unset;
 }
 
 .mobile .indexCard .info {

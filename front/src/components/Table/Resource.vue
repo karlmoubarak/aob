@@ -82,13 +82,14 @@ export default {
     FileList,
     List,
   },
-  props: [
-    'resource'
-  ],
-  emits: [
-    'clicked'
-  ],
+  props: [ 'resource' ],
+  emits: [ 'clicked' ],
   computed: {
+    ...mapState([ 'query' ]),
+    ...mapGetters([
+      'isInMyCollection',
+      'queries'
+    ]),
     locale()      { return this.$store.state.locale },
     id()          { return this.resource.id },
     slug()        { return this.resource.slug },
@@ -106,22 +107,12 @@ export default {
     link()        { return this.resource.link },
     contact()     { return this.resource.contact || 'N/A'},
     updated()     { return moment(this.resource.updated_at).fromNow() },
-    ...mapState([
-      'query'
-    ]),
-    ...mapGetters([
-      'isInMyCollection',
-      'queries'
-    ]),
     media()       { return this.resource.media },
     cover()       { return this.media && this.media[0] && this.media[0].formats && (
       this.media[0].formats.medium ? this.$apiURL + this.media[0].formats.medium.url :
       this.media[0].formats.small ? this.$apiURL + this.media[0].formats.small.url :
       this.$apiURL + this.media[0].url
     )},
-  },
-  created() {
-    // console.log(this.resource)
   },
   methods: {
     ...mapActions([
@@ -156,7 +147,6 @@ export default {
   max-height: 3em;
   max-width: 3em;
   width: 100%;
-  /* border-radius: 50%; */
   background: lightgray;
   filter: grayscale(1);
   opacity: 0.7;
@@ -167,8 +157,4 @@ export default {
   max-width: 90%;
 }
 
-/* .col.description p:hover {
-  -webkit-line-clamp: 5;
-  max-height: 6em;
-} */
 </style>

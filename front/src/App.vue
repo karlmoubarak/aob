@@ -3,15 +3,15 @@
     id="app" 
     :dir="direction"
     :class="[ locale, { 
-      mobile: isMobile,
-      landing: landing,
-      printing: printing,
-      langSwitch: langSwitch
+      mobile     : isMobile,
+      landing    : landing,
+      printing   : printing,
+      langSwitch : langSwitch
     }]" 
   >
     
     <Header    :landing="landing" />
-    <SearchBar :landing="landing" />
+    <SearchBar :landing="landing" :isMobile="isMobile" />
     <Nav       :landing="landing" />
     
     <Notifications />
@@ -86,7 +86,7 @@ export default {
     // Handle printing
 
     if (window.matchMedia) {
-        var mediaQueryList = window.matchMedia('print')
+        const mediaQueryList = window.matchMedia('print')
         mediaQueryList.addListener(mql => {
             if (mql.matches) {
               this.beforePrint()
@@ -160,7 +160,7 @@ export default {
       navigator.language
     ),
     
-    checkIfMobile: () => window.innerWidth < 700,
+    checkIfMobile: () => window.innerWidth < 650,
     
     beforePrint() {
       this.$store.commit('setPrinting', true)
@@ -194,6 +194,7 @@ export default {
   --lightestorange: #FEFBF1;
   --lightblue: #EDF2F6;
   --lightblue: #f1f6fa;
+  --lightblue: #eff7ff;
   --green: #e1ec90;
   --lightgreen: #eaf0be;
   --brightgreen: #00b35f;
@@ -201,7 +202,7 @@ export default {
   --highlight: rgb(255, 255, 102);
   --highlight: #FFF7B1;
   --beige: #f2e4c4;
-  --white-glass:#ffffffa4;
+  --white-glass:#ffffff6e;
    
   --veryfast: 0.1s;
   --fast: 0.2s;
@@ -215,33 +216,28 @@ body,
 #app {
   height: 100%; width: 100%;
   padding: 0; margin: 0;
+  font-size: 10pt;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--black);
   background-color: var(--lightblue);
   transition: all var(--landing) ease;
 }
 
 #app {
-  height: 100%; width: 100%;
-  font-size: 10pt;
-  font-family: 'Courier New', Courier, monospace;
-  color: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 main {
-  box-sizing: border-box;
   position: relative;
-  height: 100%;
-  width: 100%;
+  box-sizing: border-box;
+  height: 100%; width: 100%;
   max-height: 100vh;
   overflow: scroll;
-  transition: all var(--landing) ease;
   background: inherit;
+  transition: all var(--landing) ease;
 }
-
-
-
 main * {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -250,11 +246,9 @@ main::-webkit-scrollbar {
   display: none;
 }
 
-
 a {
   color: var(--orange);
   text-decoration: none;
-  text-decoration-thickness: 0.001em;
 }
 a:hover {
   text-decoration: underline;
@@ -288,8 +282,6 @@ a:active {
   max-width: 100%;
 }
 
-
-
 .fade-enter-active,
 .fade-leave-active,
 .fade-leave-to,
@@ -302,44 +294,42 @@ a:active {
   opacity: 0;
 }
 
-.langSwitch {
+#app.langSwitch {
   transform: rotateY(90deg);
   perspective: 1000px; 
 }
 
-.landing main {
+#app.landing main {
   flex-shrink: 1;
   max-height: 0;
   overflow: hidden;
 }
 
-.ar {
-  /* font-size: 12pt; */
-}
-
 #app.mobile {
   font-size: 12pt;
   display: block;
+  max-height: unset;
+  height: unset;
 }
 
 #app.mobile.landing {
   overflow: scroll;
 }
 
-.mobile a:hover {
+#app.mobile a:hover {
   color: initial;
 }
 
-.mobile main {
+#app.mobile main {
   position: relative;
   max-height: unset;
   padding-top: unset;
+  height: unset;
 }
 
-.mobile.landing main {
+#app.mobile.landing main {
   position: relative;
   max-height: unset;
-  height: unset;
 }
 
 @page {
@@ -347,23 +337,23 @@ a:active {
   margin: 0;
 }
 
-.printing *,
-.printing * * {
+#app.printing *,
+#app.printing * * {
     transition: all 0s ease !important;
 }
-.printing,
-.printing main,
-.printing #home,
-.printing .table {
+#app.printing,
+#app.printing main,
+#app.printing #home,
+#app.printing .table {
   height: auto !important;
   max-height: unset !important;
   overflow: scroll;
 }
 
-.printing header,
-.printing nav,
-.printing input,
-.printing textarea {
+#app.printing header,
+#app.printing nav,
+#app.printing input,
+#app.printing textarea {
   display: none !important;
 }
 

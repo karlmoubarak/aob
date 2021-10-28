@@ -127,6 +127,7 @@ export default {
   position: relative;
   max-width: 100%;
   max-height: unset;
+  padding: 1em;
 }
 
 </style>

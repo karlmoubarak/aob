@@ -13,6 +13,9 @@
 <script>
 import { mapState } from 'vuex'
 import Notification from './Notification'
+
+// Notification container (top center)
+
 export default {
   name: 'Notifications',
   components: { Notification },

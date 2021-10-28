@@ -15,7 +15,7 @@
 
 export default {
   name: 'SearchBar',
-  props: [ 'landing' ],
+  props: [ 'landing', 'isMobile' ],
   methods: {
     search() {
       if (this.$refs.input.value != '') {
@@ -38,7 +38,7 @@ export default {
   },
   watch: {
     landing() {
-      if (this.landing) {   
+      if (this.landing && !this.isMobile) {   
         this.$refs.input.focus()
       }
     }
@@ -98,6 +98,14 @@ input:focus {
   left: unset;
   right: unset;  
   display: block;
+  border: unset;
+  box-shadow: unset;
+  font-size: 12pt;
+  padding-right: 2em;
+}
+.mobile.landing.ar input {
+  padding-right: unset;
+  padding-left: 1.5em;
 }
 
 </style>

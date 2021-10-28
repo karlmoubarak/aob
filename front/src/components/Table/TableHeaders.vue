@@ -35,20 +35,19 @@ export default {
 .header {
   box-sizing: border-box;
   position: sticky;
-  padding: 0.5em 0;
   top: 0;
-  z-index: 2;
   width: 100%;
+  padding: 0.5em 0;
+  margin: 0;
+  z-index: 2;
   display: flex;
   font-weight: bold;
   background: inherit;
-  margin: 0;
-  flex-wrap: wrap;
 }
-.row.header:hover .col {
+.header:hover .col {
   background: white;
-  
 }
+
 .header .col {
   box-sizing: border-box;
   display: flex;

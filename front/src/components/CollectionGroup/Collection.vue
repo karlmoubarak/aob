@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="body">
-        <p class="description">
+        <p v-if="description" class="description">
           <vue3-markdown-it
             v-bind="{ ...$mdOpts, ...{ html: false }}"
             :source="$highlight( description )"
@@ -114,11 +114,11 @@ export default {
   flex-basis: 100%;
   padding-top: 1em;
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
 }
 .collectionContainer .description {
   flex-basis: 50%;
+  min-width: 50%;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 5;
@@ -132,7 +132,7 @@ export default {
   margin: 0;
 }
 .collectionContainer .overview {
-  flex-basis: 45%;
+  padding-left: 1em;
 }
 .collectionContainer .overview li {
   list-style: none;
@@ -158,11 +158,11 @@ export default {
 }
 
 .mobile .collectionContainer {
-  min-width: 100%;
-  max-width: 100%;
-  width: 100%;
-  margin: 0;
-  margin-bottom: 0.5em;
+  min-width: calc(100% - 1em);
+  max-width: calc(100% - 1em);
+  width: calc(100% - 1em);
+  margin: 0.5em;
+  margin-bottom: 0;
   flex-basis: unset;
 }
 

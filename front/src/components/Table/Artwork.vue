@@ -1,13 +1,7 @@
 <template>
   <div 
-    :class="[
-      'artworkContainer',
-      { inTable: inTable }
-    ]"
-    :style="{ 
-      '--position': position,
-    }"
-    
+    :class="[ 'artworkContainer', { inTable }]"
+    :style="{ '--position': position }"
   >
     <div 
       class="col id"
@@ -28,13 +22,7 @@
     </div>
     <div 
         class="artwork"
-        @mousemove="headerHovered ? hovered = true : hovered = true"
-        @mouseleave="hovered = false"
         @click.stop="$emit('clicked')"  
-        :style="{
-          marginTop: inTable ? 'initial' : randomMargin(),
-          marginLeft: inTable ? 'initial' : 'initial',
-        }"  
     >
       <div 
         class="header"
@@ -48,11 +36,12 @@
           v-html="$highlight( artist, queries )"
         ></p>
       </div>
-      <MultiMedia 
+      <Gallery 
         v-if="media"
         :media="[media[0]]"
         :border="false"
         :showCredits="false"
+        @mediaClick="$emit('clicked')"
       />
     </div>
   </div>
@@ -61,25 +50,23 @@
 <script>
 
 import { mapGetters, mapState, mapActions } from 'vuex'
-
-import MultiMedia from '../Utils/MultiMedia'
+import Gallery from '../Utils/Gallery'
 
 export default {
   name: 'Artwork',
   components: {
-    MultiMedia
+    Gallery
   },
   props: [
     'artwork',
     'inTable'
   ],
-  data() {
-    return {
-      hovered: false,
-      headerHovered: false,
-    }
-  },
   computed: {
+    ...mapState   ([ 'query' ]),
+    ...mapGetters ([
+      'isInMyCollection',
+      'queries'
+    ]),
     locale()      { return this.$store.state.locale },
     id()          { return this.artwork.id },
     slug()        { return this.artwork.slug },
@@ -93,12 +80,6 @@ export default {
     link()        { return this.artwork.link },
     position()    { return this.getPosition() },
     contact()     { return this.artwork.contact || 'N/A'},
-    ...mapState   ([ 'query' ]),
-    ...mapGetters ([
-      'isInMyCollection',
-      'queries'
-    ]),
-    
   },
   methods: {
   
@@ -115,7 +96,7 @@ export default {
         this.artwork.align == 'right'  ? 'flex-end'   :
         this.randomPosition() 
        ||
-        this.randomPosition()
+      this.randomPosition()
     )},
     
     randomPosition: () => [
@@ -123,9 +104,6 @@ export default {
       'center',
       'flex-end'
     ][Math.floor(Math.random()*3)],
-    
-    // randomMargin: () => Math.random() * -10 + 'em',
-    randomMargin: () => '1em',
 
   }
   
@@ -138,27 +116,18 @@ export default {
   position: relative;
   width: 100%;
   max-width: 100%;
-  /* max-height: 50em; */
-  /* max-height: 3.5em; */
-  /* max-height: 100%; */
   display: flex;
   align-items: flex-start;
   justify-content: var(--position);
   transition: all var(--veryslow) ease;
-  /* z-index: 1; */
 }
 
-.artworkContainer.inTable {
-  /* max-height: 3.5em; */
-}
-/* .artworkContainer.inTable .cover{
-  opacity: 0;
-} */
 .artworkContainer.inTable .header{
   opacity: 0;
   height: 0;
   margin: 0;
   padding: 0;
+  /* position: absolute; */
 }
 .artworkContainer.inTable .artwork {
   margin: 0 0.5em;
@@ -208,41 +177,36 @@ box-shadow: 0 0 1.5em 0 var(--highlight);
   background: white;
 }
 .artwork {
-  /* max-width: 24%; */
   box-sizing: border-box;
   position: relative;
+  margin: 0 1em;
   max-width: 42%;
   max-height: 100%;
-  margin: 0 1em;
-  font-family: Montserrat;
-  border-radius: 0.5em;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
-  transition: all var(--fast) ease;
-  cursor: pointer;
-  box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);
+  border-radius: 0.5em;
   border: 0.2em solid #e3edff;
   background: #e3edff;
+  box-shadow: 0 0.5em 2em 0 rgba(97, 97, 97, 0.253);
+  font-family: Montserrat;
+  transition: all var(--fast) ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
 }
 
 #exhibition .table .artwork {
   box-shadow: 0 0.5em 8em 0 var(--white-glass);
 }
+
 .header {
-  margin: 0.3em;
   box-sizing: border-box;
+  margin: 0.3em;
   padding: 0.6em;
-  cursor: pointer;
-  top: 0;
-  background: var(--lightblue);
   width: 98.5%;
-  /* transition: all var(--fast) ease; */
-  /* height: 100%; */
+  cursor: pointer;
+  background: var(--lightblue);
   border-radius: inherit;
-}
-.header p {
-  /* background: var(--lightblue); */
+  z-index: 1;
 }
 .artwork p {
   margin: 0;
@@ -250,13 +214,8 @@ box-shadow: 0 0 1.5em 0 var(--highlight);
 .title {
   font-style: italic;
 }
-.artist {
-  /* font-weight: bold; */
-}
 .cover {
   width: 100%;
-  border-bottom-left-radius: 0.5em;
-  border-bottom-right-radius: 0.5em;
   max-height: 100%;
   border-radius: inherit;
 }
@@ -270,7 +229,7 @@ box-shadow: 0 0 1.5em 0 var(--highlight);
   max-width: 100%;
   width: 100%;
   max-height: 100em;
-  margin-right: 0;
+  margin: 0.5em;
 }
 
 

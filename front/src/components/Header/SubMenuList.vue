@@ -232,11 +232,14 @@ export default {
 
 
 .mobile .tags,
-.mobile .locations {
+.mobile .locations, 
+.mobile.landing .tags,
+.mobile.landing .locations {
   flex-direction: column;
   flex-wrap: nowrap;
   flex-basis: 50%;
   height: 100%;
+  max-height: 100%;
 }
 
 .mobile.landing .word {
@@ -258,4 +261,3 @@ export default {
   align-items: flex-start;
 }
 </style>
-

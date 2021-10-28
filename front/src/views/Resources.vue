@@ -16,9 +16,7 @@ import Table from '../components/Table'
 
 export default {
   name: 'Resources',
-  components: {
-    Table
-  },
+  components: { Table },
   computed: {
     ...mapState([ 'loading', 'locale' ]),
     ...mapGetters([ 'mainCollection' ]),

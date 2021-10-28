@@ -29,12 +29,12 @@ export default {
   height: 100%;
   width: 100%;
   overflow: scroll;
+  font-family: Montserrat;
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: flex-start;
   align-content: flex-start;
   align-items: flex-start;
-  font-family: Montserrat;
 }
 
 .collections h2 {
@@ -46,5 +46,6 @@ export default {
 .mobile .collections {
   flex-direction: column;
   flex-wrap: nowrap;
+  padding: 0;
 }
 </style>

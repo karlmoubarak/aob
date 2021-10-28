@@ -53,6 +53,7 @@ export default {
 
 .mobile #archive {
   padding: 0.5em;
+  padding-top: 0;
 }
 
 </style>

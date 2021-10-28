@@ -1,11 +1,9 @@
 <template>
   <div 
-    :class="[
-      'table', { 
-        artworksOnly: artworksOnly,
-        myCollection: isMyCollection,
-      }
-    ]">
+    :class="[ 'table', { artworksOnly,
+      myCollection: isMyCollection,
+    }]"
+  >
     <h2 v-if="headerText">{{ headerText }}</h2>
     <transition name="list" mode="out-in">
       <TableHeaders 
@@ -15,12 +13,13 @@
     <transition name="list" mode="out-in">
       <p v-if="items.length == 0" class="empty">{{ emptyMessage }} </p>
     </transition>
-    <draggable v-if="isMyCollection" v-model="items" >
+    <VueDraggableNext v-if="isMyCollection" v-model="items" >
       <transition-group name="list" mode="out-in">
         <div
           v-for="item in items"
           :key="item.slug"
           :class="['row', { artworkTR: item.title }]"
+          @click.stop="isMobile && goToItem(item)"
         >
           <IndexCard 
             v-if="printing"
@@ -39,16 +38,13 @@
           />
         </div>
       </transition-group>
-    </draggable>
+    </VueDraggableNext>
     <transition-group v-else-if="items.length > 0" name="list" mode="out-in">
       <div
         v-for="item in items"
         :key="item.slug"
-        :class="[
-          'row', { 
-            artworkTR: item.title,
-          }
-        ]"
+        :class="['row', { artworkTR: item.title }]"
+        @click.stop="isMobile && goToItem(item)"
       >
         <IndexCard 
           v-if="printing"
@@ -84,7 +80,7 @@ export default {
     Resource,
     Artwork,
     IndexCard,
-    draggable: VueDraggableNext,
+    VueDraggableNext,
   },
   props: [
     'collectionItems',
@@ -103,6 +99,9 @@ export default {
     printing() {
       return this.$store.state.printing
     },
+    isMobile() { 
+      return this.$store.state.isMobile 
+    },
   },
   methods: {
     goToItem(item) {
@@ -110,6 +109,12 @@ export default {
         name: item.title ? "Artwork" : "Resource",
         params: { slug: item.slug }
       })
+      if (this.isMobile) {
+        document.querySelector('body').scrollTop = 0
+        document.querySelector('#app').scrollTop = 0
+        document.querySelector('main').scrollTop = 0
+        document.querySelector('main').scrollTop = 0
+      }
     }
   }
 
@@ -121,68 +126,57 @@ export default {
 .table {
   box-sizing: border-box;
   position: relative;
-  width: 100%;
+  width: 100%; height: 100%;
   padding: 0 0.5em;
-  height: 100%;
-  /* max-height: 100%; */
   background: inherit;
   transition: all var(--slow) ease;
+  /* max-height: 100%; */
 }
+
 .table h2 {
   position: sticky;
-  top: 0.5em;
-  font-family: Montserrat;
   width: 100%;
+  top: 0.5em;
   margin: 0.5em;
+  font-family: Montserrat;
   font-weight: normal;
 }
+
 .row {
   position: relative;
   box-sizing: border-box;
   display: flex;
-  /* cursor: pointer; */
-  max-height: 10em;
   width: 100%;
   margin-bottom: 0.5em;
+  max-height: 10em;
+  /* cursor: pointer; */
   /* overflow: hidden; */
 }
 
-.myCollection  {
+.table.myCollection  {
   height: auto;
 }
-.myCollection .row,
-.myCollection .row .col.description {
+.table.myCollection .row,
+.table.myCollection .row .col.description {
   cursor: move !important;
 }
-.row.artworkTR {
-  max-height: 3.5em;
-  
+.table .row.artworkTR {
+  max-height: 5em;  
 }
-.row.artworkTR:hover {
-  /* z-index: 3; */
-}
-.artworksOnly .row.artworkTR {
+
+.table.artworksOnly .row.artworkTR {
   max-height: 100em;
 }
 
-.artworksOnly .row.artworkTR .col.id {
-
+.table.artworksOnly .row.artworkTR .col.id {
   display: none;
-
 }
 
-.artworkTD {
-  display:block;
-  width: 100%;
-}
-
-.row:not(.artworkTR):hover .col {
+.table .row:not(.artworkTR, .header):hover .col {
   background-color: var(--highlight);
-  /* background: var(--highlight); */
-  /* box-shadow: 0 0px 8px 2px var(--highlight); */
 }
 
-.move {
+.table .row.move {
   display: block;
   position: absolute;
   font-size: 1.5em;
@@ -199,48 +193,34 @@ export default {
   min-width: 100%;
   padding: 0.5em;
   margin: 0 0.25em;
-  background: white;
   overflow: hidden;
-  display: flex;
+  background: white;
   transition: all var(--fast) ease;
+  display: flex;
+  flex-basis: var(--width);
+  min-width: var(--width);
+  max-width: var(--width);
 }
 .col.id {
-  flex-basis: 4%;
-  min-width: 4%;
-  max-width: 4%;
+  --width: 4%;
 }
-.col.tags {
-  flex-basis: 8%;
-  min-width: 8%;
-  max-width: 8%;
-}
+.col.tags,
 .col.locations {
-  flex-basis:8%;
-  min-width: 8%;
-  max-width: 8%;
+  --width: 8%;
 }
 .col.organisation {
-  flex-basis: 12%;
-  min-width: 12%;
-  max-width: 12%;
-  /* font-family: 'montserrat'; */
+  --width: 14%;
 }
 .col.description { 
-  flex-basis: 33%;
-  min-width: 33%;
-  max-width: 33%;
+  --width: 33%;
 }
 .col.link {
-  flex-basis: 6%;
-  min-width: 6%;
-  max-width: 6%;
+  --width: 6%;
 }
 .col.contact {
-  flex-basis: 23.5%;
-  min-width: 23.5%;
-  /* flex-grow: 1; */
-  /* max-width: 23%; */
+  --width: 24%;
 }
+
 .col p {
   margin: 0;
 }
@@ -251,25 +231,16 @@ export default {
 .col.id .remove {
   font-size: 2em;
 }
-
 .col.id .add {
   color: var(--orange);
 }
 
-
-
-
 .list-enter-active,
-.list-leave-active {
-  transition: all var(--slow) ease;
-}
-
+.list-leave-active,
 .list-leave-to,
 .list-leave-from {
-  transition: all var(--slow) ease;
-  
+  transition: all var(--slow) ease; 
 }
-
 .list-enter-from,
 .list-leave-to {
   max-height: 0 !important;
