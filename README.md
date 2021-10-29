@@ -11,7 +11,6 @@ This is the development space for the Archive of Belonging website.
 ### Development
 
 The back-end is a Strapi application. Instructions are under [back](back).  
-
 The front-end is built with Vue. Instructions are under [front](front).
 
 First, clone the repository
