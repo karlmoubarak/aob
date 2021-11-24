@@ -200,10 +200,14 @@ export default {
   --brightgreen: #00b35f;
   --purple: #CBBEF0;
   --lightpurple: #d7cdf1;
+    --purple: #CBBEF0;
+  --lightpurple: #d7cdf1;
+  --darkpurple: #9d82e6;
   --highlight: rgb(255, 255, 102);
   --highlight: #FFF7B1;
   --beige: #f2e4c4;
   --white-glass:#ffffff6e;
+  --white-glass:#ffffffd0;
    
   --veryfast: 0.1s;
   --fast: 0.2s;

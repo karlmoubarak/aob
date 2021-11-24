@@ -179,6 +179,7 @@ export default {
   padding: 0.5em;
   margin-top: 1em;
   background: var(--lightpurple);
+  transition: all var(--fast) ease;
 }
 .collectionContainer.isExhibition .collection {
   background: var(--purple);

@@ -224,6 +224,24 @@ export default {
   transform: translateY(0) !important;
 }
 
+.itemContainer,
+.itemContainer .item,
+.itemContainer .table,
+.itemContainer .collections {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.itemContainer::-webkit-scrollbar,
+.itemContainer .item::-webkit-scrollbar,
+.itemContainer .table::-webkit-scrollbar,
+.itemContainer .collections::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
 .fade-enter-from ,
 .fade-leave-to {
   padding-top: 10%;
@@ -293,6 +311,7 @@ export default {
   border-radius: 5em;
   z-index: 2;
   border: 1px dashed;
+  font-family: Montserrat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -300,6 +319,7 @@ export default {
 }
 .itemContainer .item .circle * {
   font-size: 3em;
+  margin-top: -0.05em;
   line-height: 0;
 }
 

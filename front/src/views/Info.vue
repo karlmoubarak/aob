@@ -12,66 +12,77 @@
         </div>
       </div>
       <div class="meta">
-        <table>
-          <tr> 
-            <th colspan="2">{{ $locale['info']['inNumbers'][locale] }}</th>
-          </tr>
-          <tr> 
-            <th>{{ $locale['info']['total'][locale] }}</th>
-            <th>{{ count('mainCollection') }}</th>
-          </tr>
-          <tr> 
-            <th>{{ $locale['info']['resources'][locale] }}</th>
-            <th>{{ count('filteredResources') }}</th>
-          </tr>
-          <tr> 
-            <th>{{ $locale['info']['artworks'][locale] }}</th>
-            <th>{{ count('filteredArtworks') }}</th>
-          </tr>
-          <tr> 
-            <th>{{ $locale['info']['collections'][locale] }}</th>
-            <th>{{ count('sortedCollections') }}</th>
-          </tr>
-        </table>
-        <div class="updatedAt">
-          <p>{{ $locale['info']['archive_updated_at'][locale] }} {{ archiveLastUpdated}}.</p>
-        </div>
-        <div 
-          v-if="!$store.state.isMobile"
-          class="contribute"
-        >
-          <p>{{ $locale['info']['contribute'][locale] }} </p>
-          <div class="buttons">
-            <input 
-              class="submit"
-              name="submit resource"
-              ref="submitResource"
-              type="button"
-              :value="$locale['buttons']['submitResource'][locale]"
-              @click="$router.push('/upload/resource')"
-            />
-            <input 
-              class="submit"
-              name="submit artwork"
-              ref="submitArtwork"
-              type="button"
-              :value="$locale['buttons']['submitArtwork'][locale]"
-              @click="$router.push('/upload/artwork')"
-            />
+        <div class="card">
+          <div 
+            v-if="!$store.state.isMobile"
+            class="contribute"
+          >
+            <p>{{ $locale['info']['contribute'][locale] }} </p>
+            <div class="buttons">
+              <input 
+                class="submit"
+                name="submit resource"
+                ref="submitResource"
+                type="button"
+                :value="$locale['buttons']['submitResource'][locale]"
+                @click="$router.push('/upload/resource')"
+              />
+              <input 
+                class="submit"
+                name="submit artwork"
+                ref="submitArtwork"
+                type="button"
+                :value="$locale['buttons']['submitArtwork'][locale]"
+                @click="$router.push('/upload/artwork')"
+              />
+            </div>
           </div>
         </div>
-        <div class="repo">
-          <p>{{ $locale['info']['repo'][locale] }}</p>
-          <p class="center">
-             →
-              <a  
-                target="blank"
-                :href="info.LinkToPublicCodeRepository"
-              >
-                {{ info.LinkToPublicCodeRepository }}
-              </a>
-              ←
-          </p>
+        <div class="card">
+          <table>
+            <tr> 
+              <th colspan="2">{{ $locale['info']['inNumbers'][locale] }}</th>
+            </tr>
+            <tr> 
+              <th>{{ $locale['info']['total'][locale] }}</th>
+              <th>{{ count('mainCollection') }}</th>
+            </tr>
+            <tr> 
+              <th>{{ $locale['info']['resources'][locale] }}</th>
+              <th>{{ count('filteredResources') }}</th>
+            </tr>
+            <tr> 
+              <th>{{ $locale['info']['artworks'][locale] }}</th>
+              <th>{{ count('filteredArtworks') }}</th>
+            </tr>
+            <tr> 
+              <th>{{ $locale['info']['collections'][locale] }}</th>
+              <th>{{ count('sortedCollections') }}</th>
+            </tr>
+          </table>
+          <div class="updatedAt">
+            <p>{{ $locale['info']['archive_updated_at'][locale] }} {{ archiveLastUpdated}}.</p>
+          </div>
+        <!-- </div> -->
+        <!-- <div class="card"> -->
+          <div class="repo">
+            <!-- <p>{{ $locale['info']['repo'][locale] }}</p> -->
+            <vue3-markdown-it
+              class="content"
+              v-bind="$mdOpts"
+              :source="$locale['info']['repo'][locale]"
+            ></vue3-markdown-it>
+            <p class="center">
+              →
+                <a  
+                  target="blank"
+                  :href="info.LinkToPublicCodeRepository"
+                >
+                  {{ info.LinkToPublicCodeRepository }}
+                </a>
+                ←
+            </p>
+          </div>
         </div>
       </div>
       <transition name="fade">
@@ -147,12 +158,9 @@ export default {
   display: flex;
   align-items: flex-start;
 }
-.sections,
-.meta {
-  box-sizing: border-box;
-  padding: 2em;
-}
 .sections {
+  padding: 2em;
+  box-sizing: border-box;
   width: 52em;
   max-width: 52em;
   background: var(--lightestorange);
@@ -160,12 +168,27 @@ export default {
   
 }
 .meta {
+  box-sizing: border-box;
   font-family: 'Courier New', Courier, monospace;
-  background: var(--green);
   max-width: 28em;
   position: sticky;
   top: 2em;
 }
+
+.meta .card {
+  background: var(--green);
+  position: relative;
+  padding: 2em;
+  margin-bottom: 2em;
+}
+
+.meta .card p:first-of-type {
+  margin-top: 0;
+}
+.meta .card p:last-of-type {
+  margin-bottom: 0;
+}
+
 .meta table {
   border-collapse: collapse;
   width: 100%;
@@ -185,6 +208,7 @@ export default {
 .meta .contribute .buttons {
   display: flex;
   justify-content: center;
+  margin-top: 1em;
 }
 .meta .contribute input {
   box-sizing: border-box;
@@ -204,6 +228,7 @@ export default {
 
 .updatedAt {
   font-style: italic;
+  margin-top: 1em;
 }
 
 .ar .meta table tr th {

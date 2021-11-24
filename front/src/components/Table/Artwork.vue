@@ -198,6 +198,7 @@ box-shadow: 0 0 1.5em 0 var(--highlight);
 
 #exhibition .table .artwork {
   box-shadow: 0 0.5em 8em 0 var(--white-glass);
+  /* box-shadow: none; */
 }
 
 .header {

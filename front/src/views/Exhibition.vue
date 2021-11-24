@@ -100,7 +100,9 @@ export default {
   max-height: 100%;
   overflow: scroll;
   font-family: Montserrat;
-  filter: drop-shadow( 0 0 2em var(--white-glass));
+  color: var(--darkpurple);
+  /* filter: drop-shadow( 0 0 2em var(--white-glass)); */
+  filter: drop-shadow( 0 0 5em var(--lightpurple));
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
@@ -122,7 +124,7 @@ export default {
   /* margin-top: -10%; */
   margin-left: 7.5%;
   background: transparent;
-  filter: drop-shadow( 0 0 20em var(--white-glass));
+  /* filter: drop-shadow( 0 0 20em var(--white-glass)); */
   transform: translate(0, -10em);
   height: auto;
 }

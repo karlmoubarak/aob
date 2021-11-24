@@ -196,8 +196,10 @@ module.exports = {
       ar: 'يمكنك المساهمة بمصدر أو بعمل فني إلى الأرشيف.'
     },
     repo: {
-      en: 'The code running the archive is published under the CC-by-SA-4.0 license and can be found here:',
-      ar: 'يتم نشر الكود الذي يقوم بتشغيل الأرشيف بموجب ترخيص CC-by-SA-4.0 ويمكن العثور عليه هنا:'
+      // en: 'This website has been designed and written by Ilja Schamlé and Karl Moubarak. \n The archive is hosted by Greenhost in Amsterdam. \n The code running the archive is published under the CC-by-SA-4.0 license and can be found here:',
+      en: 'This website has been designed and written by Ilja Schamlé and Karl Moubarak, the archive is hosted by Greenhost in Amsterdam, and the code running the archive is published under the CC-by-SA-4.0 license and can be found here:',
+      // ar: 'يتم نشر الكود الذي يقوم بتشغيل الأرشيف بموجب ترخيص CC-by-SA-4.0 ويمكن العثور عليه هنا:'
+      ar: 'تم تصميم هذا الموقع وكتابته من قبل إليا سخاملي و كارل مبارك، ويتم استضافة الأرشيف بواسطة Greenhost في أمستردام ، ويتم نشر الكود الذي يدير الأرشيف بموجب ترخيص CC-by-SA-4.0 ويمكن العثور عليه هنا:'
     }
   },
   media: {

@@ -328,6 +328,7 @@ export default {
   display: block;
   max-height: unset;
   min-height: 100vh;
+  /* min-height: unset; */
   page-break-after: always;
   margin: 0;
 }
@@ -341,6 +342,7 @@ export default {
     display: block;
     max-height: unset;
     min-height: 100vh;
+    /* min-height: unset; */
     page-break-after: always;
     margin: 0;
   }
