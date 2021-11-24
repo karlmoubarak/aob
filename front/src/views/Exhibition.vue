@@ -84,8 +84,12 @@ export default {
   background: var(--white-glass);
   overflow: scroll;
   z-index: 2;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
-
+#exhibition::-webkit-scrollbar {
+  display: none;
+}
 #exhibition .info {
   box-sizing: border-box;
   position: sticky;

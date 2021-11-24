@@ -62,7 +62,9 @@ export default {
     'inTable'
   ],
   computed: {
-    ...mapState   ([ 'query' ]),
+    ...mapState ([ 
+      'query' 
+    ]),
     ...mapGetters ([
       'isInMyCollection',
       'queries'

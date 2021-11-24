@@ -1,7 +1,7 @@
 <template>
   <div  
     dir="ltr"
-    class="collectionContainer"
+    :class="['collectionContainer', { isExhibition }]"
     @click.stop="$router.push({
       name:'Collection',
       params: { slug }
@@ -31,6 +31,13 @@
           >{{ item.organisation || item.title }}</li>
         </div>
       </div>
+      <div
+        v-if="isExhibition"
+        class="exhibitionHeader"
+        @click.stop="$router.push('/exhibition')"
+      >
+        <div>Go to Exhibition</div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,11 +50,12 @@ export default {
   name: 'Collection',
   props: [ 'collection' ],
   computed: {
-    title()       { return this.collection.Title },
-    slug()        { return this.collection.slug },
-    author()      { return this.collection.Author || 'Anonymous' },
-    description() { return this.collection.Description },
-    items()       { return this.collection.items },
+    title()        { return this.collection.Title },
+    slug()         { return this.collection.slug },
+    author()       { return this.collection.Author || 'Anonymous' },
+    description()  { return this.collection.Description },
+    items()        { return this.collection.items },
+    isExhibition() { return this.collection.isCurrentExhibition }
   },
   
 }
@@ -68,6 +76,7 @@ export default {
   border-radius: 0.5em;
   transition: all var(--fast) ease;
 }
+
 .collectionContainer .collection {
   max-height: 23em;
   margin: 0.5em;
@@ -155,6 +164,36 @@ export default {
 }
 .collectionContainer:hover .collection .circleContainer .circle {
   background: var(--green);
+}
+
+.collectionContainer.isExhibition {
+  background: var(--lightpurple);
+}
+.collectionContainer.isExhibition:hover {
+  background: var(--purple);
+  box-shadow: 0 0 1.5em 0 var(--purple);
+}
+.collectionContainer.isExhibition .exhibitionHeader {
+  cursor: pointer;
+  border-radius: inherit;
+  padding: 0.5em;
+  margin-top: 1em;
+  background: var(--lightpurple);
+}
+.collectionContainer.isExhibition .collection {
+  background: var(--purple);
+}
+.collectionContainer.isExhibition:hover .exhibitionHeader {
+  background: var(--purple);
+} 
+.collectionContainer.isExhibition:hover .collection {
+  background: var(--lightpurple);
+}
+.collectionContainer.isExhibition .header .circleContainer .circle {
+  background: var(--lightpurple);
+}
+.collectionContainer.isExhibition:hover .collection .circleContainer .circle {
+  background: var(--purple);
 }
 
 .mobile .collectionContainer {

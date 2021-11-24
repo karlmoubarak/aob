@@ -199,6 +199,7 @@ export default {
   --lightgreen: #eaf0be;
   --brightgreen: #00b35f;
   --purple: #CBBEF0;
+  --lightpurple: #d7cdf1;
   --highlight: rgb(255, 255, 102);
   --highlight: #FFF7B1;
   --beige: #f2e4c4;

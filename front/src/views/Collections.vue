@@ -42,7 +42,6 @@ export default {
   padding: 1em 2em;
   margin: 1em;
   margin-bottom: 0;
-  background: var(--green);
   font-family: Montserrat;
   border-radius: 0.5em;
 }
@@ -50,6 +49,7 @@ export default {
 .collections {  
   padding: 0.5em;
   padding-top: 0;
+  padding-top: 1em;
 }
 .mobile .info {
   max-width: 100%;

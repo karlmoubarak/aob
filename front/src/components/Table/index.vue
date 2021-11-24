@@ -124,7 +124,7 @@ export default {
     this.$router.afterEach((to, from) => {
       if (!this.isMobile &&
           ['Resource', 'Artwork'].includes(from.name) &&
-          ['Archive', 'Exhibition', 'Collection'].includes(to.name)) {
+          ['Archive', 'Exhibition'].includes(to.name)) {
         setTimeout(() => {
           const el = document.getElementById(from.path.split('/')[2])
           if (el) {
