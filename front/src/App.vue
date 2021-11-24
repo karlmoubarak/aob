@@ -282,6 +282,17 @@ a:active {
   max-width: 100%;
 }
 
+.description iframe {
+  min-width: 100%;
+  min-height: 25rem;
+}
+
+.mobile .description iframe {
+  min-height: 15rem;
+}
+
+
+
 .fade-enter-active,
 .fade-leave-active,
 .fade-leave-to,
@@ -312,6 +323,10 @@ a:active {
   height: unset;
 }
 
+#app.ar {
+  /* font-size: 12pt; */
+}
+
 #app.mobile.landing {
   overflow: scroll;
 }
@@ -339,7 +354,7 @@ a:active {
 
 #app.printing *,
 #app.printing * * {
-    transition: all 0s ease !important;
+  transition: all 0s ease !important;
 }
 #app.printing,
 #app.printing main,

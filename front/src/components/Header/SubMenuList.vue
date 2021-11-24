@@ -149,11 +149,11 @@ export default {
 .tag,
 .location {
   height: 100%;
+  min-height: 0;
   max-height: 1em;
   min-width: 3em;
   max-width: 16em;
   margin: 0.5em;
-  /* max-height: 100em; */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -188,6 +188,8 @@ export default {
   border-radius: 50%;
   height: 100%;
   min-width: 7em;
+  max-width: 7em;
+  min-height: 7em;
   max-height: 7em;
 }
 .landing:not(.mobile) .tag .word:not(.other),

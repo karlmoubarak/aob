@@ -367,6 +367,7 @@ canvas {
   background: var(--green);
   font-family: Montserrat;
 }
+
 .collection .info p,
 .collection .info input,
 .collection .info textarea {
@@ -437,7 +438,8 @@ canvas {
 
 .mobile .collection .info {
   max-width: 100%;
-  margin: 1em;
+  margin: 0.5em;
+  padding: 1em;
 }
 
 .mobile .collection .body {

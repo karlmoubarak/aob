@@ -18,6 +18,7 @@
         <div
           v-for="item in items"
           :key="item.slug"
+          :id="item.slug"
           :class="['row', { artworkTR: item.title }]"
           @click.stop="isMobile && goToItem(item)"
         >
@@ -43,6 +44,7 @@
       <div
         v-for="item in items"
         :key="item.slug"
+        :id="item.slug"
         :class="['row', { artworkTR: item.title }]"
         @click.stop="isMobile && goToItem(item)"
       >
@@ -70,8 +72,9 @@
 import Artwork              from './Artwork'
 import Resource             from './Resource'
 import TableHeaders         from './TableHeaders'
-import IndexCard            from  '../IndexCard'
+import IndexCard            from '../IndexCard'
 import { VueDraggableNext } from 'vue-draggable-next'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Table',
@@ -89,33 +92,50 @@ export default {
     'headerText'
   ],
   computed: {
+
     items: {
       get() { return this.collectionItems },
       set(val) { return this.isMyCollection && this.$store.dispatch('updateMyCollection', { items: val }) }
     },
-    artworksOnly() {
-      return !this.items.find(i => i && i.organisation)
-    },
-    printing() {
-      return this.$store.state.printing
-    },
-    isMobile() { 
-      return this.$store.state.isMobile 
-    },
+
+    artworksOnly() { return !this.items.find(i => i && i.organisation) },
+
+    ...mapState([
+      'printing',
+      'isMobile'
+    ]),
+
+    ...mapGetters([
+      'isInExhibition'
+    ])
+
   },
   methods: {
     goToItem(item) {
       this.$router.push({
         name: item.title ? "Artwork" : "Resource",
-        params: { slug: item.slug }
+        params: { slug: item.slug },
       })
-      if (this.isMobile) {
-        document.querySelector('body').scrollTop = 0
-        document.querySelector('#app').scrollTop = 0
-        document.querySelector('main').scrollTop = 0
-        document.querySelector('main').scrollTop = 0
-      }
     }
+  },
+
+  mounted() {
+
+    this.$router.afterEach((to, from) => {
+      if (!this.isMobile &&
+          ['Resource', 'Artwork'].includes(from.name) &&
+          ['Archive', 'Exhibition', 'Collection'].includes(to.name)) {
+        setTimeout(() => {
+          const el = document.getElementById(from.path.split('/')[2])
+          if (el) {
+            document.querySelector('main').scrollTo({
+              top: el.offsetTop - 100,
+              behavior: 'smooth',
+            })
+          } 
+        }, 250)
+      }
+    })
   }
 
 }

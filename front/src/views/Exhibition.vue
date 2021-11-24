@@ -14,8 +14,9 @@
       class="info"
     >
       <p class="title">{{ title }}</p>
+      <p class="subtitle">{{ authors }}</p>
       <vue3-markdown-it
-        class="desc"
+        class="description"
         v-bind="$mdOpts"
         :source="processImages(desc)"
       ></vue3-markdown-it>
@@ -43,6 +44,7 @@ export default {
     ...mapState    ([ 'loading', 'locale' ]),
     ...mapGetters  ([ 'exhibition' ]),
     title()        { return this.exhibition.Title },
+    authors()      { return this.exhibition.Author },
     desc()         { return this.exhibition.Description },
     items()        { return this.exhibition.items },
     emptyMessage() {
@@ -95,26 +97,40 @@ export default {
   overflow: scroll;
   font-family: Montserrat;
   filter: drop-shadow( 0 0 2em var(--white-glass));
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+#exhibition .info::-webkit-scrollbar {
+  display: none;
 }
 
 #exhibition .info .title {
   font-size: 20pt;
+  margin-bottom: 0;
+}
+#exhibition .info .subtitle {
+  font-style: italic;
 }
 
 #exhibition .table {
   float: left;
   max-width: 85%;
-  margin-top: -10%;
+  /* margin-top: -10%; */
   margin-left: 7.5%;
   background: transparent;
   filter: drop-shadow( 0 0 20em var(--white-glass));
+  transform: translate(0, -10em);
   height: auto;
 }
 #exhibition.peak .table {
-  margin-top: -30%;
+  /* margin-top: -30%; */
+  transform: translate(0, -30em);
+
 }
 #exhibition .table:hover {
-  margin-top: -50em;
+  /* margin-top: -50em; */
+  transform: translate(0, -50em);
+
 }
 
 

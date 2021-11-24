@@ -132,11 +132,11 @@ export default {
 .artworkContainer.inTable .artwork {
   margin: 0 0.5em;
   box-shadow: none;
-  max-height: 21em;
+  max-height: 100em;
   opacity: 0.3;
 }
 .artworkContainer.inTable .artwork:hover {
-  max-height: 21em;
+  /* max-height: 21em; */
   z-index: 3;
   opacity: 1;
   border-color: var(--highlight);
@@ -223,6 +223,7 @@ box-shadow: 0 0 1.5em 0 var(--highlight);
 .mobile .artworkContainer,
 .mobile .artworkContainer.inTable .artwork {
   margin: 0;
+  opacity: 1;
 }
 
 .mobile .artwork {

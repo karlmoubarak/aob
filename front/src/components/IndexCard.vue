@@ -1,7 +1,9 @@
 <template>
   <div 
     @click.stop 
-    class="indexCard"
+    :class="['indexCard', {
+      isArtwork: artist,
+    }]"
   >
     <div class="body">
       <div v-if="artist" class="artist">
@@ -216,6 +218,7 @@ export default {
 
 .indexCard .info {
   box-sizing: border-box;
+  min-width: 30%;
   max-width: 30%;
   flex-shrink: 0;
   margin-left: auto;
@@ -300,6 +303,10 @@ export default {
 .mobile .indexCard .body .title .content {
   text-indent: 1.8em;
 }
+.mobile .indexCard.isArtwork .body .title .content {
+  text-indent: 0;
+}
+
 .mobile .indexCard .body .artist .content {
   margin-top: 0.2em;
   text-indent: 2.4em;

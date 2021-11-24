@@ -123,4 +123,3 @@ router.beforeEach(({ path, query }) => {
 })
 
 export default router
-

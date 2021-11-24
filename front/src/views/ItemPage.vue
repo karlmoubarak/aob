@@ -175,6 +175,9 @@ export default {
           top: 0,
           behavior: 'smooth'
         })
+        if (this.isMobile) {
+          document.documentElement.scroll({ top: 0 })
+        }
         this.transitioning = true
         this.renderedItem = {
           ...this.item, 
@@ -197,6 +200,10 @@ export default {
   
     if (!this.renderedItem) {
       this.renderedItem = this.item
+    }
+
+    if (this.isMobile) {
+      document.documentElement.scroll({ top: 0 })
     }
     
   },
@@ -282,6 +289,7 @@ export default {
   left: 1em;
   width: 5em;
   height: 5em;
+  line-height: 0;
   border-radius: 5em;
   z-index: 2;
   border: 1px dashed;
@@ -292,6 +300,7 @@ export default {
 }
 .itemContainer .item .circle * {
   font-size: 3em;
+  line-height: 0;
 }
 
 .itemContainer.fullscreen {

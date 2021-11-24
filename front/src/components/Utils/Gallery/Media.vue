@@ -74,7 +74,6 @@ export default {
 .item .content {
   position: relative;
   box-sizing: border-box;
-  min-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

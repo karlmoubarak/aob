@@ -149,7 +149,7 @@ export default createStore({
       state
       .history
       .find(p => 
-        p.split('/').length == 2 ||
+        p.split('/').length == 2 && !p.includes('#') ||
         p.includes('collections')
       ) || '/archive'
     ),
@@ -319,6 +319,12 @@ export default createStore({
         items: [], 
       }
     ),  
+
+    isInExhibition: (state, getters) => slug => (
+      getters.exhibition.items
+      .map(i => i.slug)
+      .includes(slug)
+    ),
     
     queries: state => [state.query],
   
