@@ -1,12 +1,12 @@
 <template>
   <header>
-    <li 
+    <li
       class="aob"
       @mouseover="hovered = true"
       @mouseleave="hovered = false"
       @click="$router.push('/')"
-    > 
-      <transition 
+    >
+      <transition
         name="fade"
         mode="out-in"
       >
@@ -14,23 +14,23 @@
         <a v-else>{{ $locale.aob.name.shorthand }}</a>
       </transition>
     </li>
-    <li 
+    <li
       v-for="item in $locale.menuItems"
       :key="item.slug"
-      :class="item.slug"  
+      :class="item.slug"
       @click="$router.push(item.slug)"
-    > 
+    >
       <a>
-        {{ item.name[locale] }} 
+        {{ item.name[locale] }}
       </a>
     </li>
-    <li :class="myCollection.slug"> 
+    <li :class="myCollection.slug">
       <router-link :to="'/collections/' + myCollection.slug">
         <span
         >{{ $locale.collections.mine.Title[locale] }} </span>
         <span> ( {{ myCollectionCount }} )</span>
       </router-link>
-      <router-link 
+      <router-link
         v-for="item in myCollection.items"
         :key="item.slug"
         :to="{
@@ -39,13 +39,13 @@
       }"
       >{{ item.organisation || item.title }}</router-link>
     </li>
-    <li class="languageSwitcher"> 
-      <a 
+    <li class="languageSwitcher">
+      <a
         @click="selectLocale('en')"
         :class="{ selected: locale == 'en' }"
       >{{ $locale.lang['en'] }}</a>
       <span> &nbsp; / &nbsp; </span>
-      <a 
+      <a
         @click="selectLocale('ar')"
         :class="{ selected: locale == 'ar' }"
       >{{ $locale.lang['ar'] }}</a>
@@ -83,9 +83,9 @@ export default {
       return this.otherLocale == 'ar' ? 'العربية' : 'english'
     },
     expanded() {
-      return ( 
-        this.hovered || 
-        this.landing || 
+      return (
+        this.hovered ||
+        this.landing ||
         this.isMobile
       )
     },
@@ -120,7 +120,7 @@ header a {
 header li {
   box-sizing: border-box;
   position: relative;
-  list-style: none; 
+  list-style: none;
   padding: 0.3em 1em;
   height: 100%;
   max-height: 2em;
@@ -171,9 +171,9 @@ header li.languageSwitcher {
   min-width: 5em;
   margin-right: 14em;
   margin-left: auto;
-} 
+}
 header li.languageSwitcher * {
-  color: #C4C4C4; 
+  color: #C4C4C4;
 }
 header li.languageSwitcher a {
   text-decoration: underline;
@@ -195,7 +195,7 @@ li.my-collection {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-} 
+}
 
 li.my-collection a {
   box-sizing: border-box;
