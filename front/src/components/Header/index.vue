@@ -156,7 +156,7 @@ header li:nth-of-type(1) {
   background-color: #ff6f00;
 }
 header li:nth-of-type(2) {
-  background-color: #fd7915;
+  background-color: #fd8325;
 }
 header li:nth-of-type(3) {
   background-color: #ff9341;
