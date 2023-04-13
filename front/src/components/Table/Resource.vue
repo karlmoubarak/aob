@@ -1,33 +1,55 @@
 <template>
-  <div 
+  <div
     class="col id"
     @click.stop="
-      isInMyCollection(slug) ? 
+      isInMyCollection(slug) ?
       removeFromCollection(resource) :
       addToCollection(resource)
     "
-  > 
-    <p 
+  >
+    <p
       v-if="isInMyCollection(slug)"
       class="remove"
     >-</p>
-    <p 
+    <p
       v-else
       class="add"
-    >+</p> 
+    >+</p>
   </div>
-  <div 
+  <div
     class="col organisation"
-    @click.stop="$emit('clicked')"    
-  > 
+    @click.stop="$emit('clicked')"
+  >
     <p
       v-html="$highlight( org, queries )"
     ></p>
   </div>
+  <div class="col locations">
+    <List
+      :list="locations"
+      :collection="'location'"
+    />
+  </div>
+  <div
+    class="col description"
+    @click.stop="$emit('clicked')"
+  >
+    <vue3-markdown-it
+      class="description"
+      v-bind="$mdOpts"
+      :source="$highlight( description, queries )"
+    ></vue3-markdown-it>
+  </div>
+  <div class="col tags">
+    <List
+      :list="tags"
+      :collection="'tag'"
+    />
+  </div>
   <div class="col link" v-if="files">
-    <FileList 
+    <FileList
       :list="files"
-    />   
+    />
   </div>
   <div class="col link" v-else>
     <a
@@ -37,28 +59,6 @@
     >
     <img class="cover" :src="cover" />
     </a>
-  </div>
-  <div class="col tags">
-    <List 
-      :list="tags"
-      :collection="'tag'"
-    /> 
-  </div>
-  <div 
-    class="col description"
-    @click.stop="$emit('clicked')"    
-  > 
-    <vue3-markdown-it
-      class="description"
-      v-bind="$mdOpts"
-      :source="$highlight( description, queries )"
-    ></vue3-markdown-it>
-  </div>
-  <div class="col locations"> 
-    <List 
-      :list="locations"
-      :collection="'location'"
-    /> 
   </div>
   <div class="col contact">
     <vue3-markdown-it
@@ -99,7 +99,7 @@ export default {
     },
     description() { return this.locale == 'ar' && this.resource.description_AR
       ? this.resource.description_AR
-      : this.resource.description 
+      : this.resource.description
     },
     tags()        { return this.resource.tags && this.resource.tags.length > 0 && this.resource.tags },
     locations()   { return this.resource.locations && this.resource.locations.length > 0 && this.resource.locations },
@@ -120,7 +120,7 @@ export default {
       'removeFromCollection'
     ])
   }
-  
+
 }
 </script>
 

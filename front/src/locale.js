@@ -7,14 +7,14 @@ module.exports = {
     en: 'english',
     ar: 'العربية'
   },
-  
+
   // Covert numbers to Arabic ;]
-  
+
   num: {
     en: num => num,
     ar: num => num
     .toString()
-    .replace( /[0-9]/g, 
+    .replace( /[0-9]/g,
       w => [
         '۰',
         '۱',
@@ -80,16 +80,10 @@ module.exports = {
         ar: 'منظمة',
       },
     },
-    link: {
+    locations: {
       name: {
-        en: 'source',
-        ar: 'مصدر',
-      },
-    },
-    tags: {
-      name: {
-        en: 'tags',
-        ar: 'تصنيفات',
+        en: 'locations',
+        ar: 'مواقع',
       },
     },
     description: {
@@ -98,10 +92,16 @@ module.exports = {
         ar: 'وصف',
       },
     },
-    locations: {
+    tags: {
       name: {
-        en: 'locations',
-        ar: 'مواقع',
+        en: 'tags',
+        ar: 'تصنيفات',
+      },
+    },
+    link: {
+      name: {
+        en: 'source',
+        ar: 'مصدر',
       },
     },
     contact: {
@@ -140,7 +140,7 @@ module.exports = {
         ar: 'موقع الفنان'
       }
     }
-    
+
   },
   search: {
     placeholder: {
@@ -252,9 +252,9 @@ module.exports = {
           en: 'Sending collection...',
           ar: 'إرسال المجموعة ...'
         },
-        body: { 
+        body: {
           en: 'Please wait.',
-          ar: 'الرجاء الانتظار', 
+          ar: 'الرجاء الانتظار',
         }
       },
       sent: {
