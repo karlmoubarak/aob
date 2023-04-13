@@ -1,7 +1,7 @@
 <template>
   <div
     id="exhibition"
-    :class="{ peak: peak }"
+    :class="{ peak, collapsed }"
   >
     <div
       class="info"
@@ -20,6 +20,14 @@
         v-bind="$mdOpts"
         :source="processImages(desc)"
       ></vue3-markdown-it>
+    </div>
+    <div
+        v-if="isMobile && !loading"
+        class="readmore"
+        @click="collapsed = !collapsed"
+      >
+        <br>
+        <p>{{ collapsed ? 'read more...' : 'read less.' }}</p>
     </div>
     <Table
       :collectionItems="items"
@@ -41,7 +49,7 @@ export default {
   components: { Table },
   methods: { processImages },
   computed: {
-    ...mapState    ([ 'loading', 'locale' ]),
+    ...mapState    ([ 'loading', 'locale', 'isMobile' ]),
     ...mapGetters  ([ 'exhibition' ]),
     title()        { return this.exhibition.Title },
     authors()      { return this.exhibition.Author },
@@ -57,7 +65,8 @@ export default {
   },
   data() {
     return {
-      peak: false
+      peak: false,
+      collapsed: true,
     }
 
   },
@@ -157,17 +166,40 @@ export default {
 .mobile #exhibition {
   padding: 1em;
 }
+
+.mobile #exhibition .readmore {
+  text-decoration: underline;
+  cursor: pointer;
+  color:  var(--darkpurple);
+  display: block;
+  margin: 1rem;
+}
 .mobile #exhibition .info {
   position: relative;
   max-width: 100%;
   max-height: unset;
+  min-height: 69vh;
   padding: 1em;
+}
+.mobile #exhibition.collapsed .info {
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  margin-bottom: 1rem;
+  -webkit-line-clamp: 12;
 }
 
 .ar #exhibition .info {
   left: unset;
   float: right;
   right:0;
+}
+
+.mobile #exhibition .table  {
+  margin-top:5vh;
+  filter: drop-shadow( 0 0 5em var(--white-glass)) !important;
+  transform: none !important;
 }
 
 </style>
