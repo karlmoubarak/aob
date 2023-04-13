@@ -13,13 +13,13 @@
       </div>
       <div class="meta">
         <div class="card">
-          <div 
+          <div
             v-if="!$store.state.isMobile"
             class="contribute"
           >
             <p>{{ $locale['info']['contribute'][locale] }} </p>
             <div class="buttons">
-              <input 
+              <input
                 class="submit"
                 name="submit resource"
                 ref="submitResource"
@@ -27,7 +27,7 @@
                 :value="$locale['buttons']['submitResource'][locale]"
                 @click="$router.push('/upload/resource')"
               />
-              <input 
+              <input
                 class="submit"
                 name="submit artwork"
                 ref="submitArtwork"
@@ -40,22 +40,22 @@
         </div>
         <div class="card">
           <table>
-            <tr> 
+            <tr>
               <th colspan="2">{{ $locale['info']['inNumbers'][locale] }}</th>
             </tr>
-            <tr> 
+            <tr>
               <th>{{ $locale['info']['total'][locale] }}</th>
               <th>{{ count('mainCollection') }}</th>
             </tr>
-            <tr> 
+            <tr>
               <th>{{ $locale['info']['resources'][locale] }}</th>
               <th>{{ count('filteredResources') }}</th>
             </tr>
-            <tr> 
+            <tr>
               <th>{{ $locale['info']['artworks'][locale] }}</th>
               <th>{{ count('filteredArtworks') }}</th>
             </tr>
-            <tr> 
+            <tr>
               <th>{{ $locale['info']['collections'][locale] }}</th>
               <th>{{ count('sortedCollections') }}</th>
             </tr>
@@ -74,7 +74,7 @@
             ></vue3-markdown-it>
             <p class="center">
               →
-                <a  
+                <a
                   target="blank"
                   :href="info.LinkToPublicCodeRepository"
                 >
@@ -117,17 +117,17 @@ export default {
       'locale',
       'info'
     ]),
-    about() { 
+    about() {
       return processImages(
-        this.info.About && 
-        this.info.About[this.locale] 
+        this.info.About &&
+        this.info.About[this.locale]
       )
     },
-    updatedAt() { 
+    updatedAt() {
       return this.$locale['info']['updated_at'][this.locale] + ' ' +
       moment(this.info['updated_at']).locale(this.locale).format('MMMM DD, YYYY, HH:mm')
     },
-    archiveLastUpdated() { 
+    archiveLastUpdated() {
       return moment( sortByUpdate(
         this.$store.getters.mainCollection
         .map(i => i .updated_at)
@@ -137,7 +137,7 @@ export default {
     },
   },
   methods: {
-    count(arr) { 
+    count(arr) {
       return this.$locale.num[this.locale](this.$store.getters[arr].length)
     },
   }
@@ -165,7 +165,7 @@ export default {
   max-width: 52em;
   background: var(--lightestorange);
   margin: 2em;
-  
+
 }
 .meta {
   box-sizing: border-box;
@@ -255,7 +255,14 @@ export default {
 .mobile .sections,
 .mobile .meta {
   margin: 0;
-  padding: 1em;
+  padding: 1.5em;
+}
+
+.mobile .meta .card a {
+  word-break: break-all;
+}
+.mobile .meta .card:first-of-type {
+  display: none;
 }
 .mobile .sections {
   min-width: 0;
