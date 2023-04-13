@@ -1,15 +1,15 @@
 <template>
-  <div 
+  <div
     id="exhibition"
     :class="{ peak: peak }"
   >
-    <div 
+    <div
       class="info"
       v-if="loading"
     >
       <p>{{ emptyMessage }}</p>
     </div>
-    <div 
+    <div
       v-else
       class="info"
     >
@@ -21,7 +21,7 @@
         :source="processImages(desc)"
       ></vue3-markdown-it>
     </div>
-    <Table  
+    <Table
       :collectionItems="items"
     />
   </div>
@@ -48,7 +48,7 @@ export default {
     desc()         { return this.exhibition.Description },
     items()        { return this.exhibition.items },
     emptyMessage() {
-      return ( 
+      return (
         this.loading ?
         this.$locale.status.loading[this.locale] :
         this.$locale.search.empty[this.locale]
@@ -59,7 +59,7 @@ export default {
     return {
       peak: false
     }
-  
+
   },
   mounted() {
     setTimeout(() => {
@@ -124,19 +124,31 @@ export default {
   /* margin-top: -10%; */
   margin-left: 7.5%;
   background: transparent;
-  /* filter: drop-shadow( 0 0 20em var(--white-glass)); */
+  filter:
+    drop-shadow( 0 0 3em var(--white-glass))
+    drop-shadow( 3em 3em 3em var(--lightpurple ))
+    drop-shadow( -3em -3em 3em var(--lightorange ))
+  ;
   transform: translate(0, -10em);
   height: auto;
 }
 #exhibition.peak .table {
   /* margin-top: -30%; */
   transform: translate(0, -30em);
-
+  filter:
+    drop-shadow( 0 0 5em var(--white-glass))
+    drop-shadow( 3em 3em 10em var(--lightpurple ))
+    drop-shadow( -3em -3em 10em var(--lighterorange ))
+  ;
 }
 #exhibition .table:hover {
   /* margin-top: -50em; */
   transform: translate(0, -50em);
-
+  filter:
+    drop-shadow( 0 0 20em var(--white-glass))
+    drop-shadow( 10em 10em 30em var(--lightpurple ))
+    drop-shadow( -10em -10em 30em var(--lighterorange ))
+  !important;
 }
 
 
@@ -155,7 +167,7 @@ export default {
 .ar #exhibition .info {
   left: unset;
   float: right;
-  right:0;  
+  right:0;
 }
 
 </style>
