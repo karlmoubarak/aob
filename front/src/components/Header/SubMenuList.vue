@@ -8,13 +8,13 @@
       @click="toggle(item.slug)"
     >
       <span class="word">
-        <Checkbox 
+        <Checkbox
           :checked="isInQuery(item.slug)"
         />
         <a>
           <span
             v-html="$highlight(name(item), queries )"
-          ></span>    
+          ></span>
         </a>
       </span>
       <span class="acronym">{{ acronym(item) }}</span>
@@ -24,7 +24,7 @@
         >
           <span
             v-html="$highlight(nameOther(item), queries )"
-          ></span>    
+          ></span>
         </a>
       </span>
     </span>
@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import { 
-  mapActions, 
-  mapGetters, 
-  mapState 
+import {
+  mapActions,
+  mapGetters,
+  mapState
 }               from 'vuex'
 import Checkbox from './Checkbox'
 
@@ -52,18 +52,18 @@ export default {
   },
   methods: {
     ...mapActions([ 'selectLocale' ]),
-    top: () => Math.random() * 30 + '%',
+    top: () => Math.random() * 20 + '%',
     isInQuery(slug) {
       return (
-        this.$route.query[this.type] && 
+        this.$route.query[this.type] &&
         this.$route.query[this.type].includes(slug)
       )
-    },     
-    name(item) { return this.locale == 'ar' && item.Name_AR 
+    },
+    name(item) { return this.locale == 'ar' && item.Name_AR
       ? item.Name_AR
       : item.Name
     },
-    nameOther(item) { return this.locale == 'en' && item.Name_AR 
+    nameOther(item) { return this.locale == 'en' && item.Name_AR
       ? item.Name_AR
       : item.Name
     },
@@ -74,7 +74,7 @@ export default {
       .join('')
     )},
     toggle(slug, switchLang) {
-      const 
+      const
         currentSelected = this.$route.query[this.type],
         timeout = switchLang && 2000 || 0
       if (switchLang) {
@@ -87,7 +87,7 @@ export default {
           if (!this.isInQuery(slug)) {
             this.$router.push({
               path: '/archive',
-              query: { 
+              query: {
                 ...this.$route.query,
                 ...{ [this.type]: [...currentSelected, ...[slug]] }
               }
@@ -101,7 +101,7 @@ export default {
               }
             })
           }
-        } else { 
+        } else {
           this.$router.push({
             path: '/archive',
             query: {
@@ -124,7 +124,7 @@ export default {
   max-width: 40em;
   padding: 0.4em;
   display: flex;
-  overflow: scroll; 
+  overflow: scroll;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -177,8 +177,8 @@ export default {
 .landing:not(.mobile) .locations {
   max-height: 100%;
   min-height: 100%;
-  width: 50%; 
-  max-width: 50%; 
+  width: 50%;
+  max-width: 50%;
 }
 .landing:not(.mobile) .tag,
 .landing:not(.mobile) .location {
@@ -207,7 +207,7 @@ export default {
 }
 .landing:not(.mobile) .tag {
   background: var(--purple);
-}  
+}
 .landing:not(.mobile) .location {
   background: var(--highlight);
 }
@@ -222,10 +222,10 @@ export default {
   transition: all var(--landing) ease;
 }
 .landing:not(.mobile) .acronym {
-  font-size: 4em;
+  font-size: 3em;
 }
 .landing:not(.mobile).ar .acronym {
-  font-size: 4em;
+  font-size: 3em;
 }
 .word {
   display: flex;
@@ -234,7 +234,7 @@ export default {
 
 
 .mobile .tags,
-.mobile .locations, 
+.mobile .locations,
 .mobile.landing .tags,
 .mobile.landing .locations {
   flex-direction: column;
