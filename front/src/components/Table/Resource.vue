@@ -157,4 +157,8 @@ export default {
   max-width: 90%;
 }
 
+.mobile .col.organisation {
+  font-weight: bold;
+}
+
 </style>
