@@ -188,6 +188,8 @@ export default {
   text-overflow: ellipsis;
   margin-bottom: 1rem;
   -webkit-line-clamp: 12;
+  padding-bottom: 0.3em;
+  padding-top: 0.5rem;
 }
 
 .ar #exhibition .info {
